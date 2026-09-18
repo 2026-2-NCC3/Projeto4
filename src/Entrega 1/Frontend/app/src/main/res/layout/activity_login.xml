@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:id="@+id/layoutCadastro"
+        android:id="@+id/layoutLogin"
         android:layout_width="750px"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -32,38 +32,23 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <TextView
-            android:id="@+id/titulo2"
+            android:id="@+id/tituloLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Cadastre-se"
+            android:text="Login"
             android:textSize="40sp"
             android:fontFamily="sans-serif-black" />
 
         <EditText
-            android:id="@+id/CadastroNome"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Nome"
-            android:layout_marginTop="35dp" />
-
-        <EditText
-            android:id="@+id/CadastroEmail"
+            android:id="@+id/LoginEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="E-mail"
-            android:layout_marginTop="15dp" />
+            android:layout_marginTop="35dp" />
 
         <EditText
-            android:id="@+id/CadastroCelular"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Celular"
-            android:inputType="phone"
-            android:layout_marginTop="15dp" />
-
-        <EditText
-            android:id="@+id/CadastroSenha"
+            android:id="@+id/LoginSenha"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Senha"
@@ -71,20 +56,20 @@
             android:layout_marginTop="15dp" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/buttonLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Cadastrar"
+            android:text="Entrar"
             android:backgroundTint="@color/green"
             android:layout_marginTop="30dp"
             app:cornerRadius="10dp" />
 
         <TextView
-            android:id="@+id/textLogin"
+            android:id="@+id/textCadastro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Já tem uma conta? Clique aqui"
+            android:text="Ainda não tem uma conta? Cadastre-se"
             android:textSize="14sp"
             android:textColor="@color/gray"
             android:layout_marginTop="12dp"
@@ -104,7 +89,7 @@
         android:layout_marginTop="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layoutCadastro" />
+        app:layout_constraintTop_toBottomOf="@id/layoutLogin" />
 
     <TextView
         android:id="@+id/AcessoSite2"
