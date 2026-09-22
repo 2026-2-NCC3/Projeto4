@@ -13,85 +13,47 @@
         android:id="@+id/logo"
         android:layout_width="130dp"
         android:layout_height="130dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="120dp"
         app:srcCompat="@drawable/logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/layoutCadastro"
-        android:layout_width="750px"
+    <TextView
+        android:id="@+id/titulo"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="25dp"
-        android:background="@drawable/borda"
-        android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@id/logo"
+        android:text="BEM-VINDO(A) AO PROXIMA ETAPA!"
+        android:textSize="40dp"
+        android:textColor="@color/white"
+        android:fontFamily="sans-serif-black"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <TextView
-            android:id="@+id/titulo2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Cadastre-se"
-            android:textSize="40sp"
-            android:fontFamily="sans-serif-black" />
-
-        <EditText
-            android:id="@+id/CadastroNome"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Nome"
-            android:layout_marginTop="35dp" />
-
-        <EditText
-            android:id="@+id/CadastroEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="E-mail"
-            android:layout_marginTop="15dp" />
-
-        <EditText
-            android:id="@+id/CadastroCelular"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Celular"
-            android:inputType="phone"
-            android:layout_marginTop="15dp" />
-
-        <EditText
-            android:id="@+id/CadastroSenha"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Senha"
-            android:inputType="textPassword"
-            android:layout_marginTop="15dp" />
+        app:layout_constraintTop_toBottomOf="@+id/logo"/>
 
         <Button
-            android:id="@+id/button"
-            android:layout_width="match_parent"
+            android:id="@+id/btnLogin"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:text="Cadastrar"
-            android:backgroundTint="@color/green"
-            android:layout_marginTop="30dp"
-            app:cornerRadius="10dp" />
+            app:cornerRadius="6dp"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/black"
+            android:text="Entrar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/btnCadastro"/>
 
-        <TextView
-            android:id="@+id/textLogin"
-            android:layout_width="wrap_content"
+        <Button
+            android:id="@+id/btnCadastro"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Já tem uma conta? Clique aqui"
-            android:textSize="14sp"
-            android:textColor="@color/gray"
-            android:layout_marginTop="12dp"
-            android:clickable="true"
-            android:focusable="true" />
-
-    </LinearLayout>
+            android:backgroundTint="@color/translucent"
+            app:cornerRadius="6dp"
+            android:text="Cadastre-se"
+            android:layout_marginBottom="60dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/AcessoSite1"/>
 
     <TextView
         android:id="@+id/AcessoSite1"
@@ -101,10 +63,9 @@
         android:textSize="20sp"
         android:fontFamily="sans-serif-black"
         android:textColor="@color/yellow"
-        android:layout_marginTop="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layoutCadastro" />
+        app:layout_constraintBottom_toTopOf="@id/AcessoSite2" />
 
     <TextView
         android:id="@+id/AcessoSite2"
@@ -113,21 +74,9 @@
         android:text="proximaetapa.org.br"
         android:textColor="@color/gray"
         android:textSize="15sp"
+        android:layout_marginBottom="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/AcessoSite1" />
-
-    <ImageButton
-        android:id="@+id/btnVoltar"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:background="@android:color/transparent"
-        android:src="@drawable/baseline_arrow_back_24"
-        app:tint="@color/white"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="20dp"
-        android:contentDescription="Voltar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
