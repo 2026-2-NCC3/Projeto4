@@ -13,7 +13,7 @@
         android:id="@+id/logo"
         android:layout_width="130dp"
         android:layout_height="130dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="45dp"
         app:srcCompat="@drawable/logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,21 +41,21 @@
             android:fontFamily="sans-serif-black" />
 
         <EditText
-            android:id="@+id/CadastroNome"
+            android:id="@+id/editNome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Nome"
             android:layout_marginTop="35dp" />
 
         <EditText
-            android:id="@+id/CadastroEmail"
+            android:id="@+id/editEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="E-mail"
             android:layout_marginTop="15dp" />
 
         <EditText
-            android:id="@+id/CadastroCelular"
+            android:id="@+id/editCelular"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Celular"
@@ -63,7 +63,7 @@
             android:layout_marginTop="15dp" />
 
         <EditText
-            android:id="@+id/CadastroSenha"
+            android:id="@+id/editSenha"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Senha"
@@ -71,7 +71,7 @@
             android:layout_marginTop="15dp" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btnCadastro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Cadastrar"
@@ -83,13 +83,24 @@
             android:id="@+id/textLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Já tem uma conta? Clique aqui"
+            android:layout_gravity="start"
+            android:text="Já tem uma conta?"
             android:textSize="14sp"
             android:textColor="@color/gray"
             android:layout_marginTop="12dp"
             android:clickable="true"
             android:focusable="true" />
+
+        <Button
+            android:id="@+id/btnLogin"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:padding="0dp"
+            android:text="Clique aqui"
+            android:textColor="@color/gray" />
 
     </LinearLayout>
 

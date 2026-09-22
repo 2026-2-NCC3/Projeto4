@@ -33,7 +33,7 @@
 
         <Button
             android:id="@+id/btnLogin"
-            android:layout_width="300dp"
+            android:layout_width="320dp"
             android:layout_height="wrap_content"
             app:cornerRadius="6dp"
             android:backgroundTint="@color/white"
@@ -45,7 +45,7 @@
 
         <Button
             android:id="@+id/btnCadastro"
-            android:layout_width="300dp"
+            android:layout_width="320dp"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/translucent"
             app:cornerRadius="6dp"
