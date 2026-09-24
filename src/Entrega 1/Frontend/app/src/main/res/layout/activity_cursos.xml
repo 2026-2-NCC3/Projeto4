@@ -33,4 +33,118 @@
         app:layout_constraintEnd_toEndOf="parent"
         tools:listitem="@layout/item_curso" />
 
+    <LinearLayout
+        android:id="@+id/menu"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:id="@+id/layoutInicio"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@color/white">
+
+            <ImageView
+                android:id="@+id/imgInicio"
+                android:layout_width="60dp"
+                android:layout_height="35dp"
+                app:srcCompat="@drawable/home_unselected" />
+
+            <TextView
+                android:id="@+id/txtInicio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Início"
+                android:gravity="center"
+                android:fontFamily="sans-serif-black" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutCursos"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@color/white">
+
+            <ImageView
+                android:id="@+id/imgCursos"
+                android:layout_width="60dp"
+                android:layout_height="35dp"
+                app:srcCompat="@drawable/courses_selected" />
+
+            <TextView
+                android:id="@+id/txtCursos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cursos"
+                android:textColor="@color/selected_green"
+                android:gravity="center"
+                android:fontFamily="sans-serif-black" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutAgenda"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@color/white">
+
+            <ImageView
+                android:id="@+id/imgAgenda"
+                android:layout_width="60dp"
+                android:layout_height="35dp"
+                app:srcCompat="@drawable/calendar_unselected" />
+
+            <TextView
+                android:id="@+id/txtAgenda"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Agenda"
+                android:gravity="center"
+                android:fontFamily="sans-serif-black" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutPerfil"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@color/white">
+
+            <ImageView
+                android:id="@+id/imgPerfil"
+                android:layout_width="60dp"
+                android:layout_height="35dp"
+                app:srcCompat="@drawable/profile_unselected" />
+
+            <TextView
+                android:id="@+id/txtPerfil"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Perfil"
+                android:gravity="center"
+                android:fontFamily="sans-serif-black" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
