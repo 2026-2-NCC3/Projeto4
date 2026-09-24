@@ -1,4 +1,13 @@
 package com.example.myapplication;
 
-public class PaginaInicial {
+import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class PaginaInicial extends AppCompatActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.pagina_inicial);
+    }
 }

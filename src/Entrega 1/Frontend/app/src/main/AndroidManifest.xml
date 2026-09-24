@@ -12,9 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
-            android:name=".aba_cursos.CursosActivity"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -24,9 +21,11 @@
         </activity>
         <activity android:name=".LoginActivity" />
         <activity android:name=".CadastroActivity" />
+        <activity android:name=".PaginaInicial"/>
+        <activity android:name=".aba_cursos.CursosActivity" />
         <activity android:name=".AgendaActivity" />
-
-
+        <activity android:name=".PerfilActivity"/>
+        <activity android:name=".ConfiguracoesActivity"/>
     </application>
 
 </manifest>

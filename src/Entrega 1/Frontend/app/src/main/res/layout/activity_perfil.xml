@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/perfil"
+    android:background="@color/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".PerfilActivity">
@@ -269,7 +270,7 @@
         android:layout_height="80dp"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:background="@color/white"
+        android:background="@color/menuColor"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
@@ -281,7 +282,7 @@
             android:layout_weight="1"
             android:orientation="vertical"
             android:gravity="center"
-            android:background="@color/white">
+            android:background="@color/menuColor">
 
             <ImageView
                 android:id="@+id/imgInicio"
@@ -306,7 +307,7 @@
             android:layout_weight="1"
             android:orientation="vertical"
             android:gravity="center"
-            android:background="@color/white">
+            android:background="@color/menuColor">
 
             <ImageView
                 android:id="@+id/imgCursos"
@@ -331,7 +332,7 @@
             android:layout_weight="1"
             android:orientation="vertical"
             android:gravity="center"
-            android:background="@color/white">
+            android:background="@color/menuColor">
 
             <ImageView
                 android:id="@+id/imgAgenda"
@@ -356,7 +357,7 @@
             android:layout_weight="1"
             android:orientation="vertical"
             android:gravity="center"
-            android:background="@color/white">
+            android:background="@color/menuColor">
 
             <ImageView
                 android:id="@+id/imgPerfil"
