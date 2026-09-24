@@ -8,7 +8,7 @@
     android:background="@color/background"
     tools:context=".aba_cursos.CursosActivity">
 
-    <!-- Titulo da Tela -->
+
     <TextView
         android:id="@+id/tvTituloCursos"
         android:layout_width="wrap_content"
@@ -22,7 +22,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <!-- Lista com RecyclerView -->
+    <Button
+        android:id="@+id/btnVerAgenda"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ir para Agenda ->"
+        android:textSize="12sp"
+        style="?attr/borderlessButtonStyle"
+        android:textColor="#0000FF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/tvTituloCursos" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvCursos"
         android:layout_width="0dp"

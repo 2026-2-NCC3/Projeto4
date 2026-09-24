@@ -13,13 +13,18 @@ import com.example.myapplication.PaginaInicial;
 import com.example.myapplication.PerfilActivity;
 import com.example.myapplication.R;
 import java.util.ArrayList;
+import java.util.List;
+
+import com.example.myapplication.AgendaItem;
+import com.example.myapplication.AgendaManager;
 
 public class CursosActivity extends AppCompatActivity {
 
-    private RecyclerView rvCursos;
+    private RecyclerView recyclerViewCursos;
     private CursoAdapter adapter;
     private ArrayList listaDeCursos;
     LinearLayout layoutInicio, layoutCursos, layoutAgenda, layoutPerfil;
+    private List<Curso> listaDeCursos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +40,8 @@ public class CursosActivity extends AppCompatActivity {
         rvCursos = findViewById(R.id.rvCursos);
         rvCursos.setLayoutManager(new LinearLayoutManager(this));
 
-        // 2. Criar a estrutura de dados (ArrayList) com os cursos
-        listaDeCursos = new ArrayList<>();
-        // 1. Criar a lista de cursos com o construtor da sua classe Curso
-        // 2. Criar a estrutura de dados com os cursos
-        listaDeCursos = new ArrayList<>();
 
+        listaDeCursos = new ArrayList<>();
         listaDeCursos.add(new Curso("Preparatório ENEM & Redação Nota 1000", 40, "Inscrito"));
         listaDeCursos.add(new Curso("Workshop: Carreiras em Tecnologia e Programação", 16, "Disponível"));
         listaDeCursos.add(new Curso("Orientação Profissional e Mercado de Trabalho", 20, "Disponível"));

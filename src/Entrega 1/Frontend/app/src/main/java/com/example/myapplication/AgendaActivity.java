@@ -30,6 +30,14 @@ public class AgendaActivity extends AppCompatActivity {
     TextView textVazio;
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        // Recarrega a lista atualizada com as novas inscrições quando a tela volta a aparecer
+        List<AgendaItem> agendaAtualizada = AgendaManager.getInstance().getAgenda();
+        exibirAgenda(agendaAtualizada);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agenda);
@@ -41,7 +49,8 @@ public class AgendaActivity extends AppCompatActivity {
         layoutPerfil = findViewById(R.id.layoutPerfil);
         textVazio = findViewById(R.id.textVazio);
 
-        List<AgendaItem> agenda = carregarAgendaMock();
+
+        List<AgendaItem> agenda = AgendaManager.getInstance().getAgenda();
         exibirAgenda(agenda);
 
         layoutInicio.setOnClickListener(v -> {
