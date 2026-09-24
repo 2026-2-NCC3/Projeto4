@@ -5,7 +5,7 @@ const app = express();
 app.use(express.json());
 
 app.get('/',(req, res)=>{
-    res.send('Backend funcionand');
+    res.send('Backend funcionando');
 });
 
 app.post('/cadastro',(req, res)=>{
