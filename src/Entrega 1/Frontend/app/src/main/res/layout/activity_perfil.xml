@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/perfil"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PerfilActivity">
+
+    <ImageView
+        android:id="@+id/avatarPerfil"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="30dp"
+        tools:srcCompat="@tools:sample/avatars"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textNome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24dp"
+        android:layout_marginTop="38dp"
+        android:layout_marginLeft="10dp"
+        android:text="Marina Silva"
+        android:fontFamily="sans-serif-black"
+        app:layout_constraintStart_toEndOf="@id/avatarPerfil"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textEscola"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:text="Colégio Estadual de São Paulo"
+        app:layout_constraintStart_toEndOf="@id/avatarPerfil"
+        app:layout_constraintTop_toBottomOf="@+id/textNome" />
+
+    <LinearLayout
+        android:id="@+id/menu"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:id="@+id/layoutInicio"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@color/white">
+
+            <ImageView
+                android:id="@+id/imgInicio"
+                android:layout_width="60dp"
+                android:layout_height="35dp"
+                app:srcCompat="@drawable/home_unselected" />
+
+            <TextView
+                android:id="@+id/txtInicio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Início"
+                android:gravity="center"
+                android:fontFamily="sans-serif-black" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutCursos"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@color/white">
+
+            <ImageView
+                android:id="@+id/imgCursos"
+                android:layout_width="60dp"
+                android:layout_height="35dp"
+                app:srcCompat="@drawable/courses_unselected" />
+
+            <TextView
+                android:id="@+id/txtCursos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cursos"
+                android:gravity="center"
+                android:fontFamily="sans-serif-black" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutAgenda"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@color/white">
+
+            <ImageView
+                android:id="@+id/imgAgenda"
+                android:layout_width="60dp"
+                android:layout_height="35dp"
+                app:srcCompat="@drawable/calendar_unselected" />
+
+            <TextView
+                android:id="@+id/txtAgenda"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Agenda"
+                android:gravity="center"
+                android:fontFamily="sans-serif-black" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutPerfil"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@color/white">
+
+            <ImageView
+                android:id="@+id/imgPerfil"
+                android:layout_width="60dp"
+                android:layout_height="35dp"
+                app:srcCompat="@drawable/profile_selected" />
+
+            <TextView
+                android:id="@+id/txtPerfil"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/selected_green"
+                android:text="Perfil"
+                android:gravity="center"
+                android:fontFamily="sans-serif-black" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
