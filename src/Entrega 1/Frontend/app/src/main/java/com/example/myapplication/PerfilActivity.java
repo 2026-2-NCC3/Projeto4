@@ -1,7 +1,9 @@
 package com.example.myapplication;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -48,6 +50,21 @@ public class PerfilActivity extends AppCompatActivity {
             Intent agenda = new Intent(PerfilActivity.this, AgendaActivity.class);
             startActivity(agenda);
         });
+
+        layoutConfiguracoes.setOnClickListener(v -> {
+            Intent configurcoes = new Intent(PerfilActivity.this, ConfiguracoesActivity.class);
+            startActivity(configurcoes);
+        });
+
+        layoutSobre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://proximaetapa.org.br/";
+                Intent siteProximaEtapa = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity(siteProximaEtapa);
+            }
+        });
+
     }
 
 }
