@@ -12,21 +12,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
-            android:name=".aba_cursos.CursosActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".MainActivity"
-            android:exported="false" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".CadastroActivity" />
+        <activity android:name=".PaginaInicial"/>
+        <activity android:name=".aba_cursos.CursosActivity" />
         <activity android:name=".AgendaActivity" />
-
-
+        <activity android:name=".PerfilActivity"/>
     </application>
 
 </manifest>

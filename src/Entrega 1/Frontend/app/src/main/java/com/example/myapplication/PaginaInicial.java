@@ -1,4 +1,6 @@
 package com.example.myapplication;
 
-public class PaginaInicial {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class PaginaInicial extends AppCompatActivity {
 }

@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +8,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.myapplication.aba_cursos.CursosActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +26,7 @@ import java.util.List;
  */
 public class AgendaActivity extends AppCompatActivity {
 
-    LinearLayout agendaContainer;
+    LinearLayout agendaContainer, layoutInicio, layoutCursos, layoutAgenda, layoutPerfil;
     TextView textVazio;
 
     @Override
@@ -32,10 +35,27 @@ public class AgendaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_agenda);
 
         agendaContainer = findViewById(R.id.agendaContainer);
+        layoutInicio = findViewById(R.id.layoutInicio);
+        layoutCursos = findViewById(R.id.layoutCursos);
+        layoutAgenda = findViewById(R.id.layoutAgenda);
+        layoutPerfil = findViewById(R.id.layoutPerfil);
         textVazio = findViewById(R.id.textVazio);
 
         List<AgendaItem> agenda = carregarAgendaMock();
         exibirAgenda(agenda);
+
+        layoutInicio.setOnClickListener(v -> {
+            Intent inicio = new Intent(AgendaActivity.this, PaginaInicial.class);
+            startActivity(inicio);
+        });
+        layoutCursos.setOnClickListener(v -> {
+            Intent cursos = new Intent(AgendaActivity.this, CursosActivity.class);
+            startActivity(cursos);
+        });
+        layoutPerfil.setOnClickListener(v -> {
+            Intent perfil = new Intent(AgendaActivity.this, PerfilActivity.class);
+            startActivity(perfil);
+        });
     }
 
     /**
