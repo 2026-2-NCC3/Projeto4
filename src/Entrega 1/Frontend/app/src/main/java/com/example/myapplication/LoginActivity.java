@@ -43,8 +43,7 @@ public class LoginActivity extends AppCompatActivity {
             Intent cadastro = new Intent(LoginActivity.this, CadastroActivity.class);
             startActivity(cadastro);
         });
-
-        realizarLogin();
+        btnLogin.setOnClickListener(v -> realizarLogin());
     }
 
     private void realizarLogin() {
@@ -77,7 +76,12 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 // Caso o email ou a senha estejam incorretos dá erro
                 else {
-                    Toast.makeText(LoginActivity.this, "E-mail ou senha incorretos.", Toast.LENGTH_SHORT).show();
+                    try {
+                        String errorBody = response.errorBody() != null ? response.errorBody().string() : "Erro desconhecido";
+                        Toast.makeText(LoginActivity.this, "Erro: " + errorBody, Toast.LENGTH_LONG).show();
+                    } catch (Exception e) {
+                        Toast.makeText(LoginActivity.this, "E-mail ou senha incorretos.", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
 
