@@ -62,12 +62,10 @@ public class CursosActivity extends AppCompatActivity {
                         if (response.isSuccessful()) {
                             curso.setStatus("Inscrito");
                             adapter.notifyItemChanged(position);
-                            
-                            // Adiciona na agenda local (Visual)
-                            com.example.myapplication.AgendaManager.getInstance().adicionarItem(
-                                new com.example.myapplication.AgendaItem("2026-04-10", "19:00:00", "21:00:00", "Primeiro Encontro", "Aula 1 — " + curso.getNome(), "Sala Virtual 1", false)
-                            );
-                            
+
+                            // A agenda real é buscada do backend (GET /api/agenda) quando a
+                            // tela de Agenda é aberta; não há mais item mockado inserido aqui.
+
                             Toast.makeText(CursosActivity.this, "Inscrição realizada com sucesso: " + curso.getNome(), Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(CursosActivity.this, "Erro ao realizar inscrição.", Toast.LENGTH_SHORT).show();
