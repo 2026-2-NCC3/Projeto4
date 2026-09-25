@@ -6,23 +6,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.aba_cursos.CursosActivity;
+import com.example.myapplication.network.ApiClient;
+import com.example.myapplication.network.SessionManager;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Tela de Agenda do aluno.
  *
- * Neste momento a tela usa dados de exemplo (mock), definidos em
- * carregarAgendaMock(). Quando o backend estiver integrado, basta
- * substituir essa chamada por uma requisição HTTP para
- * GET /api/agenda (ver README do backend em src/Entrega 1/Backend),
- * mantendo o mesmo formato de AgendaItem e reaproveitando o método
- * exibirAgenda() para preencher a tela.
+ * Os encontros vêm de GET /api/agenda (backend em src/Entrega 1/Backend),
+ * chamado via Retrofit (ver com.example.myapplication.network). A
+ * requisição exige o header Authorization com o JWT do usuário logado,
+ * lido de SessionManager — que é preenchido pela tela de Login após um
+ * login bem-sucedido.
  */
 public class AgendaActivity extends AppCompatActivity {
 
@@ -32,9 +38,9 @@ public class AgendaActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        // Recarrega a lista atualizada com as novas inscrições quando a tela volta a aparecer
-        List<AgendaItem> agendaAtualizada = AgendaManager.getInstance().getAgenda();
-        exibirAgenda(agendaAtualizada);
+        // Recarrega a agenda sempre que a tela volta a aparecer (ex.: após
+        // o aluno se inscrever em um novo curso).
+        carregarAgenda();
     }
 
     @Override
@@ -49,9 +55,7 @@ public class AgendaActivity extends AppCompatActivity {
         layoutPerfil = findViewById(R.id.layoutPerfil);
         textVazio = findViewById(R.id.textVazio);
 
-
-        List<AgendaItem> agenda = AgendaManager.getInstance().getAgenda();
-        exibirAgenda(agenda);
+        carregarAgenda();
 
         layoutInicio.setOnClickListener(v -> {
             Intent inicio = new Intent(AgendaActivity.this, PaginaInicial.class);
@@ -68,29 +72,47 @@ public class AgendaActivity extends AppCompatActivity {
     }
 
     /**
-     * Dados de exemplo para visualizar a tela antes da integração com o
-     * backend. O formato de cada item já corresponde exatamente ao que
-     * GET /api/agenda devolve (colunas da view my_agenda).
+     * Busca a agenda do aluno logado no backend (GET /api/agenda) e
+     * atualiza a tela com o resultado. Se não houver um token de sessão
+     * (usuário não logado) ou a chamada falhar, mostra a mensagem de
+     * "nenhum encontro" e avisa o motivo por um Toast.
      */
-    private List<AgendaItem> carregarAgendaMock() {
-        List<AgendaItem> lista = new ArrayList<>();
+    private void carregarAgenda() {
+        String token = SessionManager.getToken(this);
 
-        lista.add(new AgendaItem(
-                "2026-03-01", "19:00:00", "21:00:00",
-                "Introdução à Programação", "Aula 1 — Lógica de programação",
-                "Sala 3", false));
+        if (token == null) {
+            exibirAgenda(Collections.emptyList());
+            Toast.makeText(this, "Faça login para ver sua agenda.", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-        lista.add(new AgendaItem(
-                "2026-03-08", "19:00:00", "21:00:00",
-                "Introdução à Programação", "Aula 2 — Variáveis e tipos",
-                "Sala 3", false));
+        ApiClient.getApiService()
+                .getAgenda("Bearer " + token, null)
+                .enqueue(new Callback<List<AgendaItem>>() {
+                    @Override
+                    public void onResponse(Call<List<AgendaItem>> call, Response<List<AgendaItem>> response) {
+                        if (response.isSuccessful() && response.body() != null) {
+                            exibirAgenda(response.body());
+                        } else {
+                            exibirAgenda(Collections.emptyList());
+                            Toast.makeText(
+                                    AgendaActivity.this,
+                                    "Não foi possível carregar sua agenda (erro " + response.code() + ").",
+                                    Toast.LENGTH_SHORT
+                            ).show();
+                        }
+                    }
 
-        lista.add(new AgendaItem(
-                "2026-02-22", "14:00:00", "16:00:00",
-                "Design Gráfico Básico", "Aula 3 — Identidade visual",
-                "Sala 5", true));
-
-        return lista;
+                    @Override
+                    public void onFailure(Call<List<AgendaItem>> call, Throwable t) {
+                        exibirAgenda(Collections.emptyList());
+                        Toast.makeText(
+                                AgendaActivity.this,
+                                "Falha de conexão com o servidor.",
+                                Toast.LENGTH_SHORT
+                        ).show();
+                    }
+                });
     }
 
     /**
@@ -100,7 +122,7 @@ public class AgendaActivity extends AppCompatActivity {
     private void exibirAgenda(List<AgendaItem> agenda) {
         agendaContainer.removeAllViews();
 
-        if (agenda.isEmpty()) {
+        if (agenda == null || agenda.isEmpty()) {
             textVazio.setVisibility(View.VISIBLE);
             return;
         }
@@ -122,25 +144,39 @@ public class AgendaActivity extends AppCompatActivity {
             textStatus.setText(item.attended ? "Presença confirmada" : "Aguardando encontro");
             textTituloEncontro.setText(item.title);
             textCurso.setText(item.courseTitle);
-            textLocal.setText("📍 " + item.location);
+            textLocal.setText(item.location != null ? "📍 " + item.location : "");
 
             agendaContainer.addView(card);
         }
     }
 
     /**
-     * Formata a data (YYYY-MM-DD) e o intervalo de horário (HH:MM:SS) do
-     * encontro para exibição, ex.: "01/03 · 19:00 - 21:00".
+     * Formata a data (YYYY-MM-DD) e o horário do encontro para exibição,
+     * ex.: "01/03 · 19:00 - 21:00" ou, quando não há horário de término
+     * cadastrado (endTime nulo), apenas "01/03 · 19:00".
      */
     private String formatarDataHora(AgendaItem item) {
-        String[] partesData = item.activityDate.split("-");
-        String dataFormatada = partesData.length == 3
-                ? partesData[2] + "/" + partesData[1]
-                : item.activityDate;
+        String dataFormatada = item.activityDate;
+        if (item.activityDate != null) {
+            String[] partesData = item.activityDate.split("-");
+            dataFormatada = partesData.length == 3
+                    ? partesData[2] + "/" + partesData[1]
+                    : item.activityDate;
+        }
 
-        String horaInicio = item.startTime.length() >= 5 ? item.startTime.substring(0, 5) : item.startTime;
-        String horaFim = item.endTime.length() >= 5 ? item.endTime.substring(0, 5) : item.endTime;
+        String horaInicio = formatarHora(item.startTime);
+        String horaFim = formatarHora(item.endTime);
 
+        if (horaFim == null) {
+            return dataFormatada + " · " + horaInicio;
+        }
         return dataFormatada + " · " + horaInicio + " - " + horaFim;
+    }
+
+    private String formatarHora(String hora) {
+        if (hora == null) {
+            return null;
+        }
+        return hora.length() >= 5 ? hora.substring(0, 5) : hora;
     }
 }
