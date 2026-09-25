@@ -13,7 +13,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public final class ApiClient {
 
+
     private static final String BASE_URL = "https://nextgeneration-seven.vercel.app/";
+
 
     public static ApiService getApiService() {
         Retrofit retrofit = new Retrofit.Builder()
