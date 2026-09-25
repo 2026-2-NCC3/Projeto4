@@ -47,6 +47,6 @@ public interface ApiService {
     @POST("api/auth/login")
     Call<LoginResponse> login(@Body LoginRequest loginRequest);
 
-    @POST("api/auth/cadastrar")
+    @POST("api/auth/cadastro")
     Call<CadastroResponse> cadastrar(@Body CadastroRequest cadastroRequest);
 }
