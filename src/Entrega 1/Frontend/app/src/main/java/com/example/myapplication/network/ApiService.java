@@ -34,6 +34,11 @@ public interface ApiService {
     Call<PerfilResponse> getPerfil(
             @Header("Authorization") String authorization
     );
+
+    @GET("api/inicio")
+    Call<InicioResponse> getDadosInicio(
+            @Header("Authorization") String authorization
+    );
     @POST("api/auth/login")
     Call<LoginResponse> login(@Body LoginRequest loginRequest);
 
