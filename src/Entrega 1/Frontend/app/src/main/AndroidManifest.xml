@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
-            android:name=".PerfilActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,7 +28,7 @@
         <activity android:name=".PaginaInicial"/>
         <activity android:name=".aba_cursos.CursosActivity" />
         <activity android:name=".AgendaActivity" />
-        <activity android:name=".MainActivity"/>
+        <activity android:name=".PerfilActivity"/>
         <activity android:name=".ConfiguracoesActivity"/>
     </application>
 
