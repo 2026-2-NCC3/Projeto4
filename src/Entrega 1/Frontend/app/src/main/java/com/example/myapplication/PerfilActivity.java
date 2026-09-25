@@ -77,6 +77,10 @@ public class PerfilActivity extends AppCompatActivity {
 
         // Chama a função para buscar os dados do usuário no servidor ao abrir a tela
         carregarPerfil();
+
+        btnSair.setOnClickListener(v -> {
+            logout();
+        });
     }
     private void carregarPerfil(){
         String token = SessionManager.getToken(this);
@@ -111,6 +115,12 @@ public class PerfilActivity extends AppCompatActivity {
                         Toast.makeText(PerfilActivity.this, "Falha na conexão: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+    private void logout(){
+        SessionManager.clearToken(this);
+        Intent logout = new Intent(PerfilActivity.this, MainActivity.class);
+        startActivity(logout);
+        finish();
     }
 
 }

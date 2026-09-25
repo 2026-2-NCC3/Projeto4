@@ -15,7 +15,6 @@ import com.example.myapplication.aba_cursos.CursosActivity;
 public class ConfiguracoesActivity extends AppCompatActivity {
     ImageButton btnVoltar;
     LinearLayout layoutInicio, layoutCursos, layoutAgenda, layoutPerfil;
-
     Switch switchTema;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +32,14 @@ public class ConfiguracoesActivity extends AppCompatActivity {
             Intent voltar = new Intent(ConfiguracoesActivity.this, PerfilActivity.class);
             startActivity(voltar);
         });
+
+        // Verifica qual é o modo atual do aplicativo e ajusta o switch visualmente
+        int currentNightMode = AppCompatDelegate.getDefaultNightMode();
+        if (currentNightMode == AppCompatDelegate.MODE_NIGHT_YES) {
+            switchTema.setChecked(true);
+        } else {
+            switchTema.setChecked(false);
+        }
 
         switchTema.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
