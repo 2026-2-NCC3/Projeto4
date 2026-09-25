@@ -21,7 +21,7 @@ public class CadastroActivity extends AppCompatActivity {
 
     ImageButton btnVoltar;
     Button btnCadastro, btnLogin;
-    EditText editNome, editEmail, editCelular, editSenha;
+    EditText editNome, editEmail, editSenha;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +32,6 @@ public class CadastroActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
         editNome = findViewById(R.id.editNome);
         editEmail = findViewById(R.id.editEmail);
-        editCelular = findViewById(R.id.editCelular);
         editSenha = findViewById(R.id.editSenha);
 
         btnVoltar.setOnClickListener(view -> {
@@ -43,7 +42,7 @@ public class CadastroActivity extends AppCompatActivity {
             Intent login = new Intent(CadastroActivity.this, LoginActivity.class);
             startActivity(login);
         });
-        realizarCadastro();
+        btnCadastro.setOnClickListener(v -> realizarCadastro());
     }
     private void realizarCadastro() {
         // Puxa os dados dos campos de EditText
@@ -71,7 +70,13 @@ public class CadastroActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 } else {
-                    Toast.makeText(CadastroActivity.this, "Erro ao realizar cadastro.", Toast.LENGTH_SHORT).show();
+                    try {
+                        // Tenta extrair a mensagem de erro que veio do backend
+                        String errorBody = response.errorBody() != null ? response.errorBody().string() : "Erro desconhecido";
+                        Toast.makeText(CadastroActivity.this, "Erro: " + errorBody, Toast.LENGTH_LONG).show();
+                    } catch (Exception e) {
+                        Toast.makeText(CadastroActivity.this, "Erro ao realizar cadastro.", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
 
