@@ -8,6 +8,8 @@ const cors = require('cors');
 
 const agendaRoutes = require('./routes/agenda.routes');
 const perfilRoutes = require('./routes/perfil.routes');
+const cursoRoutes = require('./routes/curso.routes');
+const authRoutes = require('./routes/auth.routes');
 
 const app = express();
 
@@ -27,6 +29,8 @@ app.get('/health', (req, res) => {
 // autenticação internamente.
 app.use('/api/agenda', agendaRoutes);
 app.use('/api/perfil', perfilRoutes);
+app.use('/api/cursos', cursoRoutes);
+app.use('/api/auth', authRoutes);
 
 // O Render define a porta via variável de ambiente PORT; localmente
 // caímos no 3000 como padrão.

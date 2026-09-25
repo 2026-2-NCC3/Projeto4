@@ -5,7 +5,7 @@ const getPerfilAluno = async (req, res) => {
     // O ID do usuário logado deve vir do token JWT/sessão atual (ex: via middleware de auth)
     const userId = req.user.id; 
 
-    // Consulta à tabela profiles buscando apenas os campos desejados
+    // Consulta à tabela profiles buscando todos os campos úteis do novo banco
     const { data, error } = await supabase
       .from('profiles')
       .select('full_name, school')
@@ -21,7 +21,7 @@ const getPerfilAluno = async (req, res) => {
       return res.status(404).json({ erro: 'Perfil não encontrado.' });
     }
 
-    // Retorna os dados formatados para o frontend
+    // Retorna os dados formatados para o frontend (Android)
     return res.status(200).json({
       nome: data.full_name,
       escola: data.school
