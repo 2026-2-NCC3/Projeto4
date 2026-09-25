@@ -98,7 +98,12 @@ public class PerfilActivity extends AppCompatActivity {
                             textEscola.setText(perfil.getEscola());
                         }
                         else {
-                            Toast.makeText(PerfilActivity.this, "Erro ao carregar perfil", Toast.LENGTH_SHORT).show();
+                            try {
+                                String errorBody = response.errorBody() != null ? response.errorBody().string() : "Erro desconhecido";
+                                Toast.makeText(PerfilActivity.this, "Erro: " + errorBody, Toast.LENGTH_LONG).show();
+                            } catch (Exception e) {
+                                Toast.makeText(PerfilActivity.this, "Erro ao carregar perfil: " + response.code(), Toast.LENGTH_SHORT).show();
+                            }
                         }
                     }
                     @Override
