@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -70,13 +71,20 @@ public class PaginaInicial extends AppCompatActivity {
                     InicioResponse dados = response.body();
 
                     titulo.setText("Olá, " + dados.getNome() + "! 👋");
-                    nomeCursoAtual.setText(dados.getCurso());
+
+                    if (dados.getCurso() != null) {
+                        nomeCursoAtual.setText(dados.getCurso());
+                    } else {
+                        nomeCursoAtual.setText("Você ainda não está em nenhum curso");
+                    }
+                } else {
+                    Log.e("PaginaInicial", "Resposta falhou: " + response.code());
                 }
             }
 
             @Override
             public void onFailure(Call<InicioResponse> call, Throwable t) {
-                // Erro na comunicação com o backend
+                Log.e("PaginaInicial", "Erro ao carregar dados do início", t);
             }
         });
     }
