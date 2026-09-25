@@ -20,9 +20,8 @@ import com.example.myapplication.AgendaManager;
 
 public class CursosActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerViewCursos;
+    private RecyclerView rvCursos;
     private CursoAdapter adapter;
-    private ArrayList listaDeCursos;
     LinearLayout layoutInicio, layoutCursos, layoutAgenda, layoutPerfil;
     private List<Curso> listaDeCursos;
 
@@ -49,7 +48,21 @@ public class CursosActivity extends AppCompatActivity {
         listaDeCursos.add(new Curso("Empreendedorismo Jovem e Liderança", 24, "Disponível"));
 
         // 3. Conectar a lista ao Adapter e o Adapter à RecyclerView
-        adapter = new CursoAdapter(listaDeCursos);
+        adapter = new CursoAdapter(listaDeCursos, (curso, position) -> {
+            if ("Disponível".equalsIgnoreCase(curso.getStatus())) {
+                curso.setStatus("Inscrito");
+                adapter.notifyItemChanged(position);
+                
+                // Adiciona na agenda global
+                AgendaManager.getInstance().adicionarItem(new AgendaItem("2026-04-10", "19:00:00", "21:00:00", "Primeiro Encontro", "Aula 1 — " + curso.getNome(), "Sala Virtual 1", false));
+                
+                android.widget.Toast.makeText(this, "Inscrição realizada com sucesso: " + curso.getNome(), android.widget.Toast.LENGTH_SHORT).show();
+            } else if ("Inscrito".equalsIgnoreCase(curso.getStatus())) {
+                android.widget.Toast.makeText(this, "Você já está inscrito neste curso!", android.widget.Toast.LENGTH_SHORT).show();
+            } else {
+                android.widget.Toast.makeText(this, "Este curso já foi concluído.", android.widget.Toast.LENGTH_SHORT).show();
+            }
+        });
         rvCursos.setAdapter(adapter);
 
         layoutInicio.setOnClickListener(v -> {
