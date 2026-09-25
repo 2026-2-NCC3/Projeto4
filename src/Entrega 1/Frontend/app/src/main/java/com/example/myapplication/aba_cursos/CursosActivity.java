@@ -60,9 +60,14 @@ public class CursosActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
                         if (response.isSuccessful()) {
-                            // Sucesso! Atualiza o status visualmente
                             curso.setStatus("Inscrito");
                             adapter.notifyItemChanged(position);
+                            
+                            // Adiciona na agenda local (Visual)
+                            com.example.myapplication.AgendaManager.getInstance().adicionarItem(
+                                new com.example.myapplication.AgendaItem("2026-04-10", "19:00:00", "21:00:00", "Primeiro Encontro", "Aula 1 — " + curso.getNome(), "Sala Virtual 1", false)
+                            );
+                            
                             Toast.makeText(CursosActivity.this, "Inscrição realizada com sucesso: " + curso.getNome(), Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(CursosActivity.this, "Erro ao realizar inscrição.", Toast.LENGTH_SHORT).show();
@@ -110,6 +115,11 @@ public class CursosActivity extends AppCompatActivity {
                     
                     // Como a API geral de cursos não devolve se o usuário está inscrito ou não,
                     // todos virão como "Disponível" por padrão (visto na classe Curso.java).
+                    for (Curso c : response.body()) {
+                        if (c.getStatus() == null) {
+                            c.setStatus("Disponível");
+                        }
+                    }
                     listaDeCursos.addAll(response.body());
                     adapter.notifyDataSetChanged();
                 } else {

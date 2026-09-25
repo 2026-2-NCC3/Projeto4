@@ -37,7 +37,7 @@ public interface ApiService {
     @POST("api/cursos/{id}/inscricao")
     Call<Void> inscreverCurso(
             @Header("Authorization") String authorization,
-            @retrofit2.http.Path("id") int cursoId
+            @retrofit2.http.Path("id") String cursoId
     );
     
     @GET("api/perfil")
