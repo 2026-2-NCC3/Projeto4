@@ -1,4 +1,4 @@
-const supabase = require('../config/supabase'); // Ajuste o caminho conforme seu projeto
+const supabase = require('../config/supabase');
 
 const getPerfilAluno = async (req, res) => {
   try {
