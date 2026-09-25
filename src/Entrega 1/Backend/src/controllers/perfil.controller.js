@@ -3,10 +3,10 @@ const supabase = require('../config/supabase'); // Ajuste o caminho conforme seu
 const getPerfilAluno = async (req, res) => {
   try {
     // O ID do usuário logado deve vir do token JWT/sessão atual (ex: via middleware de auth)
-    const userId = req.user.id; 
+    const userId = req.userId; 
 
     // Consulta à tabela profiles buscando todos os campos úteis do novo banco
-    const { data, error } = await supabase
+    const { data, error } = await req.supabase
       .from('profiles')
       .select('full_name, school')
       .eq('id', userId)

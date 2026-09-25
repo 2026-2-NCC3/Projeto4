@@ -63,8 +63,8 @@ public class CursosActivity extends AppCompatActivity {
                 android.widget.Toast.makeText(this, "Este curso já foi concluído.", android.widget.Toast.LENGTH_SHORT).show();
             }
         });
-        rvCursos.setAdapter(adapter);
 
+        rvCursos.setAdapter(adapter);
         layoutInicio.setOnClickListener(v -> {
             Intent inicio = new Intent(CursosActivity.this, PaginaInicial.class);
             startActivity(inicio);
