@@ -13,4 +13,7 @@
     <color name="red">#EF4444</color>
     <color name="transparent">#00000000</color>
     <color name="translucent">#40000000</color>
+    <color name="orange">#F47C44</color>
+    <color name="darkcyan2">#096568</color>
+    <color name="turquoise">#35C8C0</color>
 </resources>
