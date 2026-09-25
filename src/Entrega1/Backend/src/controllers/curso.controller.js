@@ -1,10 +1,15 @@
-// src/controllers/curso.controller.js
-const { supabase } = require('../config/supabase');
+const supabaseConfig = require('../config/supabase');
 
 // Lista todos os cursos
 exports.listarCursos = async (req, res) => {
     try {
-        const client = req.supabase || supabase;
+        const client = req.supabase || supabaseConfig.supabase;
+
+        if (!client || typeof client.from !== 'function') {
+            console.error("Supabase client is invalid:", client);
+            return res.status(500).json({ error: 'Erro de configuração do banco de dados.' });
+        }
+
         // Busca todos os registros da tabela 'courses' no Supabase
         const { data, error } = await client
             .from('courses')
@@ -23,7 +28,7 @@ exports.listarCursos = async (req, res) => {
 exports.buscarCursoPorId = async (req, res) => {
     try {
         const { id } = req.params;
-        const client = req.supabase || supabase;
+        const client = req.supabase || supabaseConfig.supabase;
 
         const { data, error } = await client
             .from('courses')
@@ -49,7 +54,7 @@ exports.inscreverCurso = async (req, res) => {
     try {
         const userId = req.userId;
         const cursoId = req.params.id;
-        const client = req.supabase || supabase;
+        const client = req.supabase || supabaseConfig.supabase;
 
         const { error } = await client
             .from('enrollments')

@@ -7,11 +7,12 @@ const getDadosInicio = async (req, res) => {
         const supabase = req.supabase;
 
         // Busca o nome do usuário na tabela profiles.
+        // maybeSingle() evita estourar erro 500 caso o perfil ainda não tenha sido criado pelo banco
         const { data: perfil, error: perfilError } = await supabase
             .from('profiles')
             .select('full_name')
             .eq('id', userId)
-            .single();
+            .maybeSingle();
 
         if (perfilError) {
             console.error('Erro ao buscar perfil:', perfilError);
@@ -20,15 +21,18 @@ const getDadosInicio = async (req, res) => {
             });
         }
 
+        const nomeFinal = perfil ? perfil.full_name : 'Aluno';
+
         // Busca a inscrição do usuário em um curso.
-        // maybeSingle() em vez de single(): retorna null se o usuário não tiver
-        // nenhuma inscrição com status 'enrolled', em vez de lançar erro.
-        const { data: inscricao, error: inscricaoError } = await supabase
+        // Como o aluno pode ter se inscrito em MAIS DE UM curso na tela de Cursos,
+        // usar maybeSingle() pode dar erro se o banco retornar 2 ou mais inscrições.
+        // Usamos .limit(1) para garantir que só vamos pegar o primeiro curso ativo.
+        const { data: inscricoes, error: inscricaoError } = await supabase
             .from('enrollments')
             .select('course_id')
             .eq('user_id', userId)
             .eq('status', 'enrolled')
-            .maybeSingle();
+            .limit(1);
 
         if (inscricaoError) {
             console.error('Erro ao buscar inscrição:', inscricaoError);
@@ -39,7 +43,8 @@ const getDadosInicio = async (req, res) => {
 
         let nomeCurso = null;
 
-        if (inscricao) {
+        if (inscricoes && inscricoes.length > 0) {
+            const inscricao = inscricoes[0];
             // Busca o curso usando o course_id encontrado na inscrição.
             const { data: curso, error: cursoError } = await supabase
                 .from('courses')
@@ -60,7 +65,7 @@ const getDadosInicio = async (req, res) => {
         // Retorna somente os dados que a Página Inicial precisa.
         // curso vem null quando o usuário não está inscrito em nenhum curso.
         return res.status(200).json({
-            nome: perfil.full_name,
+            nome: nomeFinal,
             curso: nomeCurso
         });
 
