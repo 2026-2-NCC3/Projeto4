@@ -28,4 +28,8 @@ public interface ApiService {
             @Header("Authorization") String authorization,
             @Query("from") String from
     );
+    @GET("api/perfil")
+    Call<PerfilResponse> getPerfil(
+            @Header("Authorization") String authorization
+    );
 }
