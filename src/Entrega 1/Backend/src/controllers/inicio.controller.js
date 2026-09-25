@@ -1,5 +1,3 @@
-// Controller responsável pelos dados da Página Inicial.
-
 const getDadosInicio = async (req, res) => {
     try {
         // ID do usuário que foi validado pelo middleware de autenticação.
