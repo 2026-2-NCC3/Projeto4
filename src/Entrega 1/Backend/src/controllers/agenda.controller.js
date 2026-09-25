@@ -1,4 +1,4 @@
-// Controller de agenda.
+ // Controller de agenda.
 // Responsável por listar os encontros/aulas do aluno logado.
 // A RLS já garante que só vêm os encontros do próprio aluno; aqui só
 // aplicamos ordenação e o filtro opcional de data.
