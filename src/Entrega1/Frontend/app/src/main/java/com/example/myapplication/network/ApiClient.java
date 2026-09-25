@@ -17,7 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public final class ApiClient {
 
-    private static final String BASE_URL = "https://backend-delta-steel-10.vercel.app/";
+    private static final String BASE_URL = "https://nextgeneration-sigma.vercel.app/";
 
     private static Retrofit retrofit;
 
