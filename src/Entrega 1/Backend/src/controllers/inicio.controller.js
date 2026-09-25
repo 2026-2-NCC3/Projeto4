@@ -23,38 +23,47 @@ const getDadosInicio = async (req, res) => {
         }
 
         // Busca a inscrição do usuário em um curso.
+        // maybeSingle() em vez de single(): retorna null se o usuário não tiver
+        // nenhuma inscrição com status 'enrolled', em vez de lançar erro.
         const { data: inscricao, error: inscricaoError } = await supabase
             .from('enrollments')
             .select('course_id')
             .eq('user_id', userId)
             .eq('status', 'enrolled')
-            .single();
+            .maybeSingle();
 
         if (inscricaoError) {
             console.error('Erro ao buscar inscrição:', inscricaoError);
             return res.status(400).json({
-                erro: 'Não foi possível encontrar o curso do usuário.'
+                erro: 'Não foi possível verificar as inscrições do usuário.'
             });
         }
 
-        // Busca o curso usando o course_id encontrado na inscrição.
-        const { data: curso, error: cursoError } = await supabase
-            .from('courses')
-            .select('title')
-            .eq('id', inscricao.course_id)
-            .single();
+        let nomeCurso = null;
 
-        if (cursoError) {
-            console.error('Erro ao buscar curso:', cursoError);
-            return res.status(400).json({
-                erro: 'Não foi possível carregar o curso do usuário.'
-            });
+        if (inscricao) {
+            // Busca o curso usando o course_id encontrado na inscrição.
+            const { data: curso, error: cursoError } = await supabase
+                .from('courses')
+                .select('title')
+                .eq('id', inscricao.course_id)
+                .single();
+
+            if (cursoError) {
+                console.error('Erro ao buscar curso:', cursoError);
+                return res.status(400).json({
+                    erro: 'Não foi possível carregar o curso do usuário.'
+                });
+            }
+
+            nomeCurso = curso.title;
         }
 
         // Retorna somente os dados que a Página Inicial precisa.
+        // curso vem null quando o usuário não está inscrito em nenhum curso.
         return res.status(200).json({
             nome: perfil.full_name,
-            curso: curso.title
+            curso: nomeCurso
         });
 
     } catch (error) {
