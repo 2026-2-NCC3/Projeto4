@@ -45,6 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Nome"
+            android:textColor="@color/black"
             android:layout_marginTop="35dp" />
 
         <EditText
@@ -52,6 +53,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="E-mail"
+            android:textColor="@color/black"
             android:layout_marginTop="15dp" />
 
         <EditText
@@ -59,6 +61,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Senha"
+            android:textColor="@color/black"
             android:inputType="textPassword"
             android:layout_marginTop="15dp" />
 

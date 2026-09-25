@@ -87,11 +87,11 @@ public class CursosActivity extends AppCompatActivity {
                 Toast.makeText(this, "Este curso já foi concluído.", Toast.LENGTH_SHORT).show();
             }
         });
+
         rvCursos.setAdapter(adapter);
 
         // 3. Buscar a lista de cursos do Backend
         buscarCursosDoBackend();
-
         layoutInicio.setOnClickListener(v -> {
             Intent inicio = new Intent(CursosActivity.this, PaginaInicial.class);
             startActivity(inicio);
