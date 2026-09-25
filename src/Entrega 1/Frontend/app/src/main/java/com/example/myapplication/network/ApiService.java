@@ -5,8 +5,10 @@ import com.example.myapplication.AgendaItem;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 /**
@@ -28,4 +30,13 @@ public interface ApiService {
             @Header("Authorization") String authorization,
             @Query("from") String from
     );
+    @GET("api/perfil")
+    Call<PerfilResponse> getPerfil(
+            @Header("Authorization") String authorization
+    );
+    @POST("api/auth/login")
+    Call<LoginResponse> login(@Body LoginRequest loginRequest);
+
+    @POST("api/auth/cadastrar")
+    Call<CadastroResponse> cadastrar(@Body CadastroRequest cadastroRequest);
 }

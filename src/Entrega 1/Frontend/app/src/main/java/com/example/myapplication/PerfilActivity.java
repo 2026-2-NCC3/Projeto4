@@ -1,5 +1,7 @@
 package com.example.myapplication;
 
+import static android.app.ProgressDialog.show;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -7,10 +9,18 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.aba_cursos.CursosActivity;
+import com.example.myapplication.network.ApiClient;
+import com.example.myapplication.network.PerfilResponse;
+import com.example.myapplication.network.SessionManager;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PerfilActivity extends AppCompatActivity {
 
@@ -65,6 +75,37 @@ public class PerfilActivity extends AppCompatActivity {
             }
         });
 
+        // Chama a função para buscar os dados do usuário no servidor ao abrir a tela
+        carregarPerfil();
+    }
+    private void carregarPerfil(){
+        String token = SessionManager.getToken(this);
+
+        if (token == null) {
+            textNome.setText("Usuário não logado");
+            textEscola.setText("");
+            return;
+        }
+
+        ApiClient.getApiService()
+                .getPerfil("Bearer " + token)
+                .enqueue(new Callback<PerfilResponse>(){
+                    @Override
+                    public void onResponse(Call<PerfilResponse> call, Response<PerfilResponse> response){
+                        if (response.isSuccessful() && response.body() != null){
+                            PerfilResponse perfil = response.body();
+                            textNome.setText(perfil.getNome());
+                            textEscola.setText(perfil.getEscola());
+                        }
+                        else {
+                            Toast.makeText(PerfilActivity.this, "Erro ao carregar perfil", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<PerfilResponse> call, Throwable t){
+                        Toast.makeText(PerfilActivity.this, "Falha na conexão: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
 }

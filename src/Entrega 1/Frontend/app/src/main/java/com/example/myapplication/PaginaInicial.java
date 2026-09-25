@@ -21,11 +21,6 @@ public class PaginaInicial extends AppCompatActivity {
         layoutAgenda = findViewById(R.id.layoutAgenda);
         layoutPerfil = findViewById(R.id.layoutPerfil);
 
-        layoutInicio.setOnClickListener(v -> {
-            Intent inicio = new Intent(PaginaInicial.this, PaginaInicial.class);
-            startActivity(inicio);
-        });
-
         layoutCursos.setOnClickListener(v -> {
             Intent cursos = new Intent(PaginaInicial.this, CursosActivity.class);
             startActivity(cursos);
