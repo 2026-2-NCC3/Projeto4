@@ -197,7 +197,8 @@ Mais exemplos, incluindo os demais endpoints autenticados, estão em
 
 ## APK / build do app
 
-Link de download do APK/AAB: `<LINK_DO_APK>`
+O APK de debug desta entrega está versionado em:
+[`documentos/Entrega 1/Disciplina Programação de Dispositivos Móveis/app-debug.apk`](<documentos/Entrega%201/Disciplina%20Programa%C3%A7%C3%A3o%20de%20Dispositivos%20M%C3%B3veis/app-debug.apk>)
 
 ## Documentação das entregas
 
