@@ -1,4 +1,4 @@
-# Aplicação da migração E2 — gate humano pendente
+# Aplicação da migração E2
 
 Não foi aplicada no Supabase. `001_entrega2.sql` foi testada em PostgreSQL embedded PGlite
 com fixture sintética do schema confirmado, não em uma cópia integral do projeto remoto.
@@ -7,10 +7,14 @@ PGlite usa uma conexão exclusiva: não prova corrida multiconexão nem configur
 1. Confirmar ambiente/projeto correto e responsabilidade pelo apply. Salvar backup/export do schema,
    grants/policies e dados afetados por meio autorizado antes da janela de alteração.
 2. Rodar `000_preflight.sql` (leitura) e comparar campos/defaults com o schema esperado.
-   Resolver duplicidades sem excluir registros automaticamente. Conferir roles/grants herdados.
+   Conferir roles/grants herdados. O preflight de08/11 identificou quatro grupos de inscrições
+   repetidas, 11linhas/sete cópias excedentes. Todas estão `enrolled`, com zero pontos e sem
+   presença registrada. Não há FK inbound nem trigger próprio em enrollments.
+   Aplicar o reparo limitado descrito abaixo somente após revisar o backup e autorizar o movimento.
 3. Confirmar que as tabelas e2_* não pertencem a outra aplicação. Conferir versão PostgreSQL,
    constraints, defaults adicionais obrigatórios e impacto de locks/índices em tabelas existentes.
-4. Revisar e aprovar `001_entrega2.sql`. Executar como owner controlado no SQL Editor.
+4. Revisar e aprovar `001_entrega2.sql`, incluindo mudança de permissões e janela até publicar E2.
+   Executar como owner controlado no SQL Editor.
    Há transação, lock_timeout5s e statement_timeout30s: erro deve causar rollback total.
 5. Conferir que alunos não conseguem gravar attendances/enrollments/user_roles via REST direto,
    nem listar códigos QR ou resultados de outros usuários. Validar role administrativa existente
@@ -36,6 +40,48 @@ tabelas nem desfazer dados. Preferir corrigir/restaurar o deployment E2 conhecid
 Se restaurar backend E1, comunicar indisponibilidade de inscrição até adaptação da rota para RPC.
 Reabrir grants antigos reintroduz bypass de QR/vagas/roles e exige revisão e aprovação específica.
 Backup/restore remoto não foi testado nem autorizado nesta sessão.
+
+## Reparo das sete cópias de inscrição
+
+`000a_repair_enrollments.sql` é uma etapa separada; não rodar todos os arquivos `000*`
+em sequência, pois `000b_restore_enrollments.sql` é exclusivamente recuperação.
+
+O reparo exige exatamente os quatro grupos/sete excedentes observados, preserva a inscrição
+mais antiga de cada grupo (UUID desempata datas iguais) e move os sete excedentes para
+`e2_recovery.enrollment_duplicates_20261108`, com todos os campos originais e fotografia da
+inscrição canônica. Conta e compara as cópias antes de retirá-las da tabela ativa; cria o índice
+único na mesma transação. A operação não atribui presença, pontos, nota ou conclusão de curso.
+
+O schema de recuperação tem RLS, sem grants para PUBLIC/anon/authenticated. Não o adicionar aos
+schemas expostos do Supabase. Contém identificadores dos alunos: não exportar para Git, logs ou
+documentação. **Esse arquivo está no mesmo banco e não substitui backup independente.**
+
+`SHARE ROW EXCLUSIVE` bloqueia escritores concorrentes antes de contar/copiar, permite consultas
+e termina no COMMIT. Limites de5s para lock e30s para statement interrompem uma janela longa.
+Os testes PGlite verificam a lógica transacional, mas não demonstram concorrência multiconexão
+ou duração de locks no servidor hospedado.
+
+Após o reparo, conferir `archived_copies=7`, `duplicate_groups=0`, e conservação de contagem:
+linhas ativas + sete arquivadas = quantidade anterior. Nenhum certificado ou presença é removido.
+Um rerun sem duplicatas não move novas linhas. Se dados/grupos/schema/dependências divergirem,
+o script para com `REPAIR_*`; não remover os guardrails para forçar execução.
+
+O reparo preserva grants E1 e permite inscrição em curso novo. O índice passa a impedir nova
+duplicata. A rota E1 traduz esse conflito em500; E2 usa RPC idempotente e retorna sucesso para
+inscrição existente. Aplicar001 revoga INSERT E1: coordenar a indisponibilidade temporária até
+publicar E2. Não devolver INSERT aberto como solução permanente, pois contorna controle de vagas.
+
+### Recuperação limitada antes de001
+
+`000b_restore_enrollments.sql`, após aprovação específica, recompõe os sete registros a partir
+do arquivo e confere igualdade completa. Recusa se a canônica mudou, se um ID foi reutilizado,
+se a contagem arquivada divergiu ou se `e2_enroll(uuid)` já existe. O arquivo não é apagado.
+Remover o índice para restaurar as cópias reabre duplicações; isso não é rollback seguro após
+ativar E2. Para ambiente E2 ativo, preferir correção progressiva e análise do responsável.
+
+Validação local: `npm test` em `src/Entrega2/Backend`, incluindo conservação exata, recuperação,
+negativos de acesso, limite de escopo, schema/FK divergente, compatibilidade E1 de inscrição
+nova e aplicação001 após reparo. Nenhum teste local usa backup ou identificador real.
 
 ## Regras acadêmicas explícitas
 
