@@ -12,8 +12,6 @@ Aplicativo Android para estudantes, API Express/Supabase e painel web para a equ
 | Enzo Sakita | [EnzoSakita](https://github.com/EnzoSakita) |
 | Luiz Roberto Silvestre | [Luiz-Silvestre](https://github.com/Luiz-Silvestre) |
 
-[Política de commits](CONTRIBUTING.md)
-
 ## Entrega 2
 
 Implementação em `src/Entrega2`, branch `Luiz-entrega2`. A Entrega 1 foi preservada.
@@ -69,7 +67,6 @@ src/Entrega2/
   Backend/         Express, SQL, testes e public/admin
   TESTAR.md        Roteiro de teste e preparação da entrega
 documentos/        Relatórios, diagramas e materiais acadêmicos
-ScreenshotsToCloseLoop/runs/entrega2/   Evidências locais do painel
 ```
 
 ## Verificação e limites

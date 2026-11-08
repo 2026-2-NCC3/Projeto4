@@ -9,6 +9,6 @@ publicados para os novos recursos funcionarem nessa URL. Este APK não usa a fix
 SHA256: `a45b3ad1fc913d289d6edef6c6b30cd20ac3cca1fb727684a968c8cbed9dc245`.
 
 Build validado independentemente em08/11/2026. JVM16/16, emulador6/6;
-lint0 erros/89 avisos. [Limites da revisão](../../../.codex/spec-loop/entrega2-completa/android-review.md).
+lint0 erros/89 avisos. [Situação e limites](../../../src/Entrega2/STATUS.md).
 
 Câmera física, telas/fonte ampliada e integração hospedada ainda serão testadas com Luiz.

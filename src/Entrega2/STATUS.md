@@ -33,10 +33,8 @@ continuam pendentes; Luiz validará a branch e fará o merge. Prazo:09/11 às08h
 | Padrões de segredos locais |Nenhuma ocorrência nos padrões examinados; Gitleaks ausente|
 | Doctor/global product-final-eval strict |FAIL/BLOCKED; sem alegação ready-for-review|
 
-[Revisão backend](../../.codex/spec-loop/entrega2-completa/backend-review.md),
-[revisão Android](../../.codex/spec-loop/entrega2-completa/android-review.md),
-[teste do painel](../../.codex/spec-loop/entrega2-completa/browser-verification.md),
-[contexto do gate global](../../.codex/spec-loop/entrega2-completa/readiness-context.md).
+Os relatórios detalhados das revisões e as capturas de teste permanecem locais,
+fora do versionamento. O resumo dos resultados e limites está nesta página.
 
 ## Pendências para a demonstração integrada
 

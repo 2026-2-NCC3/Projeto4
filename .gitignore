@@ -19,5 +19,7 @@ node_modules/
 .env.*
 !.env.example
 
-# Estado local de ferramentas; specs e documentação continuam versionáveis.
-/.codex/state/
+# Arquivos locais de apoio, fora da entrega versionada.
+/.codex/
+/ScreenshotsToCloseLoop/runs/entrega2/
+/CONTRIBUTING.md
