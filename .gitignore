@@ -18,3 +18,6 @@ node_modules/
 .env
 .env.*
 !.env.example
+
+# Estado local de ferramentas; specs e documentação continuam versionáveis.
+/.codex/state/
