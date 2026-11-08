@@ -1,6 +1,19 @@
 # Aplicação da migração E2
 
-Não foi aplicada no Supabase. `001_entrega2.sql` foi testada em PostgreSQL embedded PGlite
+Aplicada no Supabase em08/11/2026, após confirmação explícita do Luiz, pelo SQL Editor
+do Chrome pessoal. `000a_repair_enrollments.sql` terminou com7 cópias arquivadas e0 grupos
+duplicados; `001_entrega2.sql` retornou sucesso. Verificação remota:6 inscrições ativas,
+7 tabelas E2 com RLS,9 funções E2,3 perguntas; escrita direta em inscrições/presenças/roles
+bloqueada para anon/authenticated, arquivo e QR privados, execução anônima das RPCs negada.
+Os13 registros originais (ativos+arquivo) foram comparados campo a campo com o backup local:
+igualdade integral. Backup e screenshots ficam em `.codex/state/supabase-preflight/`,
+ignorados pelo Git; nenhum dado pessoal foi incluído neste documento.
+
+Publicação E2, provisionamento administrativo e testes Auth/PostgREST continuam pendentes.
+Luiz aceitou a interrupção das inscrições E1 até a publicação, mantendo validação/merge
+da branch sob sua responsabilidade. Não executar restore pré-E2 após esta ativação.
+
+`001_entrega2.sql` foi testada em PostgreSQL embedded PGlite
 com fixture sintética do schema confirmado, não em uma cópia integral do projeto remoto.
 PGlite usa uma conexão exclusiva: não prova corrida multiconexão nem configuração Supabase hospedada.
 

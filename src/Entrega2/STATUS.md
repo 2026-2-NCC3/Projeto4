@@ -1,8 +1,9 @@
 # Situação da Entrega 2 - 08/11/2026
 
 Implementação local concluída na branch `Luiz-entrega2`. **Integração hospedada e
-aceite completo pendentes.** Alterações registradas em commits temáticos locais. Não houve push, publicação Vercel, concessão de admin
-ou execução da migração no Supabase. Prazo confirmado pelo Luiz:09/11 às08h.
+aceite completo pendentes.** Reparo de duplicidades e migração Supabase aplicados em08/11,
+após confirmação do Luiz, pelo Chrome pessoal. Publicação Vercel e concessão de admin
+continuam pendentes; Luiz validará a branch e fará o merge. Prazo:09/11 às08h.
 
 ## Entregue localmente
 
@@ -19,7 +20,8 @@ ou execução da migração no Supabase. Prazo confirmado pelo Luiz:09/11 às08h
 
 | Verificação | Resultado |
 |---|---|
-| Backend HTTP e SQL/PGlite, revisão independente |18/18 PASS|
+| Backend HTTP e SQL/PGlite, incluindo reparo |26/26 PASS; revisão independente do SQL PASS|
+| Supabase remoto, conferência após aplicação |6 inscrições únicas,7 cópias arquivadas,0 duplicatas;13 registros preservados exatamente contra backup;7 tabelas E2 com RLS,9 funções|
 | Painel núcleo sessão/QR |9/9 PASS|
 | Chrome real, login/permissão/CRUD/QR/comunicação/logout |PASS em fixture local|
 | Responsividade painel390px |Sem overflow observado, screenshots salvos|
@@ -38,8 +40,8 @@ ou execução da migração no Supabase. Prazo confirmado pelo Luiz:09/11 às08h
 
 ## Pendências para a demonstração integrada
 
-1. Conferir schema/grants/duplicidades reais usando preflight, preparar backup e autorizar
-   aplicação de `Backend/sql/001_entrega2.sql` no projeto `hejcktjrlursifgcjdon`.
+1. Banco atualizado: `000a_repair_enrollments.sql` e `001_entrega2.sql` aplicados no
+   projeto `hejcktjrlursifgcjdon`. Não reaplicar para testar. Conferência descrita no runbook.
 2. Definir uma conta administrativa e autorizar concessão do papel. Não há admin
    automático, cadastro público de equipe ou chave privilegiada no aplicativo.
 3. Autorizar envio da branch e o responsável publicar na Vercel com Root Directory
@@ -52,9 +54,10 @@ ou execução da migração no Supabase. Prazo confirmado pelo Luiz:09/11 às08h
 Retornar somente ao backend E1 não restaura essas operações. O runbook explica a janela
 e o rollback; a mudança não deve ser aplicada isolada da publicação E2.
 
-A aba Supabase anteriormente inspecionada não estava disponível ao tentar o preflight
-final no Chrome. Não houve nova consulta SQL remota. Permissão de controle nativo do
-Android Studio também estava indisponível; não foi contornada.
+O acesso ao Supabase pelo Chrome pessoal foi restabelecido e usado no preflight,
+backup e aplicação. A indisponibilidade de inscrições E1 até a publicação E2 foi
+informada e aceita pelo Luiz antes do apply. Controle nativo do Android Studio
+estava indisponível na validação anterior; não foi contornado.
 
 ## Materiais acadêmicos
 
