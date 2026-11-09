@@ -5,102 +5,34 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.colors import HexColor
 import math
 ROOT=Path(__file__).resolve().parent
-W,H=1100,780
+W,H=1430,800
 pages=[]
 def node(id,title,x,y,lines,tag='domínio'):
     return dict(id=id,title=title,x=x,y=y,w=240,h=126,lines=lines,tag=tag)
 def edge(a,b,points,label='',ends=('', ''),kind='association'):
     return dict(a=a,b=b,points=points,label=label,ends=ends,kind=kind)
-pages.append(dict(title='01 · Cursos, inscrições e presença',subtitle='Modelo de domínio atual no código E2. Entidades não representam classes Java individuais.',nodes=[
-node('aluno','Aluno',40,130,['id: UUID','nome: String','escola: String']),
-node('ins','Inscrição',430,130,['id: UUID','user_id, course_id: UUID','status: String']),
-node('curso','Curso',820,130,['id: UUID; título: String','cargaHorária, encontros: int','ativo: boolean; vagas: int']),
-node('pres','Presença',40,430,['id: UUID','user_id, activity_id: UUID','scanned_at: data/hora']),
-node('atv','Atividade',430,430,['id, course_id: UUID','título: String; data: data/hora','cancelada: boolean']),
-node('qr','CódigoQR',820,430,['id, activity_id: UUID','token_hash: String','abertura, expiração: data/hora'])],edges=[
-edge('aluno','ins',[(280,193),(430,193)],'possui',('1','0..*')),
-edge('ins','curso',[(670,193),(820,193)],'vincula',('0..*','1')),
-edge('aluno','pres',[(160,256),(160,430)],'registra',('1','0..*')),
-edge('pres','atv',[(280,493),(430,493)],'refere-se a',('0..*','1')),
-edge('curso','atv',[(940,256),(940,336),(550,336),(550,430)],'oferece',('1','0..*')),
-edge('atv','qr',[(670,493),(820,493)],'recebe',('1','0..*'))],notes=[
-'Associação: linha contínua; números junto às extremidades indicam multiplicidade. UUIDs circulam como String no Java.',
-'Unicidade: (aluno, curso) em Inscrição; (aluno, atividade) em Presença. Check-in valida inscrição, janela e atividade no servidor.',
-'CódigoQR guarda hash, não token em claro. O payload lido contém v, activityId e qrToken. Curso é obtido pela Atividade.',
-'Fontes: Backend/src/app.js; Backend/sql/001_entrega2.sql; Backend/docs/http-contract.md. Banco remoto depende da migração.' ]))
-pages.append(dict(title='02 · Documentos e comunicação',subtitle='Modelo de domínio atual. Card é uma projeção da API; comunicado e notificação são conceitos distintos.',nodes=[
-node('aluno','Aluno',40,130,['id: UUID','identidade: auth.users','perfil: profiles']),
-node('cert','Certificado',430,130,['id, user_id, course_id: UUID','certificate_url: HTTPS','issued_at: data/hora']),
-node('curso','Curso',820,130,['id: UUID','título: String','cargaHorária: int']),
-node('card','Card',40,430,['id: UUID do aluno','nome, escola, número: String','derivado; sem tabela própria'],'projeção'),
-node('msg','Mensagem',430,430,['id, user_id: UUID','remetente: aluno ou equipe','conteúdo; created_at']),
-node('notif','Notificação',820,430,['id: UUID; user_id: UUID?','título, conteúdo: String','created_at: data/hora'])],edges=[
-edge('aluno','cert',[(280,193),(430,193)],'obtém',('1','0..*')),
-edge('cert','curso',[(670,193),(820,193)],'refere-se a',('0..*','1')),
-edge('aluno','card',[(160,256),(160,430)],'consulta',('1','1')),
-edge('aluno','msg',[(280,230),(350,230),(350,390),(550,390),(550,430)],'conversa',('1','0..*'))],notes=[
-'Mensagem.user_id identifica o aluno dono da conversa; remetente distingue aluno e equipe, sem criar outra entidade aluno.',
-'Notificação.user_id: 0..1 destinatário específico; null indica aviso geral. Cada aluno recebe 0..* avisos autorizados.',
-'LeituraNotificação (notification_id, user_id, read_at) liga Aluno e Notificação, ambos 1 para 0..* leituras; par único.',
-'Comunicado (id UUID, título, conteúdo, created_at) é publicação geral em e2_announcements; 0..* comunicados disponíveis.',
-'Fontes: Backend/src/app.js (/card, /certificados, /mensagens, /notificacoes); Backend/sql/001_entrega2.sql.' ]))
-pages.append(dict(title='03 · Orientação por questionário',subtitle='Modelo de domínio atual. TestePerfil é a visão agregada; alternativas e respostas são armazenadas em JSON.',nodes=[
-node('teste','TestePerfil',40,130,['título, descrição: String','perguntas: coleção','visão agregada da API'],'projeção'),
-node('pergunta','Pergunta',430,130,['id: UUID; posição: int','enunciado: String','alternatives: JSON']),
-node('alternativa','Alternativa',820,130,['id: String local à pergunta','texto: String','área: String (servidor)'],'valor JSON'),
-node('aluno','Aluno',40,430,['id: UUID','identidade autenticada','resultados restritos ao dono']),
-node('resultado','ResultadoPerfil',430,430,['id, user_id: UUID','classificação, resumo: String','answers: JSON; created_at']),
-node('resposta','Resposta',820,430,['questionId: UUID','alternativeId: String','valor dentro de answers'],'valor JSON')],edges=[
-edge('teste','pergunta',[(280,193),(430,193)],'apresenta',('1','0..*')),
-edge('pergunta','alternativa',[(670,193),(820,193)],'contém',('1','0..*')),
-edge('aluno','resultado',[(280,493),(430,493)],'obtém',('1','0..*')),
-edge('resultado','resposta',[(670,493),(820,493)],'registra',('1','1..*')),
-edge('resposta','alternativa',[(940,430),(940,256)],'seleciona',('0..*','1'))],notes=[
-'Alternativa.id não é UUID: vale no contexto da pergunta. QuestionId + alternativeId identificam a escolha no questionário.',
-'As ligações JSON são lógicas, não chaves estrangeiras; o RPC valida perguntas/alternativas ao submeter o resultado.',
-'O questionário vigente reúne e2_profile_questions; não existe tabela teste_perfil nem classe Java TestePerfil.',
-'A classificação usa áreas das alternativas no servidor. Finalidade acadêmica/orientativa; não é diagnóstico psicológico.',
-'Fontes: Backend/src/app.js (/teste-perfil); Backend/sql/001_entrega2.sql (e2_submit_profile).' ]))
-pages.append(dict(title='04 · Classes Java de integração',subtitle='Classes implementadas no Android E2. Recorte das responsabilidades principais; métodos e campos selecionados.',nodes=[
-node('hub','HubActivity',40,130,['- answers: Map<String,String>','- adapter: Rows','navega e apresenta recursos'],'classe Java'),
-node('api','ApiClient',430,130,['+ request(...): JsonElement','+ publicPost(...): JsonElement','+ parseSession(...): Session'],'classe Java'),
-node('service','ApiService',820,130,['+ get(...): Call<JsonElement>','+ post(...): Call<JsonElement>','+ patch(...): Call<JsonElement>'],'interface Retrofit'),
-node('repo','AlunoRepository',40,430,['- helper: AlunoDbHelper','+ enqueue(owner, QrPayload)','+ checkins(...): List<Pending>'],'classe Java'),
-node('worker','SyncWorker',430,430,['+ doWork(): Result','envia e reconcilia pendências','herda Worker (AndroidX)'],'classe Java'),
-node('session','SessionManager',820,430,['+ get(...): Session','+ save(...), clearToken(...)','+ isCurrent(...): boolean'],'classe Java')],edges=[
-edge('hub','api',[(280,193),(430,193)],'requisita',kind='dependency'),
-edge('api','service',[(670,193),(820,193)],'usa',kind='dependency'),
-edge('hub','repo',[(160,256),(160,430)],'consulta',kind='dependency'),
-edge('worker','repo',[(430,493),(280,493)],'persiste',kind='dependency'),
-edge('worker','api',[(550,430),(550,256)],'requisita',kind='dependency'),
-edge('api','session',[(670,230),(745,230),(745,390),(940,390),(940,430)],'renova sessão',kind='dependency')],notes=[
-'Seta tracejada = dependência de uso. + público; - privado. Tipos externos: Context, JsonElement, Call e Worker.',
-'AlunoRepository possui 1 AlunoDbHelper (SQLiteOpenHelper); classes internas Cached e Pending representam dados locais.',
-'QrPayload é imutável (activityId/qrToken finais); parse valida entrada. SyncPolicy.forStatus retorna enum Action.',
-'HubActivity/AuthActivity herdam AppCompatActivity. HubActivity.Rows herda RecyclerView.Adapter<Holder> e usa List<Row>.',
-'SyncScheduler agenda SyncWorker. SessionManager.Session guarda userId/accessToken/refreshToken/expiresAt (sem valores aqui).',
-'Fontes: Frontend/app/src/main/java/com/example/myapplication/{network,data,sync,core} e HubActivity.java.' ]))
-
-pages.append(dict(title='05 · Telas, fragmento e autenticação',subtitle='Classes implementadas no Android E2. Responsabilidade de lifecycle separada da lista de dados.',nodes=[
-node('hub','HubActivity',40,130,['- adapter: Rows','+ resourceAdapter(): Adapter','implementa AdapterHost'],'classe Java'),
-node('fragment','ResourceListFragment',430,130,['- list: RecyclerView','+ onViewCreated(...)','+ onDestroyView()'],'classe Java'),
-node('host','AdapterHost',820,130,['+ resourceAdapter(): Adapter','interface interna de','ResourceListFragment'],'interface Java'),
-node('auth','AuthActivity',40,430,['- ATTEMPTS: AuthAttemptGate','login/cadastro assíncronos','invalida callback ao destruir'],'classe Java'),
-node('gate','AuthAttemptGate',430,430,['- generation: long','+ begin(), invalidate(ticket)','+ complete(...): boolean'],'classe Java'),
-node('input','AuthInputPolicy',820,430,['+ validSignupPassword(...)','retorna boolean','mínimo de 8 caracteres'],'classe Java')],edges=[
-edge('fragment','host',[(670,193),(820,193)],'consulta adapter',kind='dependency'),
-edge('hub','host',[(160,130),(160,105),(940,105),(940,130)],'',kind='realization'),
-edge('auth','gate',[(280,493),(430,493)],'valida tentativa',kind='dependency'),
-edge('auth','input',[(160,556),(160,600),(940,600),(940,556)],'valida cadastro',kind='dependency')],notes=[
-'Seta tracejada aberta = uso; triângulo vazio tracejado = implementação de interface. Fragmento herda Fragment (AndroidX).',
-'FragmentContainerView no XML instancia ResourceListFragment; o host fornece Rows, e o fragmento controla RecyclerView.',
-'onDestroyView remove o adapter e limpa a referência da view. AuthAttemptGate descarta callback de tentativa/tela obsoleta.',
-'NextMeetingPolicy.next(JsonArray, long): percorre a agenda e escolhe o primeiro horário futuro em America/Sao_Paulo.',
-'NextMeetingPolicy não depende do fuso do aparelho; entrada inválida não estabelece um próximo encontro.',
-'Fontes: ResourceListFragment.java, HubActivity.java, AuthActivity.java e core/{AuthAttemptGate,AuthInputPolicy,NextMeetingPolicy}.' ]))
+pages.append(dict(title='Próxima Etapa - Diagrama de classes',
+subtitle='Entrega 2 | Modelo conceitual simplificado: inscrições, presenças e certificados',nodes=[
+node('aluno','Aluno',40,210,['- id: UUID','- nome: String','- email: String']),
+node('ins','Inscrição',410,210,['- id: UUID','- dataInscrição: Date','- status: String']),
+node('curso','Curso',780,210,['- id: UUID','- nome: String','- cargaHorária: int']),
+node('cert','Certificado',1150,210,['- id: UUID','- url: String','- dataEmissão: Date']),
+node('pres','Presença',40,480,['- id: UUID','- dataRegistro: Date']),
+node('atv','Atividade',410,480,['- id: UUID','- nome: String','- data: Date']),
+node('qr','CódigoQR',780,480,['- id: UUID','- hash: String','- validade: Date'])],edges=[
+edge('aluno','ins',[(280,273),(410,273)],'realiza',('1','0..*')),
+edge('ins','curso',[(650,273),(780,273)],'refere-se a',('0..*','1')),
+edge('curso','cert',[(1020,273),(1150,273)],'referencia',('1','0..*')),
+edge('aluno','cert',[(160,210),(160,150),(1270,150),(1270,210)],'recebe',('1','0..*')),
+edge('aluno','pres',[(160,336),(160,480)],'registra',('1','0..*')),
+edge('pres','atv',[(280,543),(410,543)],'refere-se a',('0..*','1')),
+edge('curso','atv',[(900,336),(900,400),(530,400),(530,480)],'oferece',('1','0..*')),
+edge('atv','qr',[(650,543),(780,543)],'possui',('1','0..*'))],notes=[
+'Linha = associação | 1 = um | 0..* = zero ou mais | - = atributo privado no modelo conceitual.'
+]))
 
 pdf=canvas.Canvas(str(ROOT/'UML_Entrega2.pdf'),pagesize=(W,H))
-pdf.setTitle('Próxima Etapa - UML e classes implementadas - Entrega 2')
+pdf.setTitle('Próxima Etapa - Diagrama de classes simplificado - Entrega 2')
 pdf.setAuthor('Equipe Próxima Etapa')
 mx=ET.Element('mxfile',host='app.diagrams.net',version='24.0.0')
 for page_no,p in enumerate(pages,1):
@@ -116,11 +48,11 @@ for page_no,p in enumerate(pages,1):
     for n in p['nodes']:
         x,y,w,h=n['x'],n['y'],n['w'],n['h']; base=H-y-h
         pdf.setStrokeColor(HexColor('#000000'));pdf.setLineWidth(0.8);pdf.setFillColor(HexColor('#FFFFFF'));pdf.rect(x,base,w,h,fill=1)
-        pdf.setFillColor(HexColor('#000000'));pdf.setFont('Helvetica',9);pdf.drawCentredString(x+w/2,H-y-16,'<<'+n['tag']+'>>')
-        pdf.setFont('Helvetica-Bold',14);pdf.drawCentredString(x+w/2,H-y-37,n['title']);pdf.line(x,H-y-48,x+w,H-y-48)
+        pdf.setFillColor(HexColor('#000000'));pdf.setFont('Helvetica',9)
+        pdf.setFont('Helvetica-Bold',14);pdf.drawCentredString(x+w/2,H-y-30,n['title']);pdf.line(x,H-y-48,x+w,H-y-48)
         pdf.setFont('Helvetica',11);pdf.setFillColor(HexColor('#000000'))
         for i,line in enumerate(n['lines']):pdf.drawString(x+12,H-y-68-i*19,line)
-        val='<<'+n['tag']+'>>\n'+n['title']
+        val=n['title']
         c=ET.SubElement(root,'mxCell',id=n['id'],value=val,style='swimlane;startSize=48;rounded=0;whiteSpace=wrap;html=0;align=center;verticalAlign=middle;fillColor=#FFFFFF;swimlaneFillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;',vertex='1',parent='1')
         ET.SubElement(c,'mxGeometry',x=str(x),y=str(y),width=str(w),height=str(h),attrib={'as':'geometry'})
         body=ET.SubElement(root,'mxCell',id=n['id']+'_body',value='\n'.join(n['lines']),style='text;html=0;align=left;verticalAlign=top;spacing=10;whiteSpace=wrap;fontColor=#000000;fontSize=11;',vertex='1',parent=n['id'])
@@ -144,7 +76,7 @@ for page_no,p in enumerate(pages,1):
             a=pts[idx];b=pts[1 if idx==0 else -2];dx,dy=b[0]-a[0],b[1]-a[1];length=math.hypot(dx,dy)
             pdf.setFont('Helvetica-Bold',11);pdf.drawString(a[0]+(-40 if dx < 0 else 12 if dx > 0 else 5),H-(a[1]+dy/length*18)-15,mult)
         style='edgeStyle=none;html=0;fontSize=11;endArrow='+('open;dashed=1;' if e['kind']=='dependency' else 'block;endFill=0;dashed=1;' if e['kind']=='realization' else 'none;')
-        c=ET.SubElement(root,'mxCell',id=f'e{i}',value=e['label'],style=style,edge='1',parent='1')
+        c=ET.SubElement(root,'mxCell',id=f'e{i}',value=e['label'],style=style,edge='1',parent='1',source=e['a'],target=e['b'])
         geo=ET.SubElement(c,'mxGeometry',relative='1',attrib={'as':'geometry'});
         for key,point in [('sourcePoint',pts[0]),('targetPoint',pts[-1])]:ET.SubElement(geo,'mxPoint',x=str(point[0]),y=str(point[1]),attrib={'as':key})
         if len(pts)>2:
@@ -157,7 +89,7 @@ for page_no,p in enumerate(pages,1):
             ET.SubElement(c,'mxGeometry',x=str(a[0]+(-40 if dx < 0 else 12 if dx > 0 else 5)),y=str(a[1]+dy/length*18),width='40',height='20',attrib={'as':'geometry'})
     pdf.setFillColor(HexColor('#000000'));pdf.setFont('Helvetica',10)
     # Explicações detalhadas ficam no guia; o desenho mantém apenas legenda e fonte.
-    short_notes=[p['notes'][0], 'Detalhes e fontes: GUIA_POO.md e README.md desta pasta. Modelo local da Entrega 2.']
+    short_notes=[p['notes'][0], 'Recorte do domínio; não é um inventário de classes Java. Fontes e explicação: README.md e GUIA_POO.md.']
     for i,line in enumerate(short_notes):
         pdf.drawString(40,150-i*18,line)
         c=ET.SubElement(root,'mxCell',id=f'note{i}',value=line,style='text;html=0;align=left;fontSize=10;',vertex='1',parent='1')

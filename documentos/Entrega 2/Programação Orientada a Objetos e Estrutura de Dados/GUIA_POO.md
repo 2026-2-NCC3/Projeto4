@@ -64,47 +64,6 @@ O celular não decide sozinho se o estudante esteve presente: o QR prova acesso 
 
 As respostas estão nos métodos indicados, no contrato HTTP e nos testes. Este guia não substitui o ensaio de cada integrante.
 
-## Notas dos diagramas
+## Diagrama simplificado
 
-As observações abaixo acompanham as páginas do PDF; foram retiradas do rodapé para facilitar a leitura do desenho.
-
-### 01 · Cursos, inscrições e presença
-
-- Associação: linha contínua; números junto às extremidades indicam multiplicidade. UUIDs circulam como String no Java.
-- Unicidade: (aluno, curso) em Inscrição; (aluno, atividade) em Presença. Check-in valida inscrição, janela e atividade no servidor.
-- CódigoQR guarda hash, não token em claro. O payload lido contém v, activityId e qrToken. Curso é obtido pela Atividade.
-- Fontes: Backend/src/app.js; Backend/sql/001_entrega2.sql; Backend/docs/http-contract.md. Banco remoto depende da migração.
-
-### 02 · Documentos e comunicação
-
-- Mensagem.user_id identifica o aluno dono da conversa; remetente distingue aluno e equipe, sem criar outra entidade aluno.
-- Notificação.user_id: 0..1 destinatário específico; null indica aviso geral. Cada aluno recebe 0..* avisos autorizados.
-- LeituraNotificação (notification_id, user_id, read_at) liga Aluno e Notificação, ambos 1 para 0..* leituras; par único.
-- Comunicado (id UUID, título, conteúdo, created_at) é publicação geral em e2_announcements; 0..* comunicados disponíveis.
-- Fontes: Backend/src/app.js (/card, /certificados, /mensagens, /notificacoes); Backend/sql/001_entrega2.sql.
-
-### 03 · Orientação por questionário
-
-- Alternativa.id não é UUID: vale no contexto da pergunta. QuestionId + alternativeId identificam a escolha no questionário.
-- As ligações JSON são lógicas, não chaves estrangeiras; o RPC valida perguntas/alternativas ao submeter o resultado.
-- O questionário vigente reúne e2_profile_questions; não existe tabela teste_perfil nem classe Java TestePerfil.
-- A classificação usa áreas das alternativas no servidor. Finalidade acadêmica/orientativa; não é diagnóstico psicológico.
-- Fontes: Backend/src/app.js (/teste-perfil); Backend/sql/001_entrega2.sql (e2_submit_profile).
-
-### 04 · Classes Java de integração
-
-- Seta tracejada = dependência de uso. + público; - privado. Tipos externos: Context, JsonElement, Call e Worker.
-- AlunoRepository possui 1 AlunoDbHelper (SQLiteOpenHelper); classes internas Cached e Pending representam dados locais.
-- QrPayload é imutável (activityId/qrToken finais); parse valida entrada. SyncPolicy.forStatus retorna enum Action.
-- HubActivity/AuthActivity herdam AppCompatActivity. HubActivity.Rows herda RecyclerView.Adapter<Holder> e usa List<Row>.
-- SyncScheduler agenda SyncWorker. SessionManager.Session guarda userId/accessToken/refreshToken/expiresAt (sem valores aqui).
-- Fontes: Frontend/app/src/main/java/com/example/myapplication/{network,data,sync,core} e HubActivity.java.
-
-### 05 · Telas, fragmento e autenticação
-
-- Seta tracejada aberta = uso; triângulo vazio tracejado = implementação de interface. Fragmento herda Fragment (AndroidX).
-- FragmentContainerView no XML instancia ResourceListFragment; o host fornece Rows, e o fragmento controla RecyclerView.
-- onDestroyView remove o adapter e limpa a referência da view. AuthAttemptGate descarta callback de tentativa/tela obsoleta.
-- NextMeetingPolicy.next(JsonArray, long): percorre a agenda e escolhe o primeiro horário futuro em America/Sao_Paulo.
-- NextMeetingPolicy não depende do fuso do aparelho; entrada inválida não estabelece um próximo encontro.
-- Fontes: ResourceListFragment.java, HubActivity.java, AuthActivity.java e core/{AuthAttemptGate,AuthInputPolicy,NextMeetingPolicy}.
+O PDF tem uma única página com sete entidades do domínio. Os detalhes de implementação descritos neste guia não são páginas adicionais do desenho. Comece explicando Aluno, Inscrição e Curso; depois siga para Atividade, Presença e CódigoQR. Por fim, mostre que Certificado se relaciona a Aluno e Curso.

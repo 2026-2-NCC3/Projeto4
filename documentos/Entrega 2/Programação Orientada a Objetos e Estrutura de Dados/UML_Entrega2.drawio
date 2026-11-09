@@ -1,543 +1,167 @@
 <?xml version='1.0' encoding='utf-8'?>
 <mxfile host="app.diagrams.net" version="24.0.0">
-  <diagram id="page1" name="01 · Cursos, inscrições e presença">
-    <mxGraphModel page="1" pageWidth="1100" pageHeight="780" grid="1" gridSize="10">
+  <diagram id="page1" name="Próxima Etapa - Diagrama de classes">
+    <mxGraphModel page="1" pageWidth="1430" pageHeight="800" grid="1" gridSize="10">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="title" value="01 · Cursos, inscrições e presença" style="text;html=0;align=left;fontSize=18;fontColor=#000000;" vertex="1" parent="1">
+        <mxCell id="title" value="Próxima Etapa - Diagrama de classes" style="text;html=0;align=left;fontSize=18;fontColor=#000000;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="40" y="30" width="1020" height="35" />
         </mxCell>
-        <mxCell id="subtitle" value="Modelo de domínio atual no código E2. Entidades não representam classes Java individuais." style="text;html=0;align=left;fontSize=12;fontColor=#000000;" vertex="1" parent="1">
+        <mxCell id="subtitle" value="Entrega 2 | Modelo conceitual simplificado: inscrições, presenças e certificados" style="text;html=0;align=left;fontSize=12;fontColor=#000000;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="40" y="70" width="1020" height="35" />
         </mxCell>
-        <mxCell id="aluno" value="&lt;&lt;domínio&gt;&gt;&#10;Aluno" style="swimlane;startSize=48;rounded=0;whiteSpace=wrap;html=0;align=center;verticalAlign=middle;fillColor=#FFFFFF;swimlaneFillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="40" y="130" width="240" height="126" />
+        <mxCell id="aluno" value="Aluno" style="swimlane;startSize=48;rounded=0;whiteSpace=wrap;html=0;align=center;verticalAlign=middle;fillColor=#FFFFFF;swimlaneFillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="40" y="210" width="240" height="126" />
         </mxCell>
-        <mxCell id="aluno_body" value="id: UUID&#10;nome: String&#10;escola: String" style="text;html=0;align=left;verticalAlign=top;spacing=10;whiteSpace=wrap;fontColor=#000000;fontSize=11;" vertex="1" parent="aluno">
+        <mxCell id="aluno_body" value="- id: UUID&#10;- nome: String&#10;- email: String" style="text;html=0;align=left;verticalAlign=top;spacing=10;whiteSpace=wrap;fontColor=#000000;fontSize=11;" vertex="1" parent="aluno">
           <mxGeometry as="geometry" x="0" y="48" width="240" height="78" />
         </mxCell>
-        <mxCell id="ins" value="&lt;&lt;domínio&gt;&gt;&#10;Inscrição" style="swimlane;startSize=48;rounded=0;whiteSpace=wrap;html=0;align=center;verticalAlign=middle;fillColor=#FFFFFF;swimlaneFillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="430" y="130" width="240" height="126" />
+        <mxCell id="ins" value="Inscrição" style="swimlane;startSize=48;rounded=0;whiteSpace=wrap;html=0;align=center;verticalAlign=middle;fillColor=#FFFFFF;swimlaneFillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="410" y="210" width="240" height="126" />
         </mxCell>
-        <mxCell id="ins_body" value="id: UUID&#10;user_id, course_id: UUID&#10;status: String" style="text;html=0;align=left;verticalAlign=top;spacing=10;whiteSpace=wrap;fontColor=#000000;fontSize=11;" vertex="1" parent="ins">
+        <mxCell id="ins_body" value="- id: UUID&#10;- dataInscrição: Date&#10;- status: String" style="text;html=0;align=left;verticalAlign=top;spacing=10;whiteSpace=wrap;fontColor=#000000;fontSize=11;" vertex="1" parent="ins">
           <mxGeometry as="geometry" x="0" y="48" width="240" height="78" />
         </mxCell>
-        <mxCell id="curso" value="&lt;&lt;domínio&gt;&gt;&#10;Curso" style="swimlane;startSize=48;rounded=0;whiteSpace=wrap;html=0;align=center;verticalAlign=middle;fillColor=#FFFFFF;swimlaneFillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="820" y="130" width="240" height="126" />
+        <mxCell id="curso" value="Curso" style="swimlane;startSize=48;rounded=0;whiteSpace=wrap;html=0;align=center;verticalAlign=middle;fillColor=#FFFFFF;swimlaneFillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="780" y="210" width="240" height="126" />
         </mxCell>
-        <mxCell id="curso_body" value="id: UUID; título: String&#10;cargaHorária, encontros: int&#10;ativo: boolean; vagas: int" style="text;html=0;align=left;verticalAlign=top;spacing=10;whiteSpace=wrap;fontColor=#000000;fontSize=11;" vertex="1" parent="curso">
+        <mxCell id="curso_body" value="- id: UUID&#10;- nome: String&#10;- cargaHorária: int" style="text;html=0;align=left;verticalAlign=top;spacing=10;whiteSpace=wrap;fontColor=#000000;fontSize=11;" vertex="1" parent="curso">
           <mxGeometry as="geometry" x="0" y="48" width="240" height="78" />
         </mxCell>
-        <mxCell id="pres" value="&lt;&lt;domínio&gt;&gt;&#10;Presença" style="swimlane;startSize=48;rounded=0;whiteSpace=wrap;html=0;align=center;verticalAlign=middle;fillColor=#FFFFFF;swimlaneFillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="40" y="430" width="240" height="126" />
+        <mxCell id="cert" value="Certificado" style="swimlane;startSize=48;rounded=0;whiteSpace=wrap;html=0;align=center;verticalAlign=middle;fillColor=#FFFFFF;swimlaneFillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1150" y="210" width="240" height="126" />
         </mxCell>
-        <mxCell id="pres_body" value="id: UUID&#10;user_id, activity_id: UUID&#10;scanned_at: data/hora" style="text;html=0;align=left;verticalAlign=top;spacing=10;whiteSpace=wrap;fontColor=#000000;fontSize=11;" vertex="1" parent="pres">
+        <mxCell id="cert_body" value="- id: UUID&#10;- url: String&#10;- dataEmissão: Date" style="text;html=0;align=left;verticalAlign=top;spacing=10;whiteSpace=wrap;fontColor=#000000;fontSize=11;" vertex="1" parent="cert">
           <mxGeometry as="geometry" x="0" y="48" width="240" height="78" />
         </mxCell>
-        <mxCell id="atv" value="&lt;&lt;domínio&gt;&gt;&#10;Atividade" style="swimlane;startSize=48;rounded=0;whiteSpace=wrap;html=0;align=center;verticalAlign=middle;fillColor=#FFFFFF;swimlaneFillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="430" y="430" width="240" height="126" />
+        <mxCell id="pres" value="Presença" style="swimlane;startSize=48;rounded=0;whiteSpace=wrap;html=0;align=center;verticalAlign=middle;fillColor=#FFFFFF;swimlaneFillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="40" y="480" width="240" height="126" />
         </mxCell>
-        <mxCell id="atv_body" value="id, course_id: UUID&#10;título: String; data: data/hora&#10;cancelada: boolean" style="text;html=0;align=left;verticalAlign=top;spacing=10;whiteSpace=wrap;fontColor=#000000;fontSize=11;" vertex="1" parent="atv">
+        <mxCell id="pres_body" value="- id: UUID&#10;- dataRegistro: Date" style="text;html=0;align=left;verticalAlign=top;spacing=10;whiteSpace=wrap;fontColor=#000000;fontSize=11;" vertex="1" parent="pres">
           <mxGeometry as="geometry" x="0" y="48" width="240" height="78" />
         </mxCell>
-        <mxCell id="qr" value="&lt;&lt;domínio&gt;&gt;&#10;CódigoQR" style="swimlane;startSize=48;rounded=0;whiteSpace=wrap;html=0;align=center;verticalAlign=middle;fillColor=#FFFFFF;swimlaneFillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="820" y="430" width="240" height="126" />
+        <mxCell id="atv" value="Atividade" style="swimlane;startSize=48;rounded=0;whiteSpace=wrap;html=0;align=center;verticalAlign=middle;fillColor=#FFFFFF;swimlaneFillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="410" y="480" width="240" height="126" />
         </mxCell>
-        <mxCell id="qr_body" value="id, activity_id: UUID&#10;token_hash: String&#10;abertura, expiração: data/hora" style="text;html=0;align=left;verticalAlign=top;spacing=10;whiteSpace=wrap;fontColor=#000000;fontSize=11;" vertex="1" parent="qr">
+        <mxCell id="atv_body" value="- id: UUID&#10;- nome: String&#10;- data: Date" style="text;html=0;align=left;verticalAlign=top;spacing=10;whiteSpace=wrap;fontColor=#000000;fontSize=11;" vertex="1" parent="atv">
           <mxGeometry as="geometry" x="0" y="48" width="240" height="78" />
         </mxCell>
-        <mxCell id="e0" value="possui" style="edgeStyle=none;html=0;fontSize=11;endArrow=none;" edge="1" parent="1">
+        <mxCell id="qr" value="CódigoQR" style="swimlane;startSize=48;rounded=0;whiteSpace=wrap;html=0;align=center;verticalAlign=middle;fillColor=#FFFFFF;swimlaneFillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="780" y="480" width="240" height="126" />
+        </mxCell>
+        <mxCell id="qr_body" value="- id: UUID&#10;- hash: String&#10;- validade: Date" style="text;html=0;align=left;verticalAlign=top;spacing=10;whiteSpace=wrap;fontColor=#000000;fontSize=11;" vertex="1" parent="qr">
+          <mxGeometry as="geometry" x="0" y="48" width="240" height="78" />
+        </mxCell>
+        <mxCell id="e0" value="realiza" style="edgeStyle=none;html=0;fontSize=11;endArrow=none;" edge="1" parent="1" source="aluno" target="ins">
           <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="280" y="193" />
-            <mxPoint as="targetPoint" x="430" y="193" />
+            <mxPoint as="sourcePoint" x="280" y="273" />
+            <mxPoint as="targetPoint" x="410" y="273" />
           </mxGeometry>
         </mxCell>
         <mxCell id="e0s" value="1" style="text;html=0;align=left;fontSize=11;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="292" y="193.0" width="40" height="20" />
+          <mxGeometry as="geometry" x="292" y="273.0" width="40" height="20" />
         </mxCell>
         <mxCell id="e0t" value="0..*" style="text;html=0;align=left;fontSize=11;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="390" y="193.0" width="40" height="20" />
+          <mxGeometry as="geometry" x="370" y="273.0" width="40" height="20" />
         </mxCell>
-        <mxCell id="e1" value="vincula" style="edgeStyle=none;html=0;fontSize=11;endArrow=none;" edge="1" parent="1">
+        <mxCell id="e1" value="refere-se a" style="edgeStyle=none;html=0;fontSize=11;endArrow=none;" edge="1" parent="1" source="ins" target="curso">
           <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="670" y="193" />
-            <mxPoint as="targetPoint" x="820" y="193" />
+            <mxPoint as="sourcePoint" x="650" y="273" />
+            <mxPoint as="targetPoint" x="780" y="273" />
           </mxGeometry>
         </mxCell>
         <mxCell id="e1s" value="0..*" style="text;html=0;align=left;fontSize=11;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="682" y="193.0" width="40" height="20" />
+          <mxGeometry as="geometry" x="662" y="273.0" width="40" height="20" />
         </mxCell>
         <mxCell id="e1t" value="1" style="text;html=0;align=left;fontSize=11;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="780" y="193.0" width="40" height="20" />
+          <mxGeometry as="geometry" x="740" y="273.0" width="40" height="20" />
         </mxCell>
-        <mxCell id="e2" value="registra" style="edgeStyle=none;html=0;fontSize=11;endArrow=none;" edge="1" parent="1">
+        <mxCell id="e2" value="referencia" style="edgeStyle=none;html=0;fontSize=11;endArrow=none;" edge="1" parent="1" source="curso" target="cert">
           <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="160" y="256" />
-            <mxPoint as="targetPoint" x="160" y="430" />
+            <mxPoint as="sourcePoint" x="1020" y="273" />
+            <mxPoint as="targetPoint" x="1150" y="273" />
           </mxGeometry>
         </mxCell>
         <mxCell id="e2s" value="1" style="text;html=0;align=left;fontSize=11;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="165" y="274.0" width="40" height="20" />
+          <mxGeometry as="geometry" x="1032" y="273.0" width="40" height="20" />
         </mxCell>
         <mxCell id="e2t" value="0..*" style="text;html=0;align=left;fontSize=11;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="165" y="412.0" width="40" height="20" />
+          <mxGeometry as="geometry" x="1110" y="273.0" width="40" height="20" />
         </mxCell>
-        <mxCell id="e3" value="refere-se a" style="edgeStyle=none;html=0;fontSize=11;endArrow=none;" edge="1" parent="1">
+        <mxCell id="e3" value="recebe" style="edgeStyle=none;html=0;fontSize=11;endArrow=none;" edge="1" parent="1" source="aluno" target="cert">
           <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="280" y="493" />
-            <mxPoint as="targetPoint" x="430" y="493" />
+            <mxPoint as="sourcePoint" x="160" y="210" />
+            <mxPoint as="targetPoint" x="1270" y="210" />
+            <Array as="points">
+              <mxPoint x="160" y="150" />
+              <mxPoint x="1270" y="150" />
+            </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="e3s" value="0..*" style="text;html=0;align=left;fontSize=11;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="292" y="493.0" width="40" height="20" />
+        <mxCell id="e3s" value="1" style="text;html=0;align=left;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="165" y="192.0" width="40" height="20" />
         </mxCell>
-        <mxCell id="e3t" value="1" style="text;html=0;align=left;fontSize=11;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="390" y="493.0" width="40" height="20" />
+        <mxCell id="e3t" value="0..*" style="text;html=0;align=left;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1275" y="192.0" width="40" height="20" />
         </mxCell>
-        <mxCell id="e4" value="oferece" style="edgeStyle=none;html=0;fontSize=11;endArrow=none;" edge="1" parent="1">
+        <mxCell id="e4" value="registra" style="edgeStyle=none;html=0;fontSize=11;endArrow=none;" edge="1" parent="1" source="aluno" target="pres">
           <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="940" y="256" />
-            <mxPoint as="targetPoint" x="550" y="430" />
-            <Array as="points">
-              <mxPoint x="940" y="336" />
-              <mxPoint x="550" y="336" />
-            </Array>
+            <mxPoint as="sourcePoint" x="160" y="336" />
+            <mxPoint as="targetPoint" x="160" y="480" />
           </mxGeometry>
         </mxCell>
         <mxCell id="e4s" value="1" style="text;html=0;align=left;fontSize=11;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="945" y="274.0" width="40" height="20" />
+          <mxGeometry as="geometry" x="165" y="354.0" width="40" height="20" />
         </mxCell>
         <mxCell id="e4t" value="0..*" style="text;html=0;align=left;fontSize=11;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="555" y="412.0" width="40" height="20" />
+          <mxGeometry as="geometry" x="165" y="462.0" width="40" height="20" />
         </mxCell>
-        <mxCell id="e5" value="recebe" style="edgeStyle=none;html=0;fontSize=11;endArrow=none;" edge="1" parent="1">
+        <mxCell id="e5" value="refere-se a" style="edgeStyle=none;html=0;fontSize=11;endArrow=none;" edge="1" parent="1" source="pres" target="atv">
           <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="670" y="493" />
-            <mxPoint as="targetPoint" x="820" y="493" />
+            <mxPoint as="sourcePoint" x="280" y="543" />
+            <mxPoint as="targetPoint" x="410" y="543" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="e5s" value="1" style="text;html=0;align=left;fontSize=11;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="682" y="493.0" width="40" height="20" />
+        <mxCell id="e5s" value="0..*" style="text;html=0;align=left;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="292" y="543.0" width="40" height="20" />
         </mxCell>
-        <mxCell id="e5t" value="0..*" style="text;html=0;align=left;fontSize=11;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="780" y="493.0" width="40" height="20" />
+        <mxCell id="e5t" value="1" style="text;html=0;align=left;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="370" y="543.0" width="40" height="20" />
         </mxCell>
-        <mxCell id="note0" value="Associação: linha contínua; números junto às extremidades indicam multiplicidade. UUIDs circulam como String no Java." style="text;html=0;align=left;fontSize=10;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="40" y="620" width="1020" height="20" />
-        </mxCell>
-        <mxCell id="note1" value="Detalhes e fontes: GUIA_POO.md e README.md desta pasta. Modelo local da Entrega 2." style="text;html=0;align=left;fontSize=10;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="40" y="638" width="1020" height="20" />
-        </mxCell>
-      </root>
-    </mxGraphModel>
-  </diagram>
-  <diagram id="page2" name="02 · Documentos e comunicação">
-    <mxGraphModel page="1" pageWidth="1100" pageHeight="780" grid="1" gridSize="10">
-      <root>
-        <mxCell id="0" />
-        <mxCell id="1" parent="0" />
-        <mxCell id="title" value="02 · Documentos e comunicação" style="text;html=0;align=left;fontSize=18;fontColor=#000000;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="40" y="30" width="1020" height="35" />
-        </mxCell>
-        <mxCell id="subtitle" value="Modelo de domínio atual. Card é uma projeção da API; comunicado e notificação são conceitos distintos." style="text;html=0;align=left;fontSize=12;fontColor=#000000;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="40" y="70" width="1020" height="35" />
-        </mxCell>
-        <mxCell id="aluno" value="&lt;&lt;domínio&gt;&gt;&#10;Aluno" style="swimlane;startSize=48;rounded=0;whiteSpace=wrap;html=0;align=center;verticalAlign=middle;fillColor=#FFFFFF;swimlaneFillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="40" y="130" width="240" height="126" />
-        </mxCell>
-        <mxCell id="aluno_body" value="id: UUID&#10;identidade: auth.users&#10;perfil: profiles" style="text;html=0;align=left;verticalAlign=top;spacing=10;whiteSpace=wrap;fontColor=#000000;fontSize=11;" vertex="1" parent="aluno">
-          <mxGeometry as="geometry" x="0" y="48" width="240" height="78" />
-        </mxCell>
-        <mxCell id="cert" value="&lt;&lt;domínio&gt;&gt;&#10;Certificado" style="swimlane;startSize=48;rounded=0;whiteSpace=wrap;html=0;align=center;verticalAlign=middle;fillColor=#FFFFFF;swimlaneFillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="430" y="130" width="240" height="126" />
-        </mxCell>
-        <mxCell id="cert_body" value="id, user_id, course_id: UUID&#10;certificate_url: HTTPS&#10;issued_at: data/hora" style="text;html=0;align=left;verticalAlign=top;spacing=10;whiteSpace=wrap;fontColor=#000000;fontSize=11;" vertex="1" parent="cert">
-          <mxGeometry as="geometry" x="0" y="48" width="240" height="78" />
-        </mxCell>
-        <mxCell id="curso" value="&lt;&lt;domínio&gt;&gt;&#10;Curso" style="swimlane;startSize=48;rounded=0;whiteSpace=wrap;html=0;align=center;verticalAlign=middle;fillColor=#FFFFFF;swimlaneFillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="820" y="130" width="240" height="126" />
-        </mxCell>
-        <mxCell id="curso_body" value="id: UUID&#10;título: String&#10;cargaHorária: int" style="text;html=0;align=left;verticalAlign=top;spacing=10;whiteSpace=wrap;fontColor=#000000;fontSize=11;" vertex="1" parent="curso">
-          <mxGeometry as="geometry" x="0" y="48" width="240" height="78" />
-        </mxCell>
-        <mxCell id="card" value="&lt;&lt;projeção&gt;&gt;&#10;Card" style="swimlane;startSize=48;rounded=0;whiteSpace=wrap;html=0;align=center;verticalAlign=middle;fillColor=#FFFFFF;swimlaneFillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="40" y="430" width="240" height="126" />
-        </mxCell>
-        <mxCell id="card_body" value="id: UUID do aluno&#10;nome, escola, número: String&#10;derivado; sem tabela própria" style="text;html=0;align=left;verticalAlign=top;spacing=10;whiteSpace=wrap;fontColor=#000000;fontSize=11;" vertex="1" parent="card">
-          <mxGeometry as="geometry" x="0" y="48" width="240" height="78" />
-        </mxCell>
-        <mxCell id="msg" value="&lt;&lt;domínio&gt;&gt;&#10;Mensagem" style="swimlane;startSize=48;rounded=0;whiteSpace=wrap;html=0;align=center;verticalAlign=middle;fillColor=#FFFFFF;swimlaneFillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="430" y="430" width="240" height="126" />
-        </mxCell>
-        <mxCell id="msg_body" value="id, user_id: UUID&#10;remetente: aluno ou equipe&#10;conteúdo; created_at" style="text;html=0;align=left;verticalAlign=top;spacing=10;whiteSpace=wrap;fontColor=#000000;fontSize=11;" vertex="1" parent="msg">
-          <mxGeometry as="geometry" x="0" y="48" width="240" height="78" />
-        </mxCell>
-        <mxCell id="notif" value="&lt;&lt;domínio&gt;&gt;&#10;Notificação" style="swimlane;startSize=48;rounded=0;whiteSpace=wrap;html=0;align=center;verticalAlign=middle;fillColor=#FFFFFF;swimlaneFillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="820" y="430" width="240" height="126" />
-        </mxCell>
-        <mxCell id="notif_body" value="id: UUID; user_id: UUID?&#10;título, conteúdo: String&#10;created_at: data/hora" style="text;html=0;align=left;verticalAlign=top;spacing=10;whiteSpace=wrap;fontColor=#000000;fontSize=11;" vertex="1" parent="notif">
-          <mxGeometry as="geometry" x="0" y="48" width="240" height="78" />
-        </mxCell>
-        <mxCell id="e0" value="obtém" style="edgeStyle=none;html=0;fontSize=11;endArrow=none;" edge="1" parent="1">
+        <mxCell id="e6" value="oferece" style="edgeStyle=none;html=0;fontSize=11;endArrow=none;" edge="1" parent="1" source="curso" target="atv">
           <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="280" y="193" />
-            <mxPoint as="targetPoint" x="430" y="193" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="e0s" value="1" style="text;html=0;align=left;fontSize=11;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="292" y="193.0" width="40" height="20" />
-        </mxCell>
-        <mxCell id="e0t" value="0..*" style="text;html=0;align=left;fontSize=11;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="390" y="193.0" width="40" height="20" />
-        </mxCell>
-        <mxCell id="e1" value="refere-se a" style="edgeStyle=none;html=0;fontSize=11;endArrow=none;" edge="1" parent="1">
-          <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="670" y="193" />
-            <mxPoint as="targetPoint" x="820" y="193" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="e1s" value="0..*" style="text;html=0;align=left;fontSize=11;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="682" y="193.0" width="40" height="20" />
-        </mxCell>
-        <mxCell id="e1t" value="1" style="text;html=0;align=left;fontSize=11;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="780" y="193.0" width="40" height="20" />
-        </mxCell>
-        <mxCell id="e2" value="consulta" style="edgeStyle=none;html=0;fontSize=11;endArrow=none;" edge="1" parent="1">
-          <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="160" y="256" />
-            <mxPoint as="targetPoint" x="160" y="430" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="e2s" value="1" style="text;html=0;align=left;fontSize=11;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="165" y="274.0" width="40" height="20" />
-        </mxCell>
-        <mxCell id="e2t" value="1" style="text;html=0;align=left;fontSize=11;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="165" y="412.0" width="40" height="20" />
-        </mxCell>
-        <mxCell id="e3" value="conversa" style="edgeStyle=none;html=0;fontSize=11;endArrow=none;" edge="1" parent="1">
-          <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="280" y="230" />
-            <mxPoint as="targetPoint" x="550" y="430" />
+            <mxPoint as="sourcePoint" x="900" y="336" />
+            <mxPoint as="targetPoint" x="530" y="480" />
             <Array as="points">
-              <mxPoint x="350" y="230" />
-              <mxPoint x="350" y="390" />
-              <mxPoint x="550" y="390" />
+              <mxPoint x="900" y="400" />
+              <mxPoint x="530" y="400" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="e3s" value="1" style="text;html=0;align=left;fontSize=11;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="292" y="230.0" width="40" height="20" />
+        <mxCell id="e6s" value="1" style="text;html=0;align=left;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="905" y="354.0" width="40" height="20" />
         </mxCell>
-        <mxCell id="e3t" value="0..*" style="text;html=0;align=left;fontSize=11;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="555" y="412.0" width="40" height="20" />
+        <mxCell id="e6t" value="0..*" style="text;html=0;align=left;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="535" y="462.0" width="40" height="20" />
         </mxCell>
-        <mxCell id="note0" value="Mensagem.user_id identifica o aluno dono da conversa; remetente distingue aluno e equipe, sem criar outra entidade aluno." style="text;html=0;align=left;fontSize=10;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="40" y="620" width="1020" height="20" />
-        </mxCell>
-        <mxCell id="note1" value="Detalhes e fontes: GUIA_POO.md e README.md desta pasta. Modelo local da Entrega 2." style="text;html=0;align=left;fontSize=10;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="40" y="638" width="1020" height="20" />
-        </mxCell>
-      </root>
-    </mxGraphModel>
-  </diagram>
-  <diagram id="page3" name="03 · Orientação por questionário">
-    <mxGraphModel page="1" pageWidth="1100" pageHeight="780" grid="1" gridSize="10">
-      <root>
-        <mxCell id="0" />
-        <mxCell id="1" parent="0" />
-        <mxCell id="title" value="03 · Orientação por questionário" style="text;html=0;align=left;fontSize=18;fontColor=#000000;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="40" y="30" width="1020" height="35" />
-        </mxCell>
-        <mxCell id="subtitle" value="Modelo de domínio atual. TestePerfil é a visão agregada; alternativas e respostas são armazenadas em JSON." style="text;html=0;align=left;fontSize=12;fontColor=#000000;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="40" y="70" width="1020" height="35" />
-        </mxCell>
-        <mxCell id="teste" value="&lt;&lt;projeção&gt;&gt;&#10;TestePerfil" style="swimlane;startSize=48;rounded=0;whiteSpace=wrap;html=0;align=center;verticalAlign=middle;fillColor=#FFFFFF;swimlaneFillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="40" y="130" width="240" height="126" />
-        </mxCell>
-        <mxCell id="teste_body" value="título, descrição: String&#10;perguntas: coleção&#10;visão agregada da API" style="text;html=0;align=left;verticalAlign=top;spacing=10;whiteSpace=wrap;fontColor=#000000;fontSize=11;" vertex="1" parent="teste">
-          <mxGeometry as="geometry" x="0" y="48" width="240" height="78" />
-        </mxCell>
-        <mxCell id="pergunta" value="&lt;&lt;domínio&gt;&gt;&#10;Pergunta" style="swimlane;startSize=48;rounded=0;whiteSpace=wrap;html=0;align=center;verticalAlign=middle;fillColor=#FFFFFF;swimlaneFillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="430" y="130" width="240" height="126" />
-        </mxCell>
-        <mxCell id="pergunta_body" value="id: UUID; posição: int&#10;enunciado: String&#10;alternatives: JSON" style="text;html=0;align=left;verticalAlign=top;spacing=10;whiteSpace=wrap;fontColor=#000000;fontSize=11;" vertex="1" parent="pergunta">
-          <mxGeometry as="geometry" x="0" y="48" width="240" height="78" />
-        </mxCell>
-        <mxCell id="alternativa" value="&lt;&lt;valor JSON&gt;&gt;&#10;Alternativa" style="swimlane;startSize=48;rounded=0;whiteSpace=wrap;html=0;align=center;verticalAlign=middle;fillColor=#FFFFFF;swimlaneFillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="820" y="130" width="240" height="126" />
-        </mxCell>
-        <mxCell id="alternativa_body" value="id: String local à pergunta&#10;texto: String&#10;área: String (servidor)" style="text;html=0;align=left;verticalAlign=top;spacing=10;whiteSpace=wrap;fontColor=#000000;fontSize=11;" vertex="1" parent="alternativa">
-          <mxGeometry as="geometry" x="0" y="48" width="240" height="78" />
-        </mxCell>
-        <mxCell id="aluno" value="&lt;&lt;domínio&gt;&gt;&#10;Aluno" style="swimlane;startSize=48;rounded=0;whiteSpace=wrap;html=0;align=center;verticalAlign=middle;fillColor=#FFFFFF;swimlaneFillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="40" y="430" width="240" height="126" />
-        </mxCell>
-        <mxCell id="aluno_body" value="id: UUID&#10;identidade autenticada&#10;resultados restritos ao dono" style="text;html=0;align=left;verticalAlign=top;spacing=10;whiteSpace=wrap;fontColor=#000000;fontSize=11;" vertex="1" parent="aluno">
-          <mxGeometry as="geometry" x="0" y="48" width="240" height="78" />
-        </mxCell>
-        <mxCell id="resultado" value="&lt;&lt;domínio&gt;&gt;&#10;ResultadoPerfil" style="swimlane;startSize=48;rounded=0;whiteSpace=wrap;html=0;align=center;verticalAlign=middle;fillColor=#FFFFFF;swimlaneFillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="430" y="430" width="240" height="126" />
-        </mxCell>
-        <mxCell id="resultado_body" value="id, user_id: UUID&#10;classificação, resumo: String&#10;answers: JSON; created_at" style="text;html=0;align=left;verticalAlign=top;spacing=10;whiteSpace=wrap;fontColor=#000000;fontSize=11;" vertex="1" parent="resultado">
-          <mxGeometry as="geometry" x="0" y="48" width="240" height="78" />
-        </mxCell>
-        <mxCell id="resposta" value="&lt;&lt;valor JSON&gt;&gt;&#10;Resposta" style="swimlane;startSize=48;rounded=0;whiteSpace=wrap;html=0;align=center;verticalAlign=middle;fillColor=#FFFFFF;swimlaneFillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="820" y="430" width="240" height="126" />
-        </mxCell>
-        <mxCell id="resposta_body" value="questionId: UUID&#10;alternativeId: String&#10;valor dentro de answers" style="text;html=0;align=left;verticalAlign=top;spacing=10;whiteSpace=wrap;fontColor=#000000;fontSize=11;" vertex="1" parent="resposta">
-          <mxGeometry as="geometry" x="0" y="48" width="240" height="78" />
-        </mxCell>
-        <mxCell id="e0" value="apresenta" style="edgeStyle=none;html=0;fontSize=11;endArrow=none;" edge="1" parent="1">
+        <mxCell id="e7" value="possui" style="edgeStyle=none;html=0;fontSize=11;endArrow=none;" edge="1" parent="1" source="atv" target="qr">
           <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="280" y="193" />
-            <mxPoint as="targetPoint" x="430" y="193" />
+            <mxPoint as="sourcePoint" x="650" y="543" />
+            <mxPoint as="targetPoint" x="780" y="543" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="e0s" value="1" style="text;html=0;align=left;fontSize=11;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="292" y="193.0" width="40" height="20" />
+        <mxCell id="e7s" value="1" style="text;html=0;align=left;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="662" y="543.0" width="40" height="20" />
         </mxCell>
-        <mxCell id="e0t" value="0..*" style="text;html=0;align=left;fontSize=11;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="390" y="193.0" width="40" height="20" />
+        <mxCell id="e7t" value="0..*" style="text;html=0;align=left;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="740" y="543.0" width="40" height="20" />
         </mxCell>
-        <mxCell id="e1" value="contém" style="edgeStyle=none;html=0;fontSize=11;endArrow=none;" edge="1" parent="1">
-          <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="670" y="193" />
-            <mxPoint as="targetPoint" x="820" y="193" />
-          </mxGeometry>
+        <mxCell id="note0" value="Linha = associação | 1 = um | 0..* = zero ou mais | - = atributo privado no modelo conceitual." style="text;html=0;align=left;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="40" y="640" width="1020" height="20" />
         </mxCell>
-        <mxCell id="e1s" value="1" style="text;html=0;align=left;fontSize=11;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="682" y="193.0" width="40" height="20" />
-        </mxCell>
-        <mxCell id="e1t" value="0..*" style="text;html=0;align=left;fontSize=11;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="780" y="193.0" width="40" height="20" />
-        </mxCell>
-        <mxCell id="e2" value="obtém" style="edgeStyle=none;html=0;fontSize=11;endArrow=none;" edge="1" parent="1">
-          <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="280" y="493" />
-            <mxPoint as="targetPoint" x="430" y="493" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="e2s" value="1" style="text;html=0;align=left;fontSize=11;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="292" y="493.0" width="40" height="20" />
-        </mxCell>
-        <mxCell id="e2t" value="0..*" style="text;html=0;align=left;fontSize=11;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="390" y="493.0" width="40" height="20" />
-        </mxCell>
-        <mxCell id="e3" value="registra" style="edgeStyle=none;html=0;fontSize=11;endArrow=none;" edge="1" parent="1">
-          <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="670" y="493" />
-            <mxPoint as="targetPoint" x="820" y="493" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="e3s" value="1" style="text;html=0;align=left;fontSize=11;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="682" y="493.0" width="40" height="20" />
-        </mxCell>
-        <mxCell id="e3t" value="1..*" style="text;html=0;align=left;fontSize=11;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="780" y="493.0" width="40" height="20" />
-        </mxCell>
-        <mxCell id="e4" value="seleciona" style="edgeStyle=none;html=0;fontSize=11;endArrow=none;" edge="1" parent="1">
-          <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="940" y="430" />
-            <mxPoint as="targetPoint" x="940" y="256" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="e4s" value="0..*" style="text;html=0;align=left;fontSize=11;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="945" y="412.0" width="40" height="20" />
-        </mxCell>
-        <mxCell id="e4t" value="1" style="text;html=0;align=left;fontSize=11;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="945" y="274.0" width="40" height="20" />
-        </mxCell>
-        <mxCell id="note0" value="Alternativa.id não é UUID: vale no contexto da pergunta. QuestionId + alternativeId identificam a escolha no questionário." style="text;html=0;align=left;fontSize=10;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="40" y="620" width="1020" height="20" />
-        </mxCell>
-        <mxCell id="note1" value="Detalhes e fontes: GUIA_POO.md e README.md desta pasta. Modelo local da Entrega 2." style="text;html=0;align=left;fontSize=10;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="40" y="638" width="1020" height="20" />
-        </mxCell>
-      </root>
-    </mxGraphModel>
-  </diagram>
-  <diagram id="page4" name="04 · Classes Java de integração">
-    <mxGraphModel page="1" pageWidth="1100" pageHeight="780" grid="1" gridSize="10">
-      <root>
-        <mxCell id="0" />
-        <mxCell id="1" parent="0" />
-        <mxCell id="title" value="04 · Classes Java de integração" style="text;html=0;align=left;fontSize=18;fontColor=#000000;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="40" y="30" width="1020" height="35" />
-        </mxCell>
-        <mxCell id="subtitle" value="Classes implementadas no Android E2. Recorte das responsabilidades principais; métodos e campos selecionados." style="text;html=0;align=left;fontSize=12;fontColor=#000000;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="40" y="70" width="1020" height="35" />
-        </mxCell>
-        <mxCell id="hub" value="&lt;&lt;classe Java&gt;&gt;&#10;HubActivity" style="swimlane;startSize=48;rounded=0;whiteSpace=wrap;html=0;align=center;verticalAlign=middle;fillColor=#FFFFFF;swimlaneFillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="40" y="130" width="240" height="126" />
-        </mxCell>
-        <mxCell id="hub_body" value="- answers: Map&lt;String,String&gt;&#10;- adapter: Rows&#10;navega e apresenta recursos" style="text;html=0;align=left;verticalAlign=top;spacing=10;whiteSpace=wrap;fontColor=#000000;fontSize=11;" vertex="1" parent="hub">
-          <mxGeometry as="geometry" x="0" y="48" width="240" height="78" />
-        </mxCell>
-        <mxCell id="api" value="&lt;&lt;classe Java&gt;&gt;&#10;ApiClient" style="swimlane;startSize=48;rounded=0;whiteSpace=wrap;html=0;align=center;verticalAlign=middle;fillColor=#FFFFFF;swimlaneFillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="430" y="130" width="240" height="126" />
-        </mxCell>
-        <mxCell id="api_body" value="+ request(...): JsonElement&#10;+ publicPost(...): JsonElement&#10;+ parseSession(...): Session" style="text;html=0;align=left;verticalAlign=top;spacing=10;whiteSpace=wrap;fontColor=#000000;fontSize=11;" vertex="1" parent="api">
-          <mxGeometry as="geometry" x="0" y="48" width="240" height="78" />
-        </mxCell>
-        <mxCell id="service" value="&lt;&lt;interface Retrofit&gt;&gt;&#10;ApiService" style="swimlane;startSize=48;rounded=0;whiteSpace=wrap;html=0;align=center;verticalAlign=middle;fillColor=#FFFFFF;swimlaneFillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="820" y="130" width="240" height="126" />
-        </mxCell>
-        <mxCell id="service_body" value="+ get(...): Call&lt;JsonElement&gt;&#10;+ post(...): Call&lt;JsonElement&gt;&#10;+ patch(...): Call&lt;JsonElement&gt;" style="text;html=0;align=left;verticalAlign=top;spacing=10;whiteSpace=wrap;fontColor=#000000;fontSize=11;" vertex="1" parent="service">
-          <mxGeometry as="geometry" x="0" y="48" width="240" height="78" />
-        </mxCell>
-        <mxCell id="repo" value="&lt;&lt;classe Java&gt;&gt;&#10;AlunoRepository" style="swimlane;startSize=48;rounded=0;whiteSpace=wrap;html=0;align=center;verticalAlign=middle;fillColor=#FFFFFF;swimlaneFillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="40" y="430" width="240" height="126" />
-        </mxCell>
-        <mxCell id="repo_body" value="- helper: AlunoDbHelper&#10;+ enqueue(owner, QrPayload)&#10;+ checkins(...): List&lt;Pending&gt;" style="text;html=0;align=left;verticalAlign=top;spacing=10;whiteSpace=wrap;fontColor=#000000;fontSize=11;" vertex="1" parent="repo">
-          <mxGeometry as="geometry" x="0" y="48" width="240" height="78" />
-        </mxCell>
-        <mxCell id="worker" value="&lt;&lt;classe Java&gt;&gt;&#10;SyncWorker" style="swimlane;startSize=48;rounded=0;whiteSpace=wrap;html=0;align=center;verticalAlign=middle;fillColor=#FFFFFF;swimlaneFillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="430" y="430" width="240" height="126" />
-        </mxCell>
-        <mxCell id="worker_body" value="+ doWork(): Result&#10;envia e reconcilia pendências&#10;herda Worker (AndroidX)" style="text;html=0;align=left;verticalAlign=top;spacing=10;whiteSpace=wrap;fontColor=#000000;fontSize=11;" vertex="1" parent="worker">
-          <mxGeometry as="geometry" x="0" y="48" width="240" height="78" />
-        </mxCell>
-        <mxCell id="session" value="&lt;&lt;classe Java&gt;&gt;&#10;SessionManager" style="swimlane;startSize=48;rounded=0;whiteSpace=wrap;html=0;align=center;verticalAlign=middle;fillColor=#FFFFFF;swimlaneFillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="820" y="430" width="240" height="126" />
-        </mxCell>
-        <mxCell id="session_body" value="+ get(...): Session&#10;+ save(...), clearToken(...)&#10;+ isCurrent(...): boolean" style="text;html=0;align=left;verticalAlign=top;spacing=10;whiteSpace=wrap;fontColor=#000000;fontSize=11;" vertex="1" parent="session">
-          <mxGeometry as="geometry" x="0" y="48" width="240" height="78" />
-        </mxCell>
-        <mxCell id="e0" value="requisita" style="edgeStyle=none;html=0;fontSize=11;endArrow=open;dashed=1;" edge="1" parent="1">
-          <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="280" y="193" />
-            <mxPoint as="targetPoint" x="430" y="193" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="e1" value="usa" style="edgeStyle=none;html=0;fontSize=11;endArrow=open;dashed=1;" edge="1" parent="1">
-          <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="670" y="193" />
-            <mxPoint as="targetPoint" x="820" y="193" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="e2" value="consulta" style="edgeStyle=none;html=0;fontSize=11;endArrow=open;dashed=1;" edge="1" parent="1">
-          <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="160" y="256" />
-            <mxPoint as="targetPoint" x="160" y="430" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="e3" value="persiste" style="edgeStyle=none;html=0;fontSize=11;endArrow=open;dashed=1;" edge="1" parent="1">
-          <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="430" y="493" />
-            <mxPoint as="targetPoint" x="280" y="493" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="e4" value="requisita" style="edgeStyle=none;html=0;fontSize=11;endArrow=open;dashed=1;" edge="1" parent="1">
-          <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="550" y="430" />
-            <mxPoint as="targetPoint" x="550" y="256" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="e5" value="renova sessão" style="edgeStyle=none;html=0;fontSize=11;endArrow=open;dashed=1;" edge="1" parent="1">
-          <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="670" y="230" />
-            <mxPoint as="targetPoint" x="940" y="430" />
-            <Array as="points">
-              <mxPoint x="745" y="230" />
-              <mxPoint x="745" y="390" />
-              <mxPoint x="940" y="390" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="note0" value="Seta tracejada = dependência de uso. + público; - privado. Tipos externos: Context, JsonElement, Call e Worker." style="text;html=0;align=left;fontSize=10;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="40" y="620" width="1020" height="20" />
-        </mxCell>
-        <mxCell id="note1" value="Detalhes e fontes: GUIA_POO.md e README.md desta pasta. Modelo local da Entrega 2." style="text;html=0;align=left;fontSize=10;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="40" y="638" width="1020" height="20" />
-        </mxCell>
-      </root>
-    </mxGraphModel>
-  </diagram>
-  <diagram id="page5" name="05 · Telas, fragmento e autenticação">
-    <mxGraphModel page="1" pageWidth="1100" pageHeight="780" grid="1" gridSize="10">
-      <root>
-        <mxCell id="0" />
-        <mxCell id="1" parent="0" />
-        <mxCell id="title" value="05 · Telas, fragmento e autenticação" style="text;html=0;align=left;fontSize=18;fontColor=#000000;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="40" y="30" width="1020" height="35" />
-        </mxCell>
-        <mxCell id="subtitle" value="Classes implementadas no Android E2. Responsabilidade de lifecycle separada da lista de dados." style="text;html=0;align=left;fontSize=12;fontColor=#000000;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="40" y="70" width="1020" height="35" />
-        </mxCell>
-        <mxCell id="hub" value="&lt;&lt;classe Java&gt;&gt;&#10;HubActivity" style="swimlane;startSize=48;rounded=0;whiteSpace=wrap;html=0;align=center;verticalAlign=middle;fillColor=#FFFFFF;swimlaneFillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="40" y="130" width="240" height="126" />
-        </mxCell>
-        <mxCell id="hub_body" value="- adapter: Rows&#10;+ resourceAdapter(): Adapter&#10;implementa AdapterHost" style="text;html=0;align=left;verticalAlign=top;spacing=10;whiteSpace=wrap;fontColor=#000000;fontSize=11;" vertex="1" parent="hub">
-          <mxGeometry as="geometry" x="0" y="48" width="240" height="78" />
-        </mxCell>
-        <mxCell id="fragment" value="&lt;&lt;classe Java&gt;&gt;&#10;ResourceListFragment" style="swimlane;startSize=48;rounded=0;whiteSpace=wrap;html=0;align=center;verticalAlign=middle;fillColor=#FFFFFF;swimlaneFillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="430" y="130" width="240" height="126" />
-        </mxCell>
-        <mxCell id="fragment_body" value="- list: RecyclerView&#10;+ onViewCreated(...)&#10;+ onDestroyView()" style="text;html=0;align=left;verticalAlign=top;spacing=10;whiteSpace=wrap;fontColor=#000000;fontSize=11;" vertex="1" parent="fragment">
-          <mxGeometry as="geometry" x="0" y="48" width="240" height="78" />
-        </mxCell>
-        <mxCell id="host" value="&lt;&lt;interface Java&gt;&gt;&#10;AdapterHost" style="swimlane;startSize=48;rounded=0;whiteSpace=wrap;html=0;align=center;verticalAlign=middle;fillColor=#FFFFFF;swimlaneFillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="820" y="130" width="240" height="126" />
-        </mxCell>
-        <mxCell id="host_body" value="+ resourceAdapter(): Adapter&#10;interface interna de&#10;ResourceListFragment" style="text;html=0;align=left;verticalAlign=top;spacing=10;whiteSpace=wrap;fontColor=#000000;fontSize=11;" vertex="1" parent="host">
-          <mxGeometry as="geometry" x="0" y="48" width="240" height="78" />
-        </mxCell>
-        <mxCell id="auth" value="&lt;&lt;classe Java&gt;&gt;&#10;AuthActivity" style="swimlane;startSize=48;rounded=0;whiteSpace=wrap;html=0;align=center;verticalAlign=middle;fillColor=#FFFFFF;swimlaneFillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="40" y="430" width="240" height="126" />
-        </mxCell>
-        <mxCell id="auth_body" value="- ATTEMPTS: AuthAttemptGate&#10;login/cadastro assíncronos&#10;invalida callback ao destruir" style="text;html=0;align=left;verticalAlign=top;spacing=10;whiteSpace=wrap;fontColor=#000000;fontSize=11;" vertex="1" parent="auth">
-          <mxGeometry as="geometry" x="0" y="48" width="240" height="78" />
-        </mxCell>
-        <mxCell id="gate" value="&lt;&lt;classe Java&gt;&gt;&#10;AuthAttemptGate" style="swimlane;startSize=48;rounded=0;whiteSpace=wrap;html=0;align=center;verticalAlign=middle;fillColor=#FFFFFF;swimlaneFillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="430" y="430" width="240" height="126" />
-        </mxCell>
-        <mxCell id="gate_body" value="- generation: long&#10;+ begin(), invalidate(ticket)&#10;+ complete(...): boolean" style="text;html=0;align=left;verticalAlign=top;spacing=10;whiteSpace=wrap;fontColor=#000000;fontSize=11;" vertex="1" parent="gate">
-          <mxGeometry as="geometry" x="0" y="48" width="240" height="78" />
-        </mxCell>
-        <mxCell id="input" value="&lt;&lt;classe Java&gt;&gt;&#10;AuthInputPolicy" style="swimlane;startSize=48;rounded=0;whiteSpace=wrap;html=0;align=center;verticalAlign=middle;fillColor=#FFFFFF;swimlaneFillColor=#FFFFFF;strokeColor=#000000;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="820" y="430" width="240" height="126" />
-        </mxCell>
-        <mxCell id="input_body" value="+ validSignupPassword(...)&#10;retorna boolean&#10;mínimo de 8 caracteres" style="text;html=0;align=left;verticalAlign=top;spacing=10;whiteSpace=wrap;fontColor=#000000;fontSize=11;" vertex="1" parent="input">
-          <mxGeometry as="geometry" x="0" y="48" width="240" height="78" />
-        </mxCell>
-        <mxCell id="e0" value="consulta adapter" style="edgeStyle=none;html=0;fontSize=11;endArrow=open;dashed=1;" edge="1" parent="1">
-          <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="670" y="193" />
-            <mxPoint as="targetPoint" x="820" y="193" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="e1" value="" style="edgeStyle=none;html=0;fontSize=11;endArrow=block;endFill=0;dashed=1;" edge="1" parent="1">
-          <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="160" y="130" />
-            <mxPoint as="targetPoint" x="940" y="130" />
-            <Array as="points">
-              <mxPoint x="160" y="105" />
-              <mxPoint x="940" y="105" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="e2" value="valida tentativa" style="edgeStyle=none;html=0;fontSize=11;endArrow=open;dashed=1;" edge="1" parent="1">
-          <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="280" y="493" />
-            <mxPoint as="targetPoint" x="430" y="493" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="e3" value="valida cadastro" style="edgeStyle=none;html=0;fontSize=11;endArrow=open;dashed=1;" edge="1" parent="1">
-          <mxGeometry as="geometry" relative="1">
-            <mxPoint as="sourcePoint" x="160" y="556" />
-            <mxPoint as="targetPoint" x="940" y="556" />
-            <Array as="points">
-              <mxPoint x="160" y="600" />
-              <mxPoint x="940" y="600" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="note0" value="Seta tracejada aberta = uso; triângulo vazio tracejado = implementação de interface. Fragmento herda Fragment (AndroidX)." style="text;html=0;align=left;fontSize=10;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="40" y="620" width="1020" height="20" />
-        </mxCell>
-        <mxCell id="note1" value="Detalhes e fontes: GUIA_POO.md e README.md desta pasta. Modelo local da Entrega 2." style="text;html=0;align=left;fontSize=10;" vertex="1" parent="1">
-          <mxGeometry as="geometry" x="40" y="638" width="1020" height="20" />
+        <mxCell id="note1" value="Recorte do domínio; não é um inventário de classes Java. Fontes e explicação: README.md e GUIA_POO.md." style="text;html=0;align=left;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="40" y="658" width="1020" height="20" />
         </mxCell>
       </root>
     </mxGraphModel>
