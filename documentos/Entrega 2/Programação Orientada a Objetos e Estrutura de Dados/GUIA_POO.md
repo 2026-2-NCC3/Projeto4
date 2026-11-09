@@ -64,6 +64,6 @@ O celular não decide sozinho se o estudante esteve presente: o QR prova acesso 
 
 As respostas estão nos métodos indicados, no contrato HTTP e nos testes. Este guia não substitui o ensaio de cada integrante.
 
-## Diagrama simplificado
+## Diagrama conceitual
 
-O PDF tem uma única página com sete entidades do domínio. Os detalhes de implementação descritos neste guia não são páginas adicionais do desenho. Comece explicando Aluno, Inscrição e Curso; depois siga para Atividade, Presença e CódigoQR. Por fim, mostre que Certificado se relaciona a Aluno e Curso.
+O PDF segue o estilo do modelo original: 13 classes conceituais com atributos e getters/setters, em uma página. Esses métodos são parte do desenho acadêmico; os exemplos de POO implementados no aplicativo são os explicados acima. Comece pelo Aluno e siga suas relações com inscrições, presenças, certificados, comunicação e resultado do questionário.
