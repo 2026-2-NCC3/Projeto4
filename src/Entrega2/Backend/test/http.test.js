@@ -172,3 +172,33 @@ test('fluxos HTTP de listas, suporte, quiz, CRUD e presença usam o contrato int
     assert.ok((await send('/api/comunicados', student)).some(c => c.titulo === 'Aviso'));
   });
 });
+
+
+test('perfil devolve apenas identidade autenticada, com email e escola, sem inventar idade', async () => {
+  const fixture = createDemoClients();
+  const createClient = token => {
+    const client = fixture.createClient(token);
+    const getUser = client.auth.getUser;
+    client.auth.getUser = async () => {
+      const result = await getUser();
+      if (result.data?.user) result.data.user.email = token === 'demo-admin' ? 'admin@example.test' : 'aluno@example.test';
+      return result;
+    };
+    return client;
+  };
+  await server({ createClient }, async base => {
+    assert.equal((await fetch(base + '/api/perfil')).status, 401);
+    const response = await fetch(base + '/api/perfil?user_id=' + fixture.ids.admin, {
+      headers: { Authorization: 'Bearer demo-aluno' },
+    });
+    assert.equal(response.status, 200);
+    assert.deepEqual(await response.json(), {
+      nome: 'Aluno Demonstração', escola: 'Escola fictícia', email: 'aluno@example.test',
+    });
+    const admin = await (await fetch(base + '/api/perfil', {
+      headers: { Authorization: 'Bearer demo-admin' },
+    })).json();
+    assert.equal(admin.email, 'admin@example.test');
+    assert.notEqual(admin.nome, 'Aluno Demonstração');
+  });
+});

@@ -53,7 +53,7 @@ function createDemoClients() {
     const admin = token === 'demo-admin'; const valid = admin || token === 'demo-aluno'; const userId = admin ? ids.admin : ids.student;
     return {
       auth: {
-        getUser: async () => valid ? { data: { user: { id: userId } } } : { error: { message: 'invalid fixture token', status: 401 } },
+        getUser: async () => valid ? { data: { user: { id: userId, email: admin ? 'admin@example.test' : 'aluno@example.test' } } } : { error: { message: 'invalid fixture token', status: 401 } },
         signInWithPassword: async ({ email, password }) => {
           if (!['admin@example.test', 'aluno@example.test'].includes(email) || password !== 'demonstracao123') return { error: { message: 'invalid fixture login', status: 400 } };
           const isAdmin = email.startsWith('admin'); return { data: { user: { id: isAdmin ? ids.admin : ids.student }, session: session(isAdmin) } };

@@ -85,7 +85,7 @@ function createApp({ createClient = productionClient } = {}) {
   });
   app.get('/api/perfil', async (req, res) => {
     const p = await data(req.db.from('profiles').select('full_name,school').eq('id', req.userId).maybeSingle());
-    res.json({ nome: p?.full_name || req.user.user_metadata?.full_name || 'Aluno', escola: p?.school || '' });
+    res.json({ nome: p?.full_name || req.user.user_metadata?.full_name || 'Aluno', escola: p?.school || '', email: req.user.email || '' });
   });
   app.get('/api/card', async (req, res) => {
     const p = await data(req.db.from('profiles').select('full_name,school').eq('id', req.userId).maybeSingle());

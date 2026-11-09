@@ -73,3 +73,11 @@ alunos e mensagens: até500. Resultados de perfil, comunicados e notificações:
 comunicados, certificado, resposta de suporte e alteração real de agenda para inscritos.
 A notificação é consultada no app, sem push externo. Perfil inexistente usa nome de exibição
 da sessão ou Aluno; escola fica vazia. Cadastro depende das regras de confirmação de email do Supabase.
+
+## Perfil da conta
+
+`GET /api/perfil` exige sessão e retorna `{nome, escola, email}`. Nome/escola vêm
+do perfil do usuário autenticado; email vem da identidade validada pelo Supabase
+Auth. Não aceita ID de outro usuário como seletor. Ausência de escola/email é
+representada por string vazia. Idade não é coletada nem inferida neste contrato.
+O campo email é uma adição compatível; clientes antigos podem ignorá-lo.
