@@ -14,7 +14,7 @@ acesso administrativo e validação hospedada ainda precisam de confirmação. P
 - Painel administrativo `/admin/` no mesmo projeto Express/Vercel.
 - Contrato HTTP, preflight e runbook, demonstração sintética, roteiro de testes.
 - [APK debug HTTPS](<../../documentos/Entrega 2/Programação para Dispositivos Móveis/proxima-etapa-entrega2.apk>),
-  UML PDF/drawio, guia POO, conferência estatística e boxplots finais em PDF/PNG, com base CSV.
+  UML PDF escolhido pela equipe, guia POO, conferência estatística e boxplots finais em PDF/PNG, com base CSV.
 
 ## Verificações executadas
 
@@ -66,7 +66,7 @@ por Luiz no celular físico, usando o backend local.
 - Documento COM EMPRESA: ainda é modelo; Luiz ficou responsável por preencher dados e atividade real.
 - Banner: o arquivo presente é modelo; falta o banner final do grupo.
 - Dados: identificação atualizada com os integrantes do README; frase sobre presença por QR e referências corrigidas no DOCX. Cálculos e gráficos preservados.
-- POO: PDF e draw.io mostram um recorte fiel das classes implementadas. O mapeamento das entidades do enunciado está no README; não há classes Java próprias Aluno/Curso/etc. A aceitação desse desenho pela professora ainda precisa ser confirmada.
+- POO: substituído pelo PDF original escolhido pela equipe. Luiz informou que um integrante confirmou a aprovação desse diagrama pela professora. A pendência de escolha do diagrama está resolvida segundo essa confirmação; o README distingue modelo de domínio de classes implementadas.
 - Geradores auxiliares e PDF de referência antigo removidos por decisão da equipe. Os arquivos finais permanecem disponíveis.
 
 Nenhum resultado social, atividade com ONG, assinatura ou certificado final foi inventado.
@@ -89,4 +89,4 @@ Conferência XML:8 arquivos de layout,8 instâncias ConstraintLayout, nenhuma in
 
 Última rodada Android:21/21 JVM,12/12 instrumentados direcionados, lint0 erros/102 avisos. Luiz confirmou tema/e-mail e aprovou visualmente Cursos e Agenda no Redmi por capturas. O APK de entrega teve hash e endpoint HTTPS conferidos.
 
-Isso confirma a organização e o uso dos layouts, não elimina pendências de extensão, banner, deploy/validação online nem a ressalva do UML resumido diante do pedido de diagrama completo.
+Isso confirma a organização e o uso dos layouts, não elimina pendências de extensão, banner, deploy/validação online; a ressalva anterior sobre a escolha do UML foi posteriormente resolvida pela confirmação da equipe descrita acima.

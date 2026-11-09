@@ -46,7 +46,7 @@ O celular não decide sozinho se o estudante esteve presente: o QR prova acesso 
 
 ## Roteiro curto de apresentação
 
-- Abra o PDF: acompanhe HubActivity, AlunoRepository, SyncWorker e ApiClient no fluxo de presença. Consulte no README como Inscrição e Presença são representadas na API.
+- Abra o PDF escolhido pela equipe e apresente as entidades do domínio. Depois mostre no código HubActivity, AlunoRepository, SyncWorker e ApiClient no fluxo de presença; consulte no README o mapeamento entre domínio e implementação.
 - Mostre que IDs são UUID e nomes não servem como chave.
 - Abra `AlunoRepository.java`: mostre `enqueue`, chave composta no helper e consulta filtrada pelo dono.
 - Abra `HubActivity.java`: localize `answers`, `historyIds` e `Rows`; explique o motivo de Map, Set e List.
@@ -64,10 +64,6 @@ O celular não decide sozinho se o estudante esteve presente: o QR prova acesso 
 
 As respostas estão nos métodos indicados, no contrato HTTP e nos testes. Este guia não substitui o ensaio de cada integrante.
 
-## Diagrama das classes implementadas
+## Diagrama da entrega e código
 
-O PDF tem uma página com nove classes principais e HubActivity no centro. Os membros selecionados existem no código; parâmetros longos foram abreviados por `...`. Dependências secundárias e classes auxiliares ficaram fora do desenho para manter o estilo simples da referência.
-
-Para complementar a apresentação, mostre no código AuthActivity e AuthAttemptGate; a implementação de AdapterHost por HubActivity e seu uso por ResourceListFragment; e as classes internas Rows, Row e Holder. Esses exemplos continuam válidos mesmo sem caixas adicionais no PDF.
-
-Aluno, Curso e as demais entidades citadas no enunciado estão mapeadas no README para API/JSON/tabelas. Essa correspondência explica a arquitetura atual; não equivale a implementar classes de domínio que ainda não existem.
+O PDF escolhido pela equipe é o modelo de domínio enviado originalmente, cuja aprovação pela professora foi informada por Luiz. Ele não descreve literalmente todas as classes Java nem substitui este guia técnico. Para explicar a implementação, use os exemplos verificáveis acima e o mapeamento do README.

@@ -1,22 +1,16 @@
 # Programação Orientada a Objetos e Estrutura de Dados - Entrega 2
 
-[Diagrama em PDF](UML_Entrega2.pdf) · [Arquivo editável](UML_Entrega2.drawio) · [Guia de POO](GUIA_POO.md)
+[Diagrama da entrega em PDF](UML_Entrega2.pdf) · [Guia do código e estruturas de dados](GUIA_POO.md)
 
-O desenho mostra classes e interfaces que existem no Android da Entrega 2, com seus principais atributos, métodos e relações. Mantém caixas simples com três compartimentos. Não foram adicionados getters/setters que não existem no código.
+## Diagrama escolhido pela equipe
 
-## Organização do desenho
+O PDF é o arquivo original enviado pela equipe, preservado sem alterações. Luiz informou que um integrante confirmou a aprovação desse diagrama pela professora; por decisão da equipe, esta é a versão selecionada para a entrega.
 
-Uma página, no estilo da referência da equipe: **HubActivity no centro**, caixas de três compartimentos, poucos atributos e métodos, com relações ao redor. O recorte mostra ApiService, ApiClient, SessionManager, HubActivity, AlunoRepository, QrPayload, SyncScheduler, AlunoDbHelper e SyncWorker.
+O desenho apresenta o modelo de domínio, com Usuario (Aluno), Curso, Atividades, Inscricao, Presenca, Certificado, Card, TestePerfil, Pergunta, Alternativa, ResultadoPerfil, Mensagem e Notificacao. O arquivo recebido está dividido em duas páginas.
 
-`+` público; `-` privado; `...` abrevia parâmetros; `{static}` indica membro de classe e `{final}` impede reatribuição. Caixas com compartimento vazio não possuem atributos selecionados. Setas tracejadas mostram dependência de uso; linha contínua representa a referência `helper` mantida pelo repositório. Relações e membros secundários foram omitidos para legibilidade.
+## Relação com a implementação
 
-Heranças reais: HubActivity herda AppCompatActivity; SyncWorker herda Worker; AlunoDbHelper herda SQLiteOpenHelper. AlunoRepository implementa AutoCloseable. HubActivity implementa ResourceListFragment.AdapterHost. Essas informações ficam no guia, evitando caixas extras no desenho.
-
-O diagrama é um **recorte das classes principais**, não um inventário completo. A autenticação, o fragmento e as classes internas de apresentação estão documentados no guia e continuam no código. O formato resumido não muda o limite de atendimento descrito abaixo.
-
-## Correspondência com os conceitos do enunciado
-
-O enunciado pede diagrama completo e código integrado e cita as entidades abaixo, quando aplicáveis. **Na implementação atual, elas não são classes Java próprias**: o Android recebe JSON e o backend Express consulta tabelas e funções SQL. Por isso elas não aparecem como classes com getters/setters neste diagrama.
+O diagrama representa o modelo de domínio. Os nomes e métodos desenhados não são um inventário literal das classes Java: na implementação, parte dessas entidades é representada por tabelas e objetos JSON. O guia explica as classes e estruturas efetivamente usadas no código.
 
 | Conceito | Representação implementada | Uso no aplicativo |
 |---|---|---|
@@ -34,27 +28,10 @@ O enunciado pede diagrama completo e código integrado e cita as entidades abaix
 | Mensagem | `e2_messages`; `/api/mensagens` | `HubActivity.sendMessage` |
 | Notificação | `e2_notifications` e `e2_notification_reads` | `SyncWorker` e `AlunoRepository` |
 
-**Limite de atendimento:** este ajuste torna o diagrama fiel ao código, mas não cria as classes de domínio citadas no enunciado. Se a avaliação exigir essas entidades implementadas como classes, essa exigência continua pendente de implementação; documentação não substitui código.
-
-## Classes auxiliares fora das caixas
-
-- `DemoCertificate` prepara o PDF fictício embarcado para abertura via FileProvider e exportação pelo seletor de arquivos do Android. Não consulta nem altera certificados do aluno.
-
-- `LoginActivity` e `CadastroActivity` herdam `AuthActivity`; CadastroActivity sobrescreve `signup()`.
-- `MainActivity`, `PaginaInicial`, `PerfilActivity`, `AgendaActivity`, `ConfiguracoesActivity` e `CursosActivity` são telas de entrada ou especializações; consulte o guia e seus fontes.
-- `AlunoApplication` herda `Application` e mantém `IO: ExecutorService` estático para tarefas em segundo plano.
-- `NextMeetingPolicy.next(JsonArray, long): JsonObject` seleciona o próximo encontro; `SyncPolicy.forStatus(int): Action` decide como tratar falhas HTTP.
-- `SessionManager.Session` contém os dados da sessão; `AlunoRepository.Cached` contém payload e horário do cache; `AlunoRepository.Pending` representa uma leitura pendente.
-- `ApiClient.ApiException` herda `IOException` e expõe `status: int`.
-
 ## Estruturas de dados
 
-O guia detalha `Map<String, String>` para respostas do questionário, `Set<String>` para evitar repetição visual de presenças e `List<Row>` para apresentar dados no RecyclerView. A fila offline é persistida em SQLite.
+O guia apresenta Map para respostas do questionário, Set para evitar repetição visual de presenças e List para o RecyclerView. A fila offline é persistida em SQLite.
 
-## Fontes e edição
+## Arquivo original
 
-Público: equipe e professora de POO. Responsável: equipe Próxima Etapa. Inspeção: 08/11/2026.
-
-Fontes, a partir da raiz: `src/Entrega2/Frontend/app/src/main/java/com/example/myapplication/` (incluindo `network`, `data`, `sync` e `core`), `src/Entrega2/Backend/src/app.js` e `src/Entrega2/Backend/sql/001_entrega2.sql`.
-
-O arquivo `UML_Entrega2.drawio` é a fonte editável. Abra-o no diagrams.net e exporte para PDF após revisar as alterações. O gerador auxiliar e o PDF de referência antigo foram removidos da entrega por decisão da equipe; o PDF final e seu arquivo editável foram mantidos.
+O PDF recebido é a fonte desta entrega. O arquivo draw.io do diagrama anterior foi retirado para não ser confundido com uma versão editável deste modelo; permanece recuperável no histórico Git. Não foi fornecido o arquivo editável correspondente ao PDF escolhido.
