@@ -29,7 +29,7 @@ acesso administrativo e validação hospedada ainda precisam de confirmação. P
 | Android instrumentação Pixel_10a |6/6 PASS (3SQLite+2Fragment+smoke)|
 | Android build APK |PASS; atualizado com PDF de demonstração embarcado|
 | Certificado demo embarcado, testes no emulador |4/4 PASS: opção offline/recriação, compartilhamento somente leitura, exportação e isolamento; leitor externo/seletor ainda exigem teste manual|
-| Android lint, reexecutado em 08/11 |0 erros, 98 avisos; não suprimidos|
+| Android lint, reexecutado em 08/11 |0 erros, 102 avisos; não suprimidos|
 | Redmi Note 8, backend local |QR online, leitura offline e sincronização sem duplicação, leitor na vertical: confirmados por Luiz|
 | Certificado no Redmi, backend local |Abertura e download do PDF de demonstração confirmados por Luiz|
 | Código Entrega1 |Sem alterações|

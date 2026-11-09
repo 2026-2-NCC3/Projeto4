@@ -26,4 +26,4 @@
     <string name="demo_certificate_saved">PDF de demonstração salvo no local escolhido.</string>
     <string name="demo_certificate_save_error">Não foi possível salvar o PDF. Tente escolher outro local.</string>
     <string name="demo_certificate_open_error">Não foi possível abrir o PDF. Use Salvar PDF e abra com um leitor de PDF.</string>
-</resources>
+<string name="profile_email_label">E-mail</string><string name="profile_school_label">Escola</string></resources>

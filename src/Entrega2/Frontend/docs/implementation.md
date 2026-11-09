@@ -3,7 +3,7 @@
 ## Current verification - 08/11/2026
 
 The sections below are historical implementation records, not the current delivery checklist.
-Latest local verification: JVM 16/16, build successful, lint 0 errors and 98 warnings.
+Latest local verification: JVM 16/16, build successful, lint 0 errors and 102 warnings.
 The earlier emulator instrumentation run passed 6/6; it was not repeated in the latest review.
 Luiz confirmed physical Redmi Note 8 QR scanning online, offline capture followed by successful
 synchronization without duplicate attendance, portrait scanning, and opening/downloading a
@@ -64,3 +64,13 @@ Fonte: https://dev.mi.com/xiaomihyperos/documentation/detail?pId=1595 .
 A API de demonstração respondeu com nome, e-mail e escola. O encaminhamento USB estava ausente e foi restaurado com `adb reverse tcp:38766 tcp:38766`; desconectar o cabo pode exigir repetir esse comando.
 
 Reparo validado: novo teste instrumental RED → GREEN 1/1, build/JVM aprovados e lint 0 erros/98 avisos. A falha intermediária NewApi foi resolvida com tools:targetApi=q apenas nos itens de tema disponíveis desde API 29; Android anterior ignora o atributo. Revisão independente sem bloqueadores.
+
+Confirmação posterior do usuário no Redmi: e-mail atualizado e tema claro funcionaram após instalar o APK do reparo e restabelecer o encaminhamento USB.
+
+## Acabamento visual — Perfil e componentes compartilhados
+
+Cabeçalho horizontal, ícones vetoriais consistentes e navegação com altura adaptável. Perfil separa identidade/contato dos menus; linhas com ícone, descrição breve e seta são clicáveis por inteiro e expõem um único foco acessível. Conteúdos mantêm cartões com corpo menor e espaçamento de linha. Login não redesenhado nessa fatia.
+
+Teste de clique da linha observado RED → GREEN. Rodada direcionada com 11 testes instrumentados aprovada no emulator-5554; JVM 16/16, build e lint 0 erros/102 avisos. Revisão independente de código e acessibilidade sem bloqueadores. Não há alegação de inspeção visual aprovada: CUA não conseguiu controlar o foco do Android Studio; aparência final e TalkBack precisam ser conferidos no celular.
+
+Teste adicional de layout com largura útil 288dp (tela320dp com margens16dp) e fonte1.5 passou; medição automatizada não substitui inspeção visual no Redmi.

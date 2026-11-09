@@ -57,3 +57,8 @@ Em **Perfil → Aparência → Escolher tema**, selecione Sistema, Claro ou Escu
 O perfil exibe nome, e-mail e escola retornados pela conta autenticada; idade não cadastrada aparece como não informada. O e-mail exige a versão atualizada do backend.
 
 Teste os três temas, feche e reabra o aplicativo, atualize com e sem rede e confira que o indicador para ao finalizar.
+
+## Organização visual
+
+O Perfil separa a identidade (iniciais, nome e dados da conta) das opções de navegação. Toque em qualquer parte de uma linha para abrir a opção; o ícone e a seta são decorativos. O certificado demonstrativo continua identificado como exemplo sem validade.
+O cabeçalho e a navegação usam ícones consistentes; cartões de cursos, agenda e demais conteúdos usam a mesma hierarquia de título, descrição e ação.

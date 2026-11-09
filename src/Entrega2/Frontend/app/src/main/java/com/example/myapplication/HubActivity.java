@@ -190,10 +190,10 @@ public class HubActivity extends AppCompatActivity implements ResourceListFragme
     section = target;
     int[] nav = {R.id.navInicio, R.id.navCursos, R.id.navAgenda, R.id.navPerfil};
     int[] icons = {
-      R.drawable.home_unselected,
-      R.drawable.courses_unselected,
-      R.drawable.calendar_unselected,
-      R.drawable.profile_unselected
+      R.drawable.ic_home,
+      R.drawable.ic_book,
+      R.drawable.ic_calendar,
+      R.drawable.ic_person
     };
     String[] keys = {"inicio", "cursos", "agenda", "perfil"};
     for (int i = 0; i < nav.length; i++) {
@@ -416,37 +416,35 @@ public class HubActivity extends AppCompatActivity implements ResourceListFragme
         menu(rows, "Central de avisos", "Leia as atualizações da sua jornada.", "notificacoes");
       } else if ("perfil".equals(section)) {
         JsonObject o = data.getAsJsonObject();
-        rows.add(
-            new Row(
-                s(o, "nome").isEmpty() ? "Seu perfil" : s(o, "nome"),
-                join("E-mail: " + (s(o,"email").isEmpty()?"indisponível no momento":s(o,"email")),
-                     "Idade: " + profileAge(o),
-                     s(o,"escola").isEmpty()?"Escola não informada":s(o,"escola")), null, null));
-        rows.add(new Row("Aparência", "Tema atual: " + themeLabel(), "Escolher tema", this::chooseTheme));
-        rows.add(new Row("Certificado de demonstração", "Exemplo em PDF, disponível sem conexão. Sem validade.", "Ver exemplo", this::showDemoCertificate));
-        menu(rows, "Minha carteirinha", "Seus dados de identificação.", "card");
-        menu(rows, "Histórico de presenças", "Confirmadas, pendentes e recusadas.", "presencas");
-        menu(rows, "Certificados", "Abra ou salve os certificados disponíveis.", "certificados");
+        Row identity = new Row(s(o, "nome").isEmpty() ? "Seu perfil" : s(o, "nome"),
+            s(o,"email").isEmpty()?"Indisponível no momento":s(o,"email"), null, null, 2, 0);
+        identity.school=s(o,"escola").isEmpty()?"Não informada":s(o,"escola");
+        identity.age="Idade: " + profileAge(o);
+        identity.initials=profileInitials(s(o,"nome"));
+        rows.add(identity);
+        rows.add(new Row("Aparência", themeLabel() + " · escolher tema", "Escolher tema", this::chooseTheme, 1, R.drawable.ic_theme));
+        menu(rows, "Minha carteirinha", "Identificação do aluno", "card");
+        menu(rows, "Histórico de presenças", "Confirmações e sincronização", "presencas");
+        menu(rows, "Certificados", "Seus cursos concluídos", "certificados");
         menu(
             rows,
             "Meu perfil profissional",
-            "Responda às perguntas de interesses.",
+            "Descubra seus interesses",
             "teste-perfil");
-        menu(rows, "Resultados do perfil", "Consulte suas respostas anteriores.", "resultados");
-        menu(rows, "Fale com a equipe", "Envie uma dúvida e acompanhe a resposta.", "mensagens");
+        menu(rows, "Resultados do perfil", "Suas respostas anteriores", "resultados");
+        menu(rows, "Fale com a equipe", "Dúvidas e acompanhamento", "mensagens");
         menu(rows, "Comunicados", "Informações publicadas pela equipe.", "comunicados");
         menu(rows, "Notificações", "Central de avisos do aluno.", "notificacoes");
         rows.add(
             new Row(
                 "Avisos no celular",
-                "Atualizações periódicas, a partir de 15 minutos; dependem de conexão e das"
-                    + " restrições do Android.",
+                "Notificações periódicas; requer conexão.",
                 "Ativar avisos",
-                this::enableNotifications));
+                this::enableNotifications, 1, R.drawable.ic_bell));
         rows.add(
             new Row(
-                "Sua conta",
-                "Seus registros ficam separados por conta neste aparelho.",
+                "Sair da conta",
+                "Seus dados continuam salvos neste aparelho.",
                 "Sair",
                 () ->
                     new MaterialAlertDialogBuilder(this)
@@ -456,7 +454,8 @@ public class HubActivity extends AppCompatActivity implements ResourceListFragme
                                 + " nesta conta.")
                         .setNegativeButton("Cancelar", null)
                         .setPositiveButton("Sair", (d, w) -> logout())
-                        .show()));
+                        .show(), 1, R.drawable.ic_logout));
+        rows.add(new Row("Certificado de demonstração", "Exemplo offline · sem validade acadêmica", "Ver exemplo", this::showDemoCertificate));
       } else if ("card".equals(section)) {
         JsonObject o = data.getAsJsonObject();
         rows.add(
@@ -633,7 +632,29 @@ public class HubActivity extends AppCompatActivity implements ResourceListFragme
   }
 
   private void menu(List<Row> rows, String name, String detail, String target) {
-    rows.add(new Row(name, detail, "Abrir", () -> show(target)));
+    rows.add(new Row(name, detail, "Abrir", () -> show(target), 1, menuIcon(target)));
+  }
+
+  private static int menuIcon(String target) {
+    switch(target) {
+      case "cursos": return R.drawable.ic_book;
+      case "agenda": return R.drawable.ic_calendar;
+      case "card": return R.drawable.ic_card;
+      case "presencas": return R.drawable.ic_check;
+      case "certificados": return R.drawable.ic_badge;
+      case "teste-perfil": case "resultados": return R.drawable.ic_person;
+      case "mensagens": return R.drawable.ic_message;
+      default: return R.drawable.ic_bell;
+    }
+  }
+
+  private static String profileInitials(String name) {
+    String trimmed=name.trim();
+    if(trimmed.isEmpty()) return "—";
+    String[] parts=trimmed.split("\\s+");
+    String first=new String(Character.toChars(parts[0].codePointAt(0)));
+    String last=parts.length>1?new String(Character.toChars(parts[parts.length-1].codePointAt(0))):"";
+    return (first+last).toUpperCase(Locale.getDefault());
   }
 
   private static String s(JsonObject o, String k) {
@@ -930,8 +951,13 @@ public class HubActivity extends AppCompatActivity implements ResourceListFragme
   private static final class Row {
     final String title, detail, action;
     final Runnable click;
+    final int kind, icon;
+    String school, age, initials;
 
-    Row(String t, String d, String a, Runnable c) {
+    Row(String t, String d, String a, Runnable c) { this(t,d,a,c,0,0); }
+    Row(String t, String d, String a, Runnable c, int type, int iconId) {
+      kind=type;
+      icon=iconId;
       title = t;
       detail = d;
       action = a;
@@ -959,10 +985,12 @@ public class HubActivity extends AppCompatActivity implements ResourceListFragme
       notifyDataSetChanged();
     }
 
+    @Override public int getItemViewType(int position) { return rows.get(position).kind; }
+
     @Override
     public Holder onCreateViewHolder(ViewGroup p, int t) {
       return new Holder(
-          LayoutInflater.from(p.getContext()).inflate(R.layout.item_resource, p, false));
+          LayoutInflater.from(p.getContext()).inflate(t==1?R.layout.item_menu:t==2?R.layout.item_profile_identity:R.layout.item_resource, p, false));
     }
 
     @Override
@@ -970,7 +998,29 @@ public class HubActivity extends AppCompatActivity implements ResourceListFragme
       Row r = rows.get(p);
       h.title.setText(r.title);
       h.detail.setText(r.detail);
-      h.action.setVisibility(r.action == null ? View.GONE : View.VISIBLE);
+      h.action.setVisibility(r.kind != 0 || r.action == null ? View.GONE : View.VISIBLE);
+      h.itemView.setOnClickListener(null);
+      h.itemView.setClickable(false);
+      h.itemView.setFocusable(false);
+      h.itemView.setContentDescription(null);
+      if(r.kind==1) {
+        ((ImageView)h.itemView.findViewById(R.id.rowIcon)).setImageResource(r.icon);
+        h.itemView.setOnClickListener(v -> { if(r.click!=null) r.click.run(); });
+        h.itemView.setFocusable(true);
+        h.itemView.setContentDescription(r.title + ". " + r.detail);
+        h.title.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+        h.detail.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+        ViewCompat.setAccessibilityDelegate(h.itemView,new androidx.core.view.AccessibilityDelegateCompat() {
+          @Override public void onInitializeAccessibilityNodeInfo(View host, androidx.core.view.accessibility.AccessibilityNodeInfoCompat info) {
+            super.onInitializeAccessibilityNodeInfo(host,info);
+            info.setClassName(Button.class.getName());
+          }
+        });
+      } else if(r.kind==2) {
+        ((TextView)h.itemView.findViewById(R.id.profileAvatar)).setText(r.initials);
+        ((TextView)h.itemView.findViewById(R.id.profileSchool)).setText(r.school);
+        ((TextView)h.itemView.findViewById(R.id.profileAge)).setText(r.age);
+      }
       h.action.setText(r.action);
       h.action.setOnClickListener(v -> {
         if (r.click != null) r.click.run();

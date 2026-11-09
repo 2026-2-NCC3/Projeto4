@@ -105,4 +105,52 @@ public class ProfileAppearanceTest extends DemoCertificateTest {
    }
   } finally { instrumentation.runOnMainSync(()->ThemePreference.set(context,previous)); }
  }
+ @Test public void profileMenuOpensFromWholeRow() {
+  android.content.Context context=androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().getTargetContext();
+  try(ActivityScenario<HubActivity> scenario=ActivityScenario.launch(new Intent(context,HubActivity.class).putExtra("section","perfil"))) {
+   scenario.onActivity(a->{
+    RecyclerView list=a.findViewById(R.id.resourceRecycler);
+    RecyclerView.Adapter adapter=list.getAdapter();
+    boolean found=false;
+    for(int i=0;i<adapter.getItemCount();i++) {
+     RecyclerView.ViewHolder holder=adapter.createViewHolder(list,adapter.getItemViewType(i));
+     adapter.bindViewHolder(holder,i);
+     if("Minha carteirinha".contentEquals(((android.widget.TextView)holder.itemView.findViewById(R.id.rowTitle)).getText())) {
+      found=true;
+      assertTrue("Menu row must be an actionable touch target",holder.itemView.performClick());
+      assertEquals("Carteirinha",((android.widget.TextView)a.findViewById(R.id.screenTitle)).getText().toString());
+      break;
+     }
+    }
+    assertTrue("Carteirinha remains available offline",found);
+   });
+  }
+ }
+ @Test public void profileRowsFitNarrowWidthWithLargeText() {
+  android.app.Instrumentation instrumentation=androidx.test.platform.app.InstrumentationRegistry.getInstrumentation();
+  instrumentation.runOnMainSync(()->{
+   android.content.Context base=instrumentation.getTargetContext();
+   android.content.res.Configuration configuration=new android.content.res.Configuration(base.getResources().getConfiguration());
+   configuration.fontScale=1.5f;
+   android.content.Context themed=new androidx.appcompat.view.ContextThemeWrapper(base.createConfigurationContext(configuration),R.style.Theme_MyApplication);
+   for(int layout:new int[]{R.layout.item_profile_identity,R.layout.item_menu}) {
+    android.view.View root=android.view.LayoutInflater.from(themed).inflate(layout,null);
+    ((android.widget.TextView)root.findViewById(R.id.rowTitle)).setText("Nome completo bastante longo para validar a identificação do aluno");
+    ((android.widget.TextView)root.findViewById(R.id.rowDetail)).setText("aluno.com.nome.completo.extenso@example.test");
+    android.widget.TextView school=root.findViewById(R.id.profileSchool);
+    if(school!=null) school.setText("Escola de Ensino Médio com Nome Extenso de Demonstração");
+    int width=(int)(288*themed.getResources().getDisplayMetrics().density);
+    root.measure(android.view.View.MeasureSpec.makeMeasureSpec(width,android.view.View.MeasureSpec.EXACTLY),android.view.View.MeasureSpec.makeMeasureSpec(0,android.view.View.MeasureSpec.UNSPECIFIED));
+    root.layout(0,0,width,root.getMeasuredHeight());
+    for(int id:new int[]{R.id.rowTitle,R.id.rowDetail,R.id.profileSchool}) {
+     android.widget.TextView text=root.findViewById(id);
+     if(text==null)continue;
+     assertTrue("Text must grow down within its parent",text.getTop()>=0);
+     assertTrue(text.getBottom()<=((android.view.View)text.getParent()).getHeight());
+     assertTrue("All text lines must fit",text.getLayout().getLineBottom(text.getLineCount()-1)<=text.getHeight()-text.getCompoundPaddingTop()-text.getCompoundPaddingBottom());
+    }
+    assertTrue(root.getHeight()>=48*themed.getResources().getDisplayMetrics().density);
+   }
+  });
+ }
 }
