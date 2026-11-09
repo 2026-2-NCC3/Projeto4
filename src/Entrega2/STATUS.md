@@ -2,8 +2,8 @@
 
 Implementação local concluída na branch `Luiz-entrega2`. **Integração hospedada e
 aceite completo pendentes.** Reparo de duplicidades e migração Supabase aplicados em08/11,
-após confirmação do Luiz, pelo Chrome pessoal. Publicação Vercel e concessão de admin
-continuam pendentes; Luiz validará a branch e fará o merge. Prazo:09/11 às08h.
+após confirmação do Luiz, pelo Chrome pessoal. A branch foi enviada ao GitHub e o código foi revisado por Luiz. Merge, deploy E2,
+acesso administrativo e validação hospedada ainda precisam de confirmação. Prazo: 09/11 às 08h.
 
 ## Entregue localmente
 
@@ -14,7 +14,7 @@ continuam pendentes; Luiz validará a branch e fará o merge. Prazo:09/11 às08h
 - Painel administrativo `/admin/` no mesmo projeto Express/Vercel.
 - Contrato HTTP, preflight e runbook, demonstração sintética, roteiro de testes.
 - [APK debug HTTPS](<../../documentos/Entrega 2/Programação para Dispositivos Móveis/proxima-etapa-entrega2.apk>),
-  UML PDF/drawio, guia POO, conferência estatística e boxplots reproduzíveis.
+  UML PDF/drawio, guia POO, conferência estatística e boxplots finais em PDF/PNG, com base CSV.
 
 ## Verificações executadas
 
@@ -25,10 +25,12 @@ continuam pendentes; Luiz validará a branch e fará o merge. Prazo:09/11 às08h
 | Painel núcleo sessão/QR |9/9 PASS|
 | Chrome real, login/permissão/CRUD/QR/comunicação/logout |PASS em fixture local|
 | Responsividade painel390px |Sem overflow observado, screenshots salvos|
-| Android JVM, execução independente forçada |16/16 PASS (15 comportamentais+smoke)|
+| Android JVM, reexecutado em 08/11 |16/16 PASS, 0 falhas e 0 ignorados|
 | Android instrumentação Pixel_10a |6/6 PASS (3SQLite+2Fragment+smoke)|
 | Android build APK |PASS|
-| Android lint |0 erros,89 avisos; não suprimidos|
+| Android lint, reexecutado em 08/11 |0 erros, 93 avisos; não suprimidos|
+| Redmi Note 8, backend local |QR online, leitura offline e sincronização sem duplicação, leitor na vertical: confirmados por Luiz|
+| Certificado no Redmi, backend local |Abertura e download do PDF de demonstração confirmados por Luiz|
 | Código Entrega1 |Sem alterações|
 | Padrões de segredos locais |Nenhuma ocorrência nos padrões examinados; Gitleaks ausente|
 | Doctor/global product-final-eval strict |FAIL/BLOCKED; sem alegação ready-for-review|
@@ -40,13 +42,14 @@ fora do versionamento. O resumo dos resultados e limites está nesta página.
 
 1. Banco atualizado: `000a_repair_enrollments.sql` e `001_entrega2.sql` aplicados no
    projeto `hejcktjrlursifgcjdon`. Não reaplicar para testar. Conferência descrita no runbook.
-2. Definir uma conta administrativa e autorizar concessão do papel. Não há admin
-   automático, cadastro público de equipe ou chave privilegiada no aplicativo.
-3. Autorizar envio da branch e o responsável publicar na Vercel com Root Directory
+2. Confirmar que a conta administrativa indicada por Luiz consegue entrar no painel
+   publicado. Concessão do papel e teste remoto ainda não comprovados nesta revisão.
+3. Confirmar merge e o responsável publicar na Vercel com Root Directory
    `src/Entrega2/Backend`, mantendo as variáveis Supabase corretas.
 4. Testar com aluno/admin fictícios na URL hospedada: login, inscrição, QR repetido,
    perda de internet, histórico, mensagens e abertura de certificado real autorizado.
-5. Testar câmera física, recusa de permissão, rotação/fonte ampliada e legibilidade nativa.
+5. Testar recusa de permissão, fonte ampliada e legibilidade nativa. Câmera física e
+   leitor na vertical já foram confirmados no teste local; repetir o fluxo na API publicada.
 
 **Atenção à compatibilidade:** a migração restringe escrita direta em inscrições/presenças.
 Retornar somente ao backend E1 não restaura essas operações. O runbook explica a janela
@@ -54,16 +57,18 @@ e o rollback; a mudança não deve ser aplicada isolada da publicação E2.
 
 O acesso ao Supabase pelo Chrome pessoal foi restabelecido e usado no preflight,
 backup e aplicação. A indisponibilidade de inscrições E1 até a publicação E2 foi
-informada e aceita pelo Luiz antes do apply. Controle nativo do Android Studio
-estava indisponível na validação anterior; não foi contornado.
+informada e aceita pelo Luiz antes do apply. Houve limitações no controle do emulador; os testes ópticos foram concluídos
+por Luiz no celular físico, usando o backend local.
 
 ## Materiais acadêmicos
 
-Luiz preencherá o documento COM EMPRESA depois. O relatório de Dados recebido conserva
-identificação editorial incompleta e uma frase a corrigir, detalhadas no README da disciplina.
-Banner final e aprovação não foram fornecidos; roteiro de apresentação está no guia POO.
-O PDF original da equipe foi preservado ao lado do UML novo. Nenhum resultado social,
-atividade com ONG ou assinatura foi inventado.
+- Documento COM EMPRESA: ainda é modelo; Luiz ficou responsável por preencher dados e atividade real.
+- Banner: o arquivo presente é modelo; falta o banner final do grupo.
+- Dados: identificação atualizada com os integrantes do README; frase sobre presença por QR e referências corrigidas no DOCX. Cálculos e gráficos preservados.
+- POO: PDF e draw.io mostram um recorte fiel das classes implementadas. O mapeamento das entidades do enunciado está no README; não há classes Java próprias Aluno/Curso/etc. A aceitação desse desenho pela professora ainda precisa ser confirmada.
+- Geradores auxiliares e PDF de referência antigo removidos por decisão da equipe. Os arquivos finais permanecem disponíveis.
+
+Nenhum resultado social, atividade com ONG, assinatura ou certificado final foi inventado.
 
 ## Limites técnicos conhecidos
 

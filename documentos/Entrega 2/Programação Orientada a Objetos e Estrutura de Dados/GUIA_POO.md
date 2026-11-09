@@ -12,7 +12,7 @@ Este guia apoia o estudo e a demonstração do código existente. A equipe deve 
 6. O worker marca a pendência como confirmada apenas após resposta/reconciliação. Se perdeu a resposta e uma tentativa posterior for recusada, consulta o histórico antes de concluir que falhou.
 7. Ao atingir estado terminal, `AlunoRepository.state` apaga o token QR local. Falha de rede mantém a pendência para tentativa posterior.
 
-O celular não decide sozinho se o estudante esteve presente: o QR prova acesso ao código emitido e o servidor aplica as regras. A câmera real e a integração publicada precisam de demonstração própria.
+O celular não decide sozinho se o estudante esteve presente: o QR prova acesso ao código emitido e o servidor aplica as regras. A leitura pela câmera real e a sincronização offline foram confirmadas por Luiz com backend local; a integração publicada ainda precisa de demonstração própria.
 
 ## Princípios de POO presentes
 

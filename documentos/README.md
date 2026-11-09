@@ -7,7 +7,7 @@ Materiais anteriores preservados em [Entrega 1](<Entrega 1/>).
 ## Entrega 2
 
 - [Análise Descritiva de Dados](<Entrega 2/Análise Descritiva de Dados/README.md>): documento recebido, CSV e conferência estatística.
-- [POO, UML e estruturas de dados](<Entrega 2/Programação Orientada a Objetos e Estrutura de Dados/README.md>): original recebido, revisão e materiais derivados do código.
+- [POO, UML e estruturas de dados](<Entrega 2/Programação Orientada a Objetos e Estrutura de Dados/README.md>): diagrama final PDF/draw.io e guia das classes implementadas.
 - [Aplicativo Android](../src/Entrega2/Frontend/README.md) e [roteiro de testes](../src/Entrega2/TESTAR.md).
 - [Backend, painel e publicação](../src/Entrega2/Backend/README.md).
 - [Situação e pendências](../src/Entrega2/STATUS.md).

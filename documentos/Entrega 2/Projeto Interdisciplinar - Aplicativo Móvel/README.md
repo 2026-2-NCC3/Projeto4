@@ -8,6 +8,7 @@
 - [Explicação de código e POO](<../Programação Orientada a Objetos e Estrutura de Dados/GUIA_POO.md>)
 
 URL configurada: `https://nextgeneration-seven.vercel.app/`. A implementação E2 está
-local, sem publicação desta versão ou migração aplicada. A URL só comprova entrega
+testada localmente e a migração Supabase foi aplicada em 08/11/2026. Publicação E2
+e validação hospedada ainda precisam ser confirmadas. A URL só comprova entrega
 integrada depois de validar autenticação, agenda, QR e histórico no ambiente publicado.
 Documento extensão será preenchido pelo Luiz; banner final/aprovação não comprovados.

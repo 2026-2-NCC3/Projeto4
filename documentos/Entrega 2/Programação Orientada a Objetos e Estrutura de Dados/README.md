@@ -34,7 +34,7 @@ O enunciado pede diagrama completo e código integrado e cita as entidades abaix
 | Mensagem | `e2_messages`; `/api/mensagens` | `HubActivity.sendMessage` |
 | Notificação | `e2_notifications` e `e2_notification_reads` | `SyncWorker` e `AlunoRepository` |
 
-**Limite de atendimento:** este ajuste torna o diagrama fiel ao código, mas não cria as classes de domínio citadas no enunciado. Se a avaliação exigir essas entidades implementadas como classes, essa exigência continua pendente de implementação; documentação não substitui código. O PDF original permanece em `UML_recebido_para_revisao.pdf`, apenas como referência recebida.
+**Limite de atendimento:** este ajuste torna o diagrama fiel ao código, mas não cria as classes de domínio citadas no enunciado. Se a avaliação exigir essas entidades implementadas como classes, essa exigência continua pendente de implementação; documentação não substitui código.
 
 ## Classes auxiliares fora das caixas
 
@@ -49,10 +49,10 @@ O enunciado pede diagrama completo e código integrado e cita as entidades abaix
 
 O guia detalha `Map<String, String>` para respostas do questionário, `Set<String>` para evitar repetição visual de presenças e `List<Row>` para apresentar dados no RecyclerView. A fila offline é persistida em SQLite.
 
-## Fontes e reprodução
+## Fontes e edição
 
 Público: equipe e professora de POO. Responsável: equipe Próxima Etapa. Inspeção: 08/11/2026.
 
 Fontes, a partir da raiz: `src/Entrega2/Frontend/app/src/main/java/com/example/myapplication/` (incluindo `network`, `data`, `sync` e `core`), `src/Entrega2/Backend/src/app.js` e `src/Entrega2/Backend/sql/001_entrega2.sql`.
 
-Execute `python gerar_diagramas.py` com ReportLab instalado para regenerar PDF e draw.io da mesma fonte. O script verifica se cada membro cabe na largura da caixa.
+O arquivo `UML_Entrega2.drawio` é a fonte editável. Abra-o no diagrams.net e exporte para PDF após revisar as alterações. O gerador auxiliar e o PDF de referência antigo foram removidos da entrega por decisão da equipe; o PDF final e seu arquivo editável foram mantidos.

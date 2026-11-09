@@ -15,7 +15,8 @@ Aplicativo Android para estudantes, API Express/Supabase e painel web para a equ
 ## Entrega 2
 
 Implementação em `src/Entrega2`, branch `Luiz-entrega2`. A Entrega 1 foi preservada.
-O backend E2 ainda precisa ser ativado no Supabase e publicado pela equipe. A URL
+A migração Supabase foi aplicada em 08/11/2026. A publicação do backend E2 pela equipe
+e a validação integrada hospedada ainda precisam ser confirmadas. A URL
 `https://nextgeneration-seven.vercel.app/` é a configuração padrão do app; isso não
 significa que as novas rotas já estejam disponíveis nesse ambiente.
 
@@ -56,7 +57,8 @@ apagados ao reiniciar. A demonstração não usa o Supabase real.
 
 Abra `src/Entrega2/Frontend` no Android Studio. Para usar o servidor de demonstração,
 configure a URL debug conforme [TESTAR.md](src/Entrega2/TESTAR.md). Para usar o ambiente
-hospedado, primeiro publique o backend E2 e aplique a migração revisada.
+hospedado, confirme o deploy do backend E2. A migração deste projeto já foi aplicada;
+não a reaplique como etapa de teste.
 
 ## Estrutura
 
@@ -74,7 +76,9 @@ documentos/        Relatórios, diagramas e materiais acadêmicos
 Build Android, testes JVM, testes SQLite no emulador, testes HTTP/SQL locais e
 verificação do painel no Chrome têm evidências no repositório. A revisão final e as
 pendências estão em [status da entrega](src/Entrega2/STATUS.md). Testes locais não
-substituem teste integrado no Supabase/Vercel nem leitura de QR pela câmera do celular.
+substituem teste integrado no Supabase/Vercel. No celular físico, foram confirmados
+QR online, fila offline com sincronização, câmera na vertical e abertura/download de PDF
+de demonstração, usando backend local.
 
 ## Technical summary (English)
 
@@ -85,8 +89,9 @@ attendance requests in SQLite, partitioned by authenticated user. WorkManager re
 pending requests and reconciles server history. PostgreSQL functions validate enrollment,
 token validity and duplicate attendance inside a transaction. Supabase Auth identifies
 users, and row-level security restricts access. The administrative panel uses the same
-API deployment. Local tests use synthetic data; hosted deployment and physical camera
-validation remain separate acceptance steps.
+API deployment. Local tests use synthetic data. Physical-device QR scanning, offline
+synchronization and opening/downloading a sample PDF were confirmed with the local
+backend. Hosted end-to-end validation remains pending.
 
 ## Dados e demonstrações
 

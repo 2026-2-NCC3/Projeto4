@@ -1,5 +1,16 @@
 # Android E2 implementation
 
+## Current verification - 08/11/2026
+
+The sections below are historical implementation records, not the current delivery checklist.
+Latest local verification: JVM 16/16, build successful, lint 0 errors and 93 warnings.
+The earlier emulator instrumentation run passed 6/6; it was not repeated in the latest review.
+Luiz confirmed physical Redmi Note 8 QR scanning online, offline capture followed by successful
+synchronization without duplicate attendance, portrait scanning, and opening/downloading a
+sample certificate PDF with the local backend. Hosted integration, enlarged fonts and physical
+permission-denial scenarios remain unverified. See `../../STATUS.md` for the current project status.
+
+
 tdd-scope: required
 Gap: E1 has no local data, QR, sync, secondary features and uses nested LinearLayouts.
 Hypothesis: preserve Java/Retrofit/brand while introducing SQLite user-scoped repository and WorkManager, then connect screens to frozen backend contract.

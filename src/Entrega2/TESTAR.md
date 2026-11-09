@@ -1,7 +1,7 @@
 # Como testar a Entrega 2
 
 Comece pela demonstração local com dados fictícios. Depois repita o roteiro no backend
-publicado. O APK padrão usa a URL HTTPS existente, cujas rotas E2 ainda precisam ser publicadas.
+publicado. O APK padrão usa a URL HTTPS existente; confirme o deploy E2 antes do teste final.
 
 ## 1. Painel local, sem configurar Supabase
 
@@ -38,15 +38,18 @@ senha `demonstracao123`. Cadastro novo não funciona na fixture; é testado apen
 quando Supabase Auth está configurado.
 
 Para emulador, também é possível usar `-PAPI_BASE_URL=http://10.0.2.2:38766/`.
-Não abra portas públicas nem configure Wi-Fi para esse teste; o encaminhamento USB
-é suficiente. HTTP local só é permitido na versão debug.
+O encaminhamento USB permite alcançar a API local sem expor portas públicas.
+Mantenha também uma conexão de rede ativa no Android para o WorkManager liberar a
+sincronização. Ao desconectar/reconectar o cabo, execute novamente `adb reverse`.
+HTTP local só é permitido na versão debug.
 
 ## 3. Ambiente Supabase/Vercel
 
-Aplique somente após revisar o [runbook](Backend/docs/migration-runbook.md):
-preflight do schema real, backup, migração autorizada e papel admin para a conta definida
-pela equipe. A migração altera permissões de inscrição/presença: voltar apenas ao backend
-E1 não restaura a compatibilidade de escrita.
+A migração no projeto Supabase atual foi aplicada em 08/11/2026; não a reaplique para
+testar. Em um ambiente novo, siga o [runbook](Backend/docs/migration-runbook.md):
+preflight, backup, migração autorizada e papel admin da conta definida pela equipe.
+A migração altera permissões de inscrição/presença: voltar apenas ao backend E1
+não restaura a compatibilidade de escrita.
 
 O responsável pela Vercel configura Root Directory `src/Entrega2/Backend`, mantém
 `SUPABASE_URL` e `SUPABASE_ANON_KEY` do projeto atual, publica e confere `/health`, login,
