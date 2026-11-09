@@ -3,7 +3,7 @@
 ## Current verification - 08/11/2026
 
 The sections below are historical implementation records, not the current delivery checklist.
-Latest local verification: JVM 16/16, build successful, lint 0 errors and 93 warnings.
+Latest local verification: JVM 16/16, build successful, lint 0 errors and 98 warnings.
 The earlier emulator instrumentation run passed 6/6; it was not repeated in the latest review.
 Luiz confirmed physical Redmi Note 8 QR scanning online, offline capture followed by successful
 synchronization without duplicate attendance, portrait scanning, and opening/downloading a
@@ -47,3 +47,11 @@ Gap confirmed by reviewer: the rubric requires Fragment usage but the initial E2
 Final acceptance-repair evidence: instrumented Fragment stub produced RED 1/1 (missing layout manager/adapter); implementation then passed lifecycle recreation, detached old adapter, new adapter attachment and actual activity_hub nested FragmentContainerView instantiation. Full connectedDebugAndroidTest: 6/6 PASS on Pixel_10a (2 Fragment + 3 SQLite + package smoke). Timezone boundary test RED 1/4 → GREEN 4/4. All JVM tests: 15 behavior tests plus inherited smoke pass. Build, lint and complete instrumentation combined BUILD SUCCESSFUL in 24s; final lint has 0 errors and 89 warnings (including available dependency versions and retained resources). Source frozen for independent reviewer on 08/11/2026; native visual/camera inspection remains separate.
 
 Fragment references: https://developer.android.com/guide/fragments/create and https://developer.android.com/guide/fragments/test . AndroidX Fragment1.6.2 explicitly pinned; FragmentScenario and test host manifest are test/debug dependencies only.
+
+## Perfil, aparência e atualização por gesto — 08/11/2026
+
+Perfil com identidade autenticada e escolhas locais acessíveis offline. Tema DayNight com Sistema/Claro/Escuro persistidos. SwipeRefreshLayout substitui botão de atualizar, com ação de acessibilidade no título; reload pós-mutação invalida a leitura anterior.
+
+Build, JVM 16/16, lint 0 erros/98 avisos; 8/8 testes instrumentados direcionados (4 de perfil/tema/refresh e 4 de certificado demo), somente no emulator-5554. São testes após implementação; tentativa inicial de RED bloqueada por falta de emulador. Teste de concorrência cobre invalidação da geração, não POST real com servidor lento. Revisão independente identificou e motivou correção de reload pós-mutação.
+
+Validação visual do gesto e dos temas no Redmi pendente: controle CUA do Android Studio alternou foco para a janela principal e não permitiu inspeção confiável do emulador. Build e instrumentação não equivalem a essa validação visual.

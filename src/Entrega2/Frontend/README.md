@@ -29,7 +29,7 @@ APK: `app/build/outputs/apk/debug/app-debug.apk`. O build comum usa o backend HT
 - Cursos: lista real, detalhes, inscrição e mudança do status; agenda mostra encontros e presença.
 - Agenda → Ler QR: conceder/recusar câmera, cancelar, QR alheio/inválido e QR válido emitido no painel.
 - Leia o QR em modo avião: deve ficar **pendente**, persistir após fechar e abrir o app e sincronizar quando houver rede. QR expirado pode ser recusado pelo servidor; o aparelho nunca valida presença sozinho. Repetir o mesmo encontro não cria segunda presença.
-- Perfil → Histórico: confirmadas, pendentes ou recusadas com motivo. Atualizar solicita sincronização. O histórico do servidor reconcilia uma resposta perdida.
+- Perfil → Histórico: confirmadas, pendentes ou recusadas com motivo. Puxar a lista para baixo solicita atualização e sincronização. O histórico do servidor reconcilia uma resposta perdida.
 - Perfil → Carteirinha, certificados HTTPS (abrir/baixar), questionário e resultados, dúvidas/respostas, comunicados e central de notificações.
 - Avisos no celular pede permissão no Android 13+. São atualizações periódicas do WorkManager, com mínimo de 15 minutos e restrições do Android; não são push instantâneo.
 - Teste telas com fonte ampliada e teclado aberto, principalmente autenticação, questionário e envio de dúvida.
@@ -49,3 +49,11 @@ Logout cancela trabalhos e apaga sessão. Cache/fila permanecem no sandbox para 
 ## Evidência e limites
 
 Consulte `docs/implementation.md`. Build e lint não substituem avaliação visual ou câmera real. As rotas reais dependem da implantação do backend e do provisionamento remoto autorizado; nenhum dado real foi alterado por esta implementação Android.
+
+## Perfil, aparência e atualização
+
+No topo de qualquer lista, puxe para baixo para atualizar. Leitores de tela também podem usar a ação “Atualizar conteúdo” no título.
+Em **Perfil → Aparência → Escolher tema**, selecione Sistema, Claro ou Escuro. A escolha fica salva no aparelho, inclusive após fechar o app.
+O perfil exibe nome, e-mail e escola retornados pela conta autenticada; idade não cadastrada aparece como não informada. O e-mail exige a versão atualizada do backend.
+
+Teste os três temas, feche e reabra o aplicativo, atualize com e sem rede e confira que o indicador para ao finalizar.

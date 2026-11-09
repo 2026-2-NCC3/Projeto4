@@ -34,7 +34,7 @@ public class HubActivity extends AppCompatActivity implements ResourceListFragme
 
   private String owner, section = "inicio";
   private int generation;
-  private boolean mutating;
+  private boolean mutating, loading;
   private TextView title, status;
   private Button primary, send;
   private EditText message;
@@ -85,11 +85,10 @@ public class HubActivity extends AppCompatActivity implements ResourceListFragme
     findViewById(R.id.navCursos).setOnClickListener(v -> show("cursos"));
     findViewById(R.id.navAgenda).setOnClickListener(v -> show("agenda"));
     findViewById(R.id.navPerfil).setOnClickListener(v -> show("perfil"));
-    findViewById(R.id.refreshButton)
-        .setOnClickListener(v -> {
-          SyncScheduler.sync(this, owner);
-          load();
-        });
+    ViewCompat.addAccessibilityAction(title, "Atualizar conteúdo", (view, arguments) -> {
+      refreshResources(); return true;
+    });
+    title.setFocusable(true);
     send.setOnClickListener(v -> sendMessage());
     scanner =
         registerForActivityResult(
@@ -165,7 +164,29 @@ public class HubActivity extends AppCompatActivity implements ResourceListFragme
         && SessionManager.isCurrent(this, owner);
   }
 
+  @Override public boolean resourcesLoading() { return loading; }
+
+  @Override public void refreshResources() {
+    if (loading || owner == null) return;
+    SyncScheduler.sync(this, owner);
+    load();
+  }
+
+  private void refreshing(boolean value) {
+    loading=value;
+    ResourceListFragment fragment=(ResourceListFragment)getSupportFragmentManager().findFragmentById(R.id.contentList);
+    if(fragment!=null) fragment.setRefreshing(value);
+  }
+
+  @Override protected void onDestroy() {
+    generation++;
+    refreshing(false);
+    super.onDestroy();
+  }
+
   private void show(String target) {
+    generation++;
+    refreshing(false);
     section = target;
     int[] nav = {R.id.navInicio, R.id.navCursos, R.id.navAgenda, R.id.navPerfil};
     int[] icons = {
@@ -191,7 +212,7 @@ public class HubActivity extends AppCompatActivity implements ResourceListFragme
       }
       button.setBackgroundTintList(
           android.content.res.ColorStateList.valueOf(
-              android.graphics.Color.parseColor(selected ? "#DCEFEB" : "#FBFBFB")));
+              androidx.core.content.ContextCompat.getColor(this, selected ? R.color.nav_selected : R.color.background)));
     }
     primary.setEnabled(!mutating);
     send.setEnabled(!mutating);
@@ -235,7 +256,8 @@ public class HubActivity extends AppCompatActivity implements ResourceListFragme
   }
 
   private void load() {
-    if (owner == null) return;
+    if (owner == null || loading) return;
+    refreshing(true);
     final int request = ++generation;
     final String resource = section, path = path();
     status.setText("Carregando…");
@@ -292,7 +314,7 @@ public class HubActivity extends AppCompatActivity implements ResourceListFragme
             status.setText(
                 error(e)
                     + (cache == null
-                        ? " Toque em Atualizar para tentar de novo."
+                        ? " Puxe a lista para baixo para tentar de novo."
                         : " Exibindo dados salvos em "
                             + DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT)
                                 .format(new Date(cache.updatedAt))
@@ -304,8 +326,41 @@ public class HubActivity extends AppCompatActivity implements ResourceListFragme
           if (current(request))
             status.setText("Não foi possível ler os dados locais. Tente atualizar.");
         });
+      } finally {
+        runOnUiThread(() -> { if (request == generation && !isDestroyed()) refreshing(false); });
       }
     });
+  }
+
+  private String themeLabel() {
+    int mode=ThemePreference.get(this);
+    return mode==androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO?"Claro":
+        mode==androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES?"Escuro":"Sistema";
+  }
+
+  private void chooseTheme() {
+    int[] modes={androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM,
+        androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO,
+        androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES};
+    int checked=0;
+    for(int i=0;i<modes.length;i++) if(modes[i]==ThemePreference.get(this)) checked=i;
+    new MaterialAlertDialogBuilder(this).setTitle("Aparência")
+        .setSingleChoiceItems(new String[]{"Sistema", "Claro", "Escuro"},checked,(dialog,index)->{
+          dialog.dismiss();
+          ThemePreference.set(this,modes[index]);
+          if(shown!=null) render(shown,Collections.emptyList());
+        }).setNegativeButton("Cancelar",null).show();
+  }
+
+  private static String profileAge(JsonObject profile) {
+    try {
+      if(profile.has("idade") && profile.get("idade").isJsonPrimitive()
+          && profile.getAsJsonPrimitive("idade").isNumber()) {
+        double age=profile.get("idade").getAsDouble();
+        if(age>=0 && age<=120 && age==Math.floor(age)) return ((int)age)+" anos";
+      }
+    } catch(RuntimeException ignored) { }
+    return "não informada";
   }
 
   private String error(Exception e) {
@@ -363,7 +418,12 @@ public class HubActivity extends AppCompatActivity implements ResourceListFragme
         JsonObject o = data.getAsJsonObject();
         rows.add(
             new Row(
-                s(o, "nome").isEmpty() ? "Sua conta" : s(o, "nome"), s(o, "escola"), null, null));
+                s(o, "nome").isEmpty() ? "Seu perfil" : s(o, "nome"),
+                join("E-mail: " + (s(o,"email").isEmpty()?"indisponível no momento":s(o,"email")),
+                     "Idade: " + profileAge(o),
+                     s(o,"escola").isEmpty()?"Escola não informada":s(o,"escola")), null, null));
+        rows.add(new Row("Aparência", "Tema atual: " + themeLabel(), "Escolher tema", this::chooseTheme));
+        rows.add(new Row("Certificado de demonstração", "Exemplo em PDF, disponível sem conexão. Sem validade.", "Ver exemplo", this::showDemoCertificate));
         menu(rows, "Minha carteirinha", "Seus dados de identificação.", "card");
         menu(rows, "Histórico de presenças", "Confirmadas, pendentes e recusadas.", "presencas");
         menu(rows, "Certificados", "Abra ou salve os certificados disponíveis.", "certificados");
@@ -560,7 +620,7 @@ public class HubActivity extends AppCompatActivity implements ResourceListFragme
                       () -> {
                         SyncScheduler.sync(this, owner);
                         status.setText(
-                            "Sincronização solicitada. Toque em Atualizar em alguns instantes.");
+                            "Sincronização solicitada. Puxe a lista para baixo em alguns instantes.");
                       }));
             }
       }
@@ -595,6 +655,14 @@ public class HubActivity extends AppCompatActivity implements ResourceListFragme
     return b.toString();
   }
 
+  // A completed write must supersede an older GET, even when it is still loading.
+  void reloadAfterMutation(int request) {
+    if (request != generation || isFinishing() || isDestroyed()) return;
+    generation++;
+    refreshing(false);
+    load();
+  }
+
   private void mutate(String method, String path, JsonObject body, String success, Runnable after) {
     if (mutating) return;
     mutating = true;
@@ -613,7 +681,7 @@ public class HubActivity extends AppCompatActivity implements ResourceListFragme
           if (!current(request)) return;
           toast(success);
           if (after != null) after.run();
-          if (request == generation) load();
+          reloadAfterMutation(request);
         });
       } catch (Exception e) {
         runOnUiThread(() -> {

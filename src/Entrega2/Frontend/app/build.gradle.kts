@@ -42,6 +42,7 @@ android {
 }
 
 dependencies {
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     implementation("androidx.fragment:fragment:1.6.2")
     debugImplementation("androidx.fragment:fragment-testing-manifest:1.6.2")
     androidTestImplementation("androidx.fragment:fragment-testing:1.6.2")

@@ -20,7 +20,7 @@ acesso administrativo e validação hospedada ainda precisam de confirmação. P
 
 | Verificação | Resultado |
 |---|---|
-| Backend HTTP e SQL/PGlite, incluindo reparo |26/26 PASS; revisão independente do SQL PASS|
+| Backend HTTP e SQL/PGlite, incluindo reparo |27/27 PASS; revisão independente do SQL PASS|
 | Supabase remoto, conferência após aplicação |6 inscrições únicas,7 cópias arquivadas,0 duplicatas;13 registros preservados exatamente contra backup;7 tabelas E2 com RLS,9 funções|
 | Painel núcleo sessão/QR |9/9 PASS|
 | Chrome real, login/permissão/CRUD/QR/comunicação/logout |PASS em fixture local|
@@ -29,7 +29,7 @@ acesso administrativo e validação hospedada ainda precisam de confirmação. P
 | Android instrumentação Pixel_10a |6/6 PASS (3SQLite+2Fragment+smoke)|
 | Android build APK |PASS; atualizado com PDF de demonstração embarcado|
 | Certificado demo embarcado, testes no emulador |4/4 PASS: opção offline/recriação, compartilhamento somente leitura, exportação e isolamento; leitor externo/seletor ainda exigem teste manual|
-| Android lint, reexecutado em 08/11 |0 erros, 93 avisos; não suprimidos|
+| Android lint, reexecutado em 08/11 |0 erros, 98 avisos; não suprimidos|
 | Redmi Note 8, backend local |QR online, leitura offline e sincronização sem duplicação, leitor na vertical: confirmados por Luiz|
 | Certificado no Redmi, backend local |Abertura e download do PDF de demonstração confirmados por Luiz|
 | Código Entrega1 |Sem alterações|
