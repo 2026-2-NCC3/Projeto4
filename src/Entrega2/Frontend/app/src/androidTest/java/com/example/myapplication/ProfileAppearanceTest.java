@@ -80,4 +80,29 @@ public class ProfileAppearanceTest extends DemoCertificateTest {
    });
   }
  }
+ @Test public void selectedThemeControlsConfigurationAndDisablesForcedDark() {
+  android.app.Instrumentation instrumentation=androidx.test.platform.app.InstrumentationRegistry.getInstrumentation();
+  android.content.Context context=instrumentation.getTargetContext();
+  int previous=ThemePreference.get(context);
+  try {
+   for(int mode:new int[]{androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO,
+       androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES}) {
+    instrumentation.runOnMainSync(()->ThemePreference.set(context,mode));
+    try(ActivityScenario<HubActivity> scenario=ActivityScenario.launch(new Intent(context,HubActivity.class).putExtra("section","perfil"))) {
+     scenario.onActivity(a->{
+      boolean dark=mode==androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES;
+      int night=a.getResources().getConfiguration().uiMode & android.content.res.Configuration.UI_MODE_NIGHT_MASK;
+      assertEquals(dark?android.content.res.Configuration.UI_MODE_NIGHT_YES:android.content.res.Configuration.UI_MODE_NIGHT_NO,night);
+      int expected=android.graphics.Color.parseColor(dark?"#101917":"#FBFBFB");
+      assertEquals(expected,((android.graphics.drawable.ColorDrawable)a.findViewById(R.id.screenRoot).getBackground()).getColor());
+      if(android.os.Build.VERSION.SDK_INT>=29) {
+       android.util.TypedValue forceDark=new android.util.TypedValue();
+       assertTrue("Theme must explicitly declare its force-dark policy",a.getTheme().resolveAttribute(android.R.attr.forceDarkAllowed,forceDark,true));
+       assertEquals("Manufacturer forced dark must not override the selected theme",0,forceDark.data);
+      }
+     });
+    }
+   }
+  } finally { instrumentation.runOnMainSync(()->ThemePreference.set(context,previous)); }
+ }
 }

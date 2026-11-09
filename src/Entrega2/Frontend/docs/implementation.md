@@ -55,3 +55,12 @@ Perfil com identidade autenticada e escolhas locais acessíveis offline. Tema Da
 Build, JVM 16/16, lint 0 erros/98 avisos; 8/8 testes instrumentados direcionados (4 de perfil/tema/refresh e 4 de certificado demo), somente no emulator-5554. São testes após implementação; tentativa inicial de RED bloqueada por falta de emulador. Teste de concorrência cobre invalidação da geração, não POST real com servidor lento. Revisão independente identificou e motivou correção de reload pós-mutação.
 
 Validação visual do gesto e dos temas no Redmi pendente: controle CUA do Android Studio alternou foco para a janela principal e não permitiu inspeção confiável do emulador. Build e instrumentação não equivalem a essa validação visual.
+
+## Proteção do tema claro no Redmi — 08/11/2026
+
+Luiz mostrou o modo Claro ainda escurecido no Redmi MIUI 12; o modo Escuro usava a paleta própria corretamente. Os dois temas agora declaram `android:forceDarkAllowed=false`, conforme orientação Xiaomi para aplicativos com paletas próprias. O teste cobre uiMode, fundo Claro/Escuro e atributo explícito; isso não comprova o resultado visual da MIUI. A confirmação no Redmi após atualizar o APK continua pendente.
+
+Fonte: https://dev.mi.com/xiaomihyperos/documentation/detail?pId=1595 .
+A API de demonstração respondeu com nome, e-mail e escola. O encaminhamento USB estava ausente e foi restaurado com `adb reverse tcp:38766 tcp:38766`; desconectar o cabo pode exigir repetir esse comando.
+
+Reparo validado: novo teste instrumental RED → GREEN 1/1, build/JVM aprovados e lint 0 erros/98 avisos. A falha intermediária NewApi foi resolvida com tools:targetApi=q apenas nos itens de tema disponíveis desde API 29; Android anterior ignora o atributo. Revisão independente sem bloqueadores.
