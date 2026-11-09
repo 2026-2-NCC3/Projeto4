@@ -8,7 +8,7 @@ A migração Supabase foi aplicada em 08/11/2026. Em 09/11/2026, o painel respon
 
 [Contas de avaliação, painel e instruções de acesso](ACESSO_AVALIACAO.md).
 
-SHA256: `b4ab4ee7126436fc0856c6f89bc07455fa4fcc1934a1e83e8cf079422f769df0`.
+SHA256: `e0ceb4077091cf65db8f76621119d8d2f107511ba666277dee8d9c0023611062`.
 
 ## Verificação
 
@@ -41,3 +41,9 @@ no seletor e a abertura em leitor externo precisam ser confirmadas no celular.
 ## Conferência do APK em 09/11/2026
 
 APK recompilado a partir do código Android atual, com `API_BASE_URL=https://nextgeneration-seven.vercel.app/`. Build `assembleDebug` aprovado e assinatura verificada. O arquivo versionado foi substituído por esse artefato; a versão permanece 2.0 (versionCode 2). Esta conferência não repete os testes funcionais no aparelho.
+
+## Datas nas telas
+
+Em 09/11/2026, as datas de mensagens, comunicados, notificações, resultados do perfil, presenças, certificados e resumo do próximo encontro foram ligadas ao formatador já utilizado em cursos e agenda. Instantes da API são exibidos em horário de São Paulo (ex.: `09/11/2026 · 16h27`), sem expor o timestamp ISO. Datas/horários separados da agenda são preservados como horário local do encontro.
+
+Verificação desta correção: 22 testes JVM aprovados, build aprovado e lint com 0 erros e 102 avisos. Teste de regressão cobre os dois timestamps enviados na captura da conversa. A revisão foi feita no código e nos testes; a conferência visual do novo APK no aparelho ainda deve ser realizada.
