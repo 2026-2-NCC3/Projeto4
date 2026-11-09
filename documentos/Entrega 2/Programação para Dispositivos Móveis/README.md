@@ -7,11 +7,11 @@ API configurada: `https://nextgeneration-seven.vercel.app/`. Este APK não usa a
 A migração Supabase foi aplicada em 08/11/2026. Deploy E2 e teste integrado no ambiente
 publicado ainda precisam de confirmação.
 
-SHA256: `77a5662c05fc6c7455bfda48d21bcffb51d7382f674836103d444aa2cedcbcde`.
+SHA256: `6a81b5c83260e1b73bbc373d2294c4582554ecf7762f6f63547c93dddb238475`.
 
 ## Verificação
 
-Em 08/11/2026: build aprovado, 16/16 testes JVM, lint com 0 erros e 102 avisos.
+Em 08/11/2026: build aprovado, 21/21 testes JVM, lint com 0 erros e 102 avisos.
 O APK desta pasta é idêntico ao artefato gerado na verificação. Há também registro anterior
 de 6/6 testes instrumentados no emulador; eles não foram repetidos nesta revisão documental.
 

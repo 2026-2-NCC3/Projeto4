@@ -15,6 +15,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.*;
 import com.example.myapplication.core.NextMeetingPolicy;
+import com.example.myapplication.core.SchedulePresentation;
 import com.example.myapplication.core.QrPayload;
 import com.example.myapplication.data.AlunoRepository;
 import com.example.myapplication.network.*;
@@ -498,19 +499,9 @@ public class HubActivity extends AppCompatActivity implements ResourceListFragme
           switch (section) {
             case "cursos":
               String state = s(o, "status");
-              rows.add(
-                  new Row(
+              Row course = new Row(
                       s(o, "title"),
-                      join(
-                          s(o, "description"),
-                          s(o, "location"),
-                          "Carga: "
-                              + s(o, "workload")
-                              + "h • "
-                              + s(o, "meetings_count")
-                              + " encontros",
-                          s(o, "course_date"),
-                          "Situação: " + state),
+                      s(o, "description"),
                       "Disponível".equals(state) ? "Inscrever-me" : "Ver agenda",
                       () -> {
                         if ("Disponível".equals(state))
@@ -529,25 +520,24 @@ public class HubActivity extends AppCompatActivity implements ResourceListFragme
                                           null))
                               .show();
                         else show("agenda");
-                      }));
+                      }, 3, 0);
+              course.status=state.isEmpty()?"Situação não informada":state;
+              course.workload=SchedulePresentation.workload(s(o,"workload"));
+              course.meetings=SchedulePresentation.meetings(s(o,"meetings_count"));
+              course.location=s(o,"location").isEmpty()?"Local a definir":s(o,"location");
+              course.date=SchedulePresentation.courseDate(s(o,"course_date"));
+              rows.add(course);
               break;
             case "agenda":
-              rows.add(
-                  new Row(
-                      s(o, "title"),
-                      join(
-                          s(o, "course_title"),
-                          s(o, "activity_date")
-                              + " • "
-                              + s(o, "start_time")
-                              + "–"
-                              + s(o, "end_time"),
-                          s(o, "location"),
-                          bool(o, "attended")
-                              ? "Presença confirmada"
-                              : "Presença ainda não registrada"),
-                      "Histórico",
-                      () -> show("presencas")));
+              Row meeting = new Row(s(o,"title"),s(o,"course_title"),"Histórico",
+                  () -> show("presencas"),4,0);
+              meeting.status=bool(o,"attended")?"Presença confirmada":"Presença não registrada";
+              meeting.day=SchedulePresentation.day(s(o,"activity_date"));
+              meeting.month=SchedulePresentation.month(s(o,"activity_date"));
+              meeting.date=SchedulePresentation.agendaDate(s(o,"activity_date"));
+              meeting.time=SchedulePresentation.timeRange(s(o,"start_time"),s(o,"end_time"));
+              meeting.location=s(o,"location").isEmpty()?"Local a definir":s(o,"location");
+              rows.add(meeting);
               break;
             case "presencas":
               historyIds.add(s(o, "activity_id"));
@@ -953,6 +943,7 @@ public class HubActivity extends AppCompatActivity implements ResourceListFragme
     final Runnable click;
     final int kind, icon;
     String school, age, initials;
+    String status, workload, meetings, location, date, day, month, time;
 
     Row(String t, String d, String a, Runnable c) { this(t,d,a,c,0,0); }
     Row(String t, String d, String a, Runnable c, int type, int iconId) {
@@ -990,7 +981,7 @@ public class HubActivity extends AppCompatActivity implements ResourceListFragme
     @Override
     public Holder onCreateViewHolder(ViewGroup p, int t) {
       return new Holder(
-          LayoutInflater.from(p.getContext()).inflate(t==1?R.layout.item_menu:t==2?R.layout.item_profile_identity:R.layout.item_resource, p, false));
+          LayoutInflater.from(p.getContext()).inflate(t==1?R.layout.item_menu:t==2?R.layout.item_profile_identity:t==3?R.layout.item_course:t==4?R.layout.item_agenda:R.layout.item_resource, p, false));
     }
 
     @Override
@@ -998,7 +989,7 @@ public class HubActivity extends AppCompatActivity implements ResourceListFragme
       Row r = rows.get(p);
       h.title.setText(r.title);
       h.detail.setText(r.detail);
-      h.action.setVisibility(r.kind != 0 || r.action == null ? View.GONE : View.VISIBLE);
+      h.action.setVisibility((r.kind == 1 || r.kind == 2) || r.action == null ? View.GONE : View.VISIBLE);
       h.itemView.setOnClickListener(null);
       h.itemView.setClickable(false);
       h.itemView.setFocusable(false);
@@ -1020,6 +1011,19 @@ public class HubActivity extends AppCompatActivity implements ResourceListFragme
         ((TextView)h.itemView.findViewById(R.id.profileAvatar)).setText(r.initials);
         ((TextView)h.itemView.findViewById(R.id.profileSchool)).setText(r.school);
         ((TextView)h.itemView.findViewById(R.id.profileAge)).setText(r.age);
+      }
+      if(r.kind==3 || r.kind==4) {
+        ((TextView)h.itemView.findViewById(R.id.rowStatus)).setText(r.status);
+        ((TextView)h.itemView.findViewById(R.id.rowLocation)).setText(r.location);
+        ((TextView)h.itemView.findViewById(R.id.rowDate)).setText(r.date);
+        if(r.kind==3) {
+          ((TextView)h.itemView.findViewById(R.id.rowWorkload)).setText(r.workload);
+          ((TextView)h.itemView.findViewById(R.id.rowMeetings)).setText(r.meetings);
+        } else {
+          ((TextView)h.itemView.findViewById(R.id.rowDay)).setText(r.day);
+          ((TextView)h.itemView.findViewById(R.id.rowMonth)).setText(r.month);
+          ((TextView)h.itemView.findViewById(R.id.rowTime)).setText(r.time);
+        }
       }
       h.action.setText(r.action);
       h.action.setOnClickListener(v -> {

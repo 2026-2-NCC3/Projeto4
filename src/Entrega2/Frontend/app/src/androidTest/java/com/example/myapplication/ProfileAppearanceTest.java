@@ -133,16 +133,24 @@ public class ProfileAppearanceTest extends DemoCertificateTest {
    android.content.res.Configuration configuration=new android.content.res.Configuration(base.getResources().getConfiguration());
    configuration.fontScale=1.5f;
    android.content.Context themed=new androidx.appcompat.view.ContextThemeWrapper(base.createConfigurationContext(configuration),R.style.Theme_MyApplication);
-   for(int layout:new int[]{R.layout.item_profile_identity,R.layout.item_menu}) {
+   for(int layout:new int[]{R.layout.item_profile_identity,R.layout.item_menu,R.layout.item_course,R.layout.item_agenda}) {
     android.view.View root=android.view.LayoutInflater.from(themed).inflate(layout,null);
     ((android.widget.TextView)root.findViewById(R.id.rowTitle)).setText("Nome completo bastante longo para validar a identificação do aluno");
     ((android.widget.TextView)root.findViewById(R.id.rowDetail)).setText("aluno.com.nome.completo.extenso@example.test");
     android.widget.TextView school=root.findViewById(R.id.profileSchool);
     if(school!=null) school.setText("Escola de Ensino Médio com Nome Extenso de Demonstração");
+    for(int metadataId:new int[]{R.id.rowStatus,R.id.rowLocation,R.id.rowDate,R.id.rowWorkload,R.id.rowMeetings,R.id.rowTime}) {
+     android.widget.TextView metadata=root.findViewById(metadataId);
+     if(metadata!=null)metadata.setText("Informação com texto extenso para validar a leitura completa sem corte");
+    }
+    if(root.findViewById(R.id.rowDay)!=null) {
+     ((android.widget.TextView)root.findViewById(R.id.rowDay)).setText("09");
+     ((android.widget.TextView)root.findViewById(R.id.rowMonth)).setText("A DEFINIR");
+    }
     int width=(int)(288*themed.getResources().getDisplayMetrics().density);
     root.measure(android.view.View.MeasureSpec.makeMeasureSpec(width,android.view.View.MeasureSpec.EXACTLY),android.view.View.MeasureSpec.makeMeasureSpec(0,android.view.View.MeasureSpec.UNSPECIFIED));
     root.layout(0,0,width,root.getMeasuredHeight());
-    for(int id:new int[]{R.id.rowTitle,R.id.rowDetail,R.id.profileSchool}) {
+    for(int id:new int[]{R.id.rowTitle,R.id.rowDetail,R.id.profileSchool,R.id.rowStatus,R.id.rowLocation,R.id.rowDate,R.id.rowWorkload,R.id.rowMeetings,R.id.rowTime,R.id.rowDay,R.id.rowMonth}) {
      android.widget.TextView text=root.findViewById(id);
      if(text==null)continue;
      assertTrue("Text must grow down within its parent",text.getTop()>=0);
@@ -152,5 +160,37 @@ public class ProfileAppearanceTest extends DemoCertificateTest {
     assertTrue(root.getHeight()>=48*themed.getResources().getDisplayMetrics().density);
    }
   });
+ }
+ @Test public void courseAndAgendaRebindingPreservesActionsAndStatus() throws Exception {
+  android.content.Context context=androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().getTargetContext();
+  java.lang.reflect.Method render=HubActivity.class.getDeclaredMethod("render",com.google.gson.JsonElement.class,java.util.List.class);
+  render.setAccessible(true);
+  try(ActivityScenario<HubActivity> scenario=ActivityScenario.launch(new Intent(context,HubActivity.class).putExtra("section","cursos"))) {
+   scenario.onActivity(a->{
+    try {
+     com.google.gson.JsonArray courses=com.google.gson.JsonParser.parseString("[{\"id\":\"one\",\"title\":\"Curso A\",\"status\":\"Disponível\",\"workload\":8,\"meetings_count\":1},{\"id\":\"two\",\"title\":\"Curso B\",\"status\":\"Inscrito\"}]").getAsJsonArray();
+     render.invoke(a,courses,java.util.Collections.emptyList());
+     RecyclerView list=a.findViewById(R.id.resourceRecycler);
+     RecyclerView.Adapter adapter=list.getAdapter();
+     RecyclerView.ViewHolder holder=adapter.createViewHolder(list,adapter.getItemViewType(0));
+     adapter.bindViewHolder(holder,0);
+     assertEquals("Inscrever-me",((android.widget.Button)holder.itemView.findViewById(R.id.rowAction)).getText().toString());
+     adapter.bindViewHolder(holder,1);
+     assertEquals("Inscrito",((android.widget.TextView)holder.itemView.findViewById(R.id.rowStatus)).getText().toString());
+     holder.itemView.findViewById(R.id.rowAction).performClick();
+     assertEquals("Agenda",((android.widget.TextView)a.findViewById(R.id.screenTitle)).getText().toString());
+     com.google.gson.JsonArray meetings=com.google.gson.JsonParser.parseString("[{\"id\":\"one\",\"title\":\"Aula A\",\"activity_date\":\"2026-11-09\",\"start_time\":\"08:30:00\",\"attended\":true},{\"id\":\"two\",\"title\":\"Aula B\",\"activity_date\":\"2026-11-10\",\"attended\":false}]").getAsJsonArray();
+     render.invoke(a,meetings,java.util.Collections.emptyList());
+     holder=adapter.createViewHolder(list,adapter.getItemViewType(0));
+     adapter.bindViewHolder(holder,0);
+     assertEquals("08h30",((android.widget.TextView)holder.itemView.findViewById(R.id.rowTime)).getText().toString());
+     adapter.bindViewHolder(holder,1);
+     assertEquals("Presença não registrada",((android.widget.TextView)holder.itemView.findViewById(R.id.rowStatus)).getText().toString());
+     assertEquals("10",((android.widget.TextView)holder.itemView.findViewById(R.id.rowDay)).getText().toString());
+     holder.itemView.findViewById(R.id.rowAction).performClick();
+     assertEquals("Presenças",((android.widget.TextView)a.findViewById(R.id.screenTitle)).getText().toString());
+    } catch(ReflectiveOperationException e) { throw new AssertionError(e); }
+   });
+  }
  }
 }

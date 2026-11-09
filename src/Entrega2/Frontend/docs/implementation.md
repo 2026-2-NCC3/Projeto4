@@ -3,7 +3,7 @@
 ## Current verification - 08/11/2026
 
 The sections below are historical implementation records, not the current delivery checklist.
-Latest local verification: JVM 16/16, build successful, lint 0 errors and 102 warnings.
+Latest local verification: JVM 21/21, build successful, lint 0 errors and 102 warnings.
 The earlier emulator instrumentation run passed 6/6; it was not repeated in the latest review.
 Luiz confirmed physical Redmi Note 8 QR scanning online, offline capture followed by successful
 synchronization without duplicate attendance, portrait scanning, and opening/downloading a
@@ -74,3 +74,11 @@ Cabeçalho horizontal, ícones vetoriais consistentes e navegação com altura a
 Teste de clique da linha observado RED → GREEN. Rodada direcionada com 11 testes instrumentados aprovada no emulator-5554; JVM 16/16, build e lint 0 erros/102 avisos. Revisão independente de código e acessibilidade sem bloqueadores. Não há alegação de inspeção visual aprovada: CUA não conseguiu controlar o foco do Android Studio; aparência final e TalkBack precisam ser conferidos no celular.
 
 Teste adicional de layout com largura útil 288dp (tela320dp com margens16dp) e fonte1.5 passou; medição automatizada não substitui inspeção visual no Redmi.
+
+Capturas posteriores fornecidas por Luiz confirmaram o Perfil e os componentes compartilhados renderizados no Redmi em tema claro. Elas também revelaram que Cursos e Agenda ainda usavam texto concatenado e datas técnicas; essas duas telas motivaram a próxima fatia de apresentação. Não equivalem a um teste de TalkBack ou do tema escuro completo.
+
+## Cursos e Agenda — apresentação dedicada
+
+Cards próprios: curso com selo de situação, descrição e metadados com ícones; encontro com bloco dia/mês, horário, curso/local e presença separados. Datas completas preservam o ano. Formatação ISO converte para America/Sao_Paulo, aceita frações até9 dígitos e não reconverte campos locais da Agenda. Dados inválidos têm fallback; fim ausente não deixa traço; quantidade de encontros usa singular/plural.
+
+Formatter principal teve RED→GREEN observado; micros/nanos foram acrescentados como teste após a correção durante review, sem alegação de TDD desse acréscimo. Validação final21/21 JVM,12/12 instrumentados no emulator-5554, build aprovado, lint0 erros/102 avisos. Instrumentados cobrem rebind de status/ações e contenção288dp/fonte1.5. Revisão independente sem bloqueadores; aparência física e TalkBack permanecem pendentes de avaliação no Redmi.

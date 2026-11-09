@@ -62,3 +62,8 @@ Teste os três temas, feche e reabra o aplicativo, atualize com e sem rede e con
 
 O Perfil separa a identidade (iniciais, nome e dados da conta) das opções de navegação. Toque em qualquer parte de uma linha para abrir a opção; o ícone e a seta são decorativos. O certificado demonstrativo continua identificado como exemplo sem validade.
 O cabeçalho e a navegação usam ícones consistentes; cartões de cursos, agenda e demais conteúdos usam a mesma hierarquia de título, descrição e ação.
+
+### Cursos e Agenda
+
+Cursos têm cartão próprio com situação da inscrição, descrição e metadados separados. Agenda destaca dia/mês e informa horário, data completa, local e situação da presença. A leitura de QR permanece na ação principal.
+Datas de cursos recebidas como instantes são exibidas no fuso America/Sao_Paulo; os campos locais da Agenda não sofrem outra conversão. Horários não mostram segundos e não exibem separador de término quando ele está ausente. Dados inválidos ou ausentes usam “a definir”.

@@ -25,7 +25,7 @@ acesso administrativo e validação hospedada ainda precisam de confirmação. P
 | Painel núcleo sessão/QR |9/9 PASS|
 | Chrome real, login/permissão/CRUD/QR/comunicação/logout |PASS em fixture local|
 | Responsividade painel390px |Sem overflow observado, screenshots salvos|
-| Android JVM, reexecutado em 08/11 |16/16 PASS, 0 falhas e 0 ignorados|
+| Android JVM, reexecutado em 08/11 |21/21 PASS, 0 falhas e 0 ignorados|
 | Android instrumentação Pixel_10a |6/6 PASS (3SQLite+2Fragment+smoke)|
 | Android build APK |PASS; atualizado com PDF de demonstração embarcado|
 | Certificado demo embarcado, testes no emulador |4/4 PASS: opção offline/recriação, compartilhamento somente leitura, exportação e isolamento; leitor externo/seletor ainda exigem teste manual|
