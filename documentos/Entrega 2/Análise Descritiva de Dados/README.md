@@ -1,6 +1,6 @@
 # Análise Descritiva de Dados — Entrega 2
 
-- [Relatório recebido da equipe](Entrega_2_Analise_Descritiva_de_Dados.docx)
+- [Relatório da equipe revisado](Entrega_2_Analise_Descritiva_de_Dados.docx)
 - [Base simulada de 50 alunos](dados_simulados_alunos.csv)
 - [Cálculos recalculados para conferência](resumo_entrega2.csv)
 - [Boxplots recalculados, PDF](boxplots_recalculados.pdf) e [imagem](boxplots_recalculados.png)
@@ -13,10 +13,12 @@ Os números coincidem com o relatório, respeitados os arredondamentos.
 Baixa frequência (<75%): 6/50; frequência não integral (<100%): 44/50.
 Conclusão simulada (>=75%): 44/50. Este critério é acadêmico, não regra oficial da ONG.
 
-O relatório original foi preservado. Pendências editoriais: completar identificação
-da equipe e corrigir a expressão “registrar faltas com QR Code” para “registrar
-presenças e identificar ausências”. O arquivo HTML de boxplots citado no relatório
-não foi fornecido. Em seu lugar, foram gerados boxplots independentes a partir do CSV,
-fornecidos em PDF e PNG; eles não são o HTML original mencionado pela equipe.
+O DOCX foi revisado em 08/11/2026: identificação da equipe conforme o README do projeto,
+correção da descrição do QR para registro de presenças e atualização das referências
+para os arquivos PDF/PNG disponíveis. Os cálculos, tabelas e gráficos incorporados foram
+preservados. A equipe deve confirmar a grafia dos nomes antes da entrega.
+
+O script auxiliar de geração foi removido por decisão da equipe. Os gráficos finais,
+a base CSV e o resumo dos cálculos permanecem disponíveis para consulta e conferência.
 
 Os dados são simulados. Não representam resultados observados ou impacto comprovado na ONG.
