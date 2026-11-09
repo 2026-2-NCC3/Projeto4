@@ -2,8 +2,6 @@
 
 [Diagrama da entrega em PDF](UML_Entrega2.pdf) · [Guia do código e estruturas de dados](GUIA_POO.md)
 
-O PDF é o arquivo original enviado pela equipe, com o conteúdo preservado e as duas páginas reunidas em uma única página. Luiz informou que um integrante confirmou a aprovação desse diagrama pela professora; por decisão da equipe, esta é a versão selecionada para a entrega.
-
 O desenho apresenta o modelo de domínio, com Usuario (Aluno), Curso, Atividades, Inscricao, Presenca, Certificado, Card, TestePerfil, Pergunta, Alternativa, ResultadoPerfil, Mensagem e Notificacao. A paginação foi ajustada para apresentar todo o desenho em uma página, sem redesenhar as classes ou relações.
 
 ## Relação com a implementação
