@@ -64,9 +64,9 @@ por Luiz no celular físico, usando o backend local.
 ## Materiais acadêmicos
 
 - Documento COM EMPRESA: ainda é modelo; Luiz ficou responsável por preencher dados e atividade real.
-- Banner: o arquivo presente é modelo; falta o banner final do grupo.
+- Banner: PDF final enviado pela equipe incluído na pasta de Projeto Interdisciplinar da Entrega 2.
 - Dados: identificação atualizada com os integrantes do README; frase sobre presença por QR e referências corrigidas no DOCX. Cálculos e gráficos preservados.
-- POO: substituído pelo PDF original escolhido pela equipe. Luiz informou que um integrante confirmou a aprovação desse diagrama pela professora. A pendência de escolha do diagrama está resolvida segundo essa confirmação; o README distingue modelo de domínio de classes implementadas.
+- POO: PDF escolhido pela equipe, com as duas páginas reunidas em uma só e o conteúdo preservado. Luiz informou que um integrante confirmou a aprovação desse diagrama pela professora. A pendência de escolha do diagrama está resolvida segundo essa confirmação; o README distingue modelo de domínio de classes implementadas.
 - Geradores auxiliares e PDF de referência antigo removidos por decisão da equipe. Os arquivos finais permanecem disponíveis.
 
 Nenhum resultado social, atividade com ONG, assinatura ou certificado final foi inventado.
@@ -89,4 +89,4 @@ Conferência XML:8 arquivos de layout,8 instâncias ConstraintLayout, nenhuma in
 
 Última rodada Android:21/21 JVM,12/12 instrumentados direcionados, lint0 erros/102 avisos. Luiz confirmou tema/e-mail e aprovou visualmente Cursos e Agenda no Redmi por capturas. O APK de entrega teve hash e endpoint HTTPS conferidos.
 
-Isso confirma a organização e o uso dos layouts, não elimina pendências de extensão, banner, deploy/validação online; a ressalva anterior sobre a escolha do UML foi posteriormente resolvida pela confirmação da equipe descrita acima.
+Isso confirma a organização e o uso dos layouts, não elimina pendências de extensão e deploy/validação online; a ressalva anterior sobre a escolha do UML foi posteriormente resolvida pela confirmação da equipe descrita acima.
