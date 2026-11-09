@@ -24,3 +24,6 @@ node_modules/
 /.codex/
 /ScreenshotsToCloseLoop/runs/entrega2/
 /CONTRIBUTING.md
+
+# Configuração local do Android Studio em qualquer módulo.
+**/.idea/
