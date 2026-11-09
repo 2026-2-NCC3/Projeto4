@@ -92,6 +92,20 @@ antes de gerar o APK de entrega. O arquivo resultante fica em
 - Aluno comum não entra no painel administrativo.
 - QR inválido, desconhecido ou de curso sem inscrição não confirma presença.
 
+## Certificado de demonstração incluído no APK
+
+Após entrar no app, abra **Perfil → Certificados → Certificado de demonstração**.
+O arquivo é um PDF fictício incluído no aplicativo, independente da lista da API.
+
+1. Escolha **Abrir PDF** e selecione um leitor de PDF, se o Android pedir.
+2. Volte ao app, escolha **Salvar PDF** e indique uma pasta no seletor do Android.
+3. Abra o arquivo salvo e confira o título "CERTIFICADO DE DEMONSTRAÇÃO".
+4. Repita sem conexão: o documento está no APK e não exige acesso ao Vercel.
+
+A opção é identificada como demonstração sem validade e não é um certificado obtido
+pelo aluno. Não gera presença, conclusão nem registro no Supabase. Os certificados
+reais continuam sendo listados pela API e abertos por URL HTTPS.
+
 ## Recursos adicionais
 
 - Card mostra somente o aluno logado.

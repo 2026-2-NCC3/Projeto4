@@ -7,7 +7,7 @@ API configurada: `https://nextgeneration-seven.vercel.app/`. Este APK não usa a
 A migração Supabase foi aplicada em 08/11/2026. Deploy E2 e teste integrado no ambiente
 publicado ainda precisam de confirmação.
 
-SHA256: `f526c4d0aca2fc382039d5303b4fd88890b52f86164282212da357ed298e4f41`.
+SHA256: `faa1fb3ca57a500065061e58ec685de815d840b1ac41ee88d2226b0a42ee3ac7`.
 
 ## Verificação
 
@@ -24,3 +24,15 @@ No Redmi Note 8, usando APK de teste com backend local, Luiz confirmou:
 O teste usou um certificado fictício ("Dummy PDF file"), não um certificado final da ONG.
 Continuam sem comprovação completa: fluxo hospedado sem cabo, fonte ampliada e cenários
 de permissão negada no celular. [Situação e limites](../../../src/Entrega2/STATUS.md).
+
+## PDF de demonstração embarcado
+
+O APK inclui um certificado fictício próprio do projeto. Em **Perfil → Certificados →
+Certificado de demonstração**, é possível abrir o PDF em um leitor e salvá-lo pelo
+seletor de arquivos do Android. O documento funciona offline, após acesso ao app,
+e permanece separado dos certificados reais listados pela API.
+
+Verificação do recurso demo: 4/4 testes instrumentados específicos no emulador,
+com API indisponível, incluindo recriação da tela, URI de leitura, cópia do PDF e
+isolamento do diretório compartilhado. Build/JVM/lint aprovados. A escolha de pasta
+no seletor e a abertura em leitor externo precisam ser confirmadas no celular.

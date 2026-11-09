@@ -38,6 +38,8 @@ O enunciado pede diagrama completo e código integrado e cita as entidades abaix
 
 ## Classes auxiliares fora das caixas
 
+- `DemoCertificate` prepara o PDF fictício embarcado para abertura via FileProvider e exportação pelo seletor de arquivos do Android. Não consulta nem altera certificados do aluno.
+
 - `LoginActivity` e `CadastroActivity` herdam `AuthActivity`; CadastroActivity sobrescreve `signup()`.
 - `MainActivity`, `PaginaInicial`, `PerfilActivity`, `AgendaActivity`, `ConfiguracoesActivity` e `CursosActivity` são telas de entrada ou especializações; consulte o guia e seus fontes.
 - `AlunoApplication` herda `Application` e mantém `IO: ExecutorService` estático para tarefas em segundo plano.

@@ -18,4 +18,12 @@
     <string name="ui_15">Entrar</string>
     <string name="ui_16">Criar minha conta</string>
     <string name="ui_17">Abrir</string>
+    <string name="demo_certificate_action">Certificado de demonstração</string>
+    <string name="demo_certificate_notice">DEMONSTRAÇÃO — SEM VALIDADE</string>
+    <string name="demo_certificate_description">Exemplo fictício incluído no aplicativo para testar abertura e salvamento de PDF. Não comprova participação, conclusão de curso ou horas complementares.</string>
+    <string name="demo_certificate_open">Abrir PDF</string>
+    <string name="demo_certificate_save">Salvar PDF</string>
+    <string name="demo_certificate_saved">PDF de demonstração salvo no local escolhido.</string>
+    <string name="demo_certificate_save_error">Não foi possível salvar o PDF. Tente escolher outro local.</string>
+    <string name="demo_certificate_open_error">Não foi possível abrir o PDF. Use Salvar PDF e abra com um leitor de PDF.</string>
 </resources>

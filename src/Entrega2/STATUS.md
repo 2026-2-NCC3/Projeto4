@@ -27,7 +27,8 @@ acesso administrativo e validação hospedada ainda precisam de confirmação. P
 | Responsividade painel390px |Sem overflow observado, screenshots salvos|
 | Android JVM, reexecutado em 08/11 |16/16 PASS, 0 falhas e 0 ignorados|
 | Android instrumentação Pixel_10a |6/6 PASS (3SQLite+2Fragment+smoke)|
-| Android build APK |PASS|
+| Android build APK |PASS; atualizado com PDF de demonstração embarcado|
+| Certificado demo embarcado, testes no emulador |4/4 PASS: opção offline/recriação, compartilhamento somente leitura, exportação e isolamento; leitor externo/seletor ainda exigem teste manual|
 | Android lint, reexecutado em 08/11 |0 erros, 93 avisos; não suprimidos|
 | Redmi Note 8, backend local |QR online, leitura offline e sincronização sem duplicação, leitor na vertical: confirmados por Luiz|
 | Certificado no Redmi, backend local |Abertura e download do PDF de demonstração confirmados por Luiz|
@@ -69,6 +70,8 @@ por Luiz no celular físico, usando o backend local.
 - Geradores auxiliares e PDF de referência antigo removidos por decisão da equipe. Os arquivos finais permanecem disponíveis.
 
 Nenhum resultado social, atividade com ONG, assinatura ou certificado final foi inventado.
+O app inclui um PDF explicitamente demonstrativo, sem validade, para abertura e
+salvamento offline. Não representa certificado final da ONG nem depende de deploy.
 
 ## Limites técnicos conhecidos
 

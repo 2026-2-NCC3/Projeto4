@@ -25,7 +25,7 @@ import com.journeyapps.barcodescanner.*;
 import java.text.DateFormat;
 import java.util.*;
 
-/** Student flows share an accessible shell; all domain values come from the authenticated API. */
+/** Student flows share an accessible shell; student records come from the authenticated API. */
 public class HubActivity extends AppCompatActivity implements ResourceListFragment.AdapterHost {
   @Override
   public RecyclerView.Adapter<?> resourceAdapter() {
@@ -43,6 +43,13 @@ public class HubActivity extends AppCompatActivity implements ResourceListFragme
   private final Map<String, String> answers = new HashMap<>();
   private ActivityResultLauncher<ScanOptions> scanner;
   private ActivityResultLauncher<String> notificationPermission;
+  private final ActivityResultLauncher<String> saveDemoCertificate =
+      registerForActivityResult(
+          new ActivityResultContracts.CreateDocument("application/pdf"),
+          uri -> {
+            if (uri != null && owner != null && SessionManager.isCurrent(this, owner))
+              saveDemoCertificate(uri);
+          });
 
   protected String initialSection() {
     return "inicio";
@@ -209,6 +216,11 @@ public class HubActivity extends AppCompatActivity implements ResourceListFragme
                   .setPrompt("Aponte para o QR do encontro")
                   .setBeepEnabled(false)
                   .setOrientationLocked(false)));
+    }
+    if ("certificados".equals(target)) {
+      primary.setVisibility(View.VISIBLE);
+      primary.setText(R.string.demo_certificate_action);
+      primary.setOnClickListener(v -> showDemoCertificate());
     }
     if ("teste-perfil".equals(target)) {
       primary.setVisibility(View.VISIBLE);
@@ -706,6 +718,59 @@ public class HubActivity extends AppCompatActivity implements ResourceListFragme
       } catch (Exception e) {
         runOnUiThread(() -> toast("Não foi possível salvar a leitura. Tente novamente."));
       }
+    });
+  }
+
+  private void showDemoCertificate() {
+    new MaterialAlertDialogBuilder(this)
+        .setTitle(R.string.demo_certificate_notice)
+        .setMessage(R.string.demo_certificate_description)
+        .setPositiveButton(R.string.demo_certificate_open, (dialog, which) -> openDemoCertificate())
+        .setNeutralButton(R.string.demo_certificate_save, (dialog, which) -> {
+          try {
+            saveDemoCertificate.launch(DemoCertificate.FILE_NAME);
+          } catch (RuntimeException e) {
+            toast(getString(R.string.demo_certificate_save_error));
+          }
+        })
+        .setNegativeButton(android.R.string.cancel, null)
+        .show();
+  }
+
+  private void openDemoCertificate() {
+    AlunoApplication.IO.execute(() -> {
+      try {
+        Intent open = DemoCertificate.openIntent(getApplicationContext());
+        runOnUiThread(() -> {
+          if (!isFinishing() && !isDestroyed() && SessionManager.isCurrent(this, owner)) {
+            try {
+              startActivity(open);
+            } catch (RuntimeException e) {
+              toast(getString(R.string.demo_certificate_open_error));
+            }
+          }
+        });
+      } catch (java.io.IOException | RuntimeException e) {
+        demoCertificateMessage(R.string.demo_certificate_open_error);
+      }
+    });
+  }
+
+  private void saveDemoCertificate(Uri uri) {
+    AlunoApplication.IO.execute(() -> {
+      try {
+        DemoCertificate.save(getApplicationContext(), uri);
+        demoCertificateMessage(R.string.demo_certificate_saved);
+      } catch (java.io.IOException | RuntimeException e) {
+        demoCertificateMessage(R.string.demo_certificate_save_error);
+      }
+    });
+  }
+
+  private void demoCertificateMessage(int messageId) {
+    runOnUiThread(() -> {
+      if (!isFinishing() && !isDestroyed() && SessionManager.isCurrent(this, owner))
+        toast(getString(messageId));
     });
   }
 
