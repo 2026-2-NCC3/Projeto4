@@ -1,25 +1,58 @@
 # Programação Orientada a Objetos e Estrutura de Dados - Entrega 2
 
-[Diagrama em PDF](UML_Entrega2.pdf) · [Arquivo editável](UML_Entrega2.drawio) · [Guia de POO no código](GUIA_POO.md)
+[Diagrama em PDF](UML_Entrega2.pdf) · [Arquivo editável](UML_Entrega2.drawio) · [Guia de POO](GUIA_POO.md)
 
-Diagrama no estilo do original da equipe: aluno no centro, classes relacionadas ao redor e caixas com três partes (nome, atributos e getters/setters). As 13 classes conceituais estão em uma única página, sem textos cortados.
+O desenho mostra classes e interfaces que existem no Android da Entrega 2, com seus principais atributos, métodos e relações. Mantém caixas simples com três compartimentos. Não foram adicionados getters/setters que não existem no código.
 
-## Como explicar as relações
+## Organização do desenho
 
-- Aluno consulta sua carteirinha (Card), troca mensagens e recebe notificações.
-- Aluno realiza inscrições em cursos, registra presenças em atividades e consulta certificados relacionados a cursos.
-- Curso oferece atividades.
-- Aluno obtém resultados do TestePerfil, composto por perguntas com alternativas.
+Uma página, no estilo da referência da equipe: **HubActivity no centro**, caixas de três compartimentos, poucos atributos e métodos, com relações ao redor. O recorte mostra ApiService, ApiClient, SessionManager, HubActivity, AlunoRepository, QrPayload, SyncScheduler, AlunoDbHelper e SyncWorker.
 
-As linhas mostram associações conceituais; não representam herança nem direção de chamadas. Multiplicidades foram omitidas nesta visão resumida, como na referência.
+`+` público; `-` privado; `...` abrevia parâmetros; `{static}` indica membro de classe e `{final}` impede reatribuição. Caixas com compartimento vazio não possuem atributos selecionados. Setas tracejadas mostram dependência de uso; linha contínua representa a referência `helper` mantida pelo repositório. Relações e membros secundários foram omitidos para legibilidade.
 
-## Escopo do modelo
+Heranças reais: HubActivity herda AppCompatActivity; SyncWorker herda Worker; AlunoDbHelper herda SQLiteOpenHelper. AlunoRepository implementa AutoCloseable. HubActivity implementa ResourceListFragment.AdapterHost. Essas informações ficam no guia, evitando caixas extras no desenho.
 
-Este é um **modelo conceitual de POO para apresentação acadêmica**. Os getters/setters ilustram encapsulamento no modelo e não afirmam que existem essas classes e métodos no Android. A API trabalha com JSON; os exemplos efetivos de POO no código estão em GUIA_POO.md.
+O diagrama é um **recorte das classes principais**, não um inventário completo. A autenticação, o fragmento e as classes internas de apresentação estão documentados no guia e continuam no código. O formato resumido não muda o limite de atendimento descrito abaixo.
 
-Os atributos foram ajustados ao domínio atual: registros usam UUID; Alternativa tem identificador textual e área; Certificado contém URL e data de emissão. Card e TestePerfil são projeções, sem tabela própria. A condição de leitura de uma notificação é relativa ao aluno. Os tokens e detalhes internos do QR ficam fora deste desenho; a presença é validada pela API.
+## Correspondência com os conceitos do enunciado
 
-Público: equipe e professora de POO. Responsável: equipe Próxima Etapa. Recorte: Entrega 2, 08/11/2026.
-Fontes: PDF original (`UML_recebido_para_revisao.pdf`), `src/Entrega2/Backend/src/app.js` e `src/Entrega2/Backend/sql/001_entrega2.sql` a partir da raiz do repositório.
+O enunciado pede diagrama completo e código integrado e cita as entidades abaixo, quando aplicáveis. **Na implementação atual, elas não são classes Java próprias**: o Android recebe JSON e o backend Express consulta tabelas e funções SQL. Por isso elas não aparecem como classes com getters/setters neste diagrama.
 
-Para regenerar PDF e draw.io: `python gerar_diagramas.py`, com ReportLab instalado.
+| Conceito | Representação implementada | Uso no aplicativo |
+|---|---|---|
+| Aluno | `profiles` e identidade autenticada; `/api/perfil` | `SessionManager` e `HubActivity` |
+| Curso | `courses`; `/api/cursos` | `HubActivity.load/render` |
+| Atividade | `activities`; `/api/agenda` | `HubActivity` e `NextMeetingPolicy` |
+| Inscrição | `enrollments`; `/api/cursos/:id/inscricao` | `HubActivity.mutate` |
+| Presença | `attendances`; `/api/presencas` e `/check-in` | `QrPayload`, `AlunoRepository.Pending` e `SyncWorker` |
+| Certificado | `certificates`; `/api/certificados` | `HubActivity.certificate` |
+| Card | Projeção de perfil; `/api/card` | `HubActivity.render` |
+| TestePerfil | Objeto agregado de `/api/teste-perfil` | `HubActivity.choose/submitQuiz` |
+| Pergunta | `e2_profile_questions` | JSON consumido por `HubActivity.choose` |
+| Alternativa | JSON `alternatives` de cada pergunta | `HubActivity.answers` guarda a escolha |
+| ResultadoPerfil | `e2_profile_results` | `HubActivity.submitQuiz/render` |
+| Mensagem | `e2_messages`; `/api/mensagens` | `HubActivity.sendMessage` |
+| Notificação | `e2_notifications` e `e2_notification_reads` | `SyncWorker` e `AlunoRepository` |
+
+**Limite de atendimento:** este ajuste torna o diagrama fiel ao código, mas não cria as classes de domínio citadas no enunciado. Se a avaliação exigir essas entidades implementadas como classes, essa exigência continua pendente de implementação; documentação não substitui código. O PDF original permanece em `UML_recebido_para_revisao.pdf`, apenas como referência recebida.
+
+## Classes auxiliares fora das caixas
+
+- `LoginActivity` e `CadastroActivity` herdam `AuthActivity`; CadastroActivity sobrescreve `signup()`.
+- `MainActivity`, `PaginaInicial`, `PerfilActivity`, `AgendaActivity`, `ConfiguracoesActivity` e `CursosActivity` são telas de entrada ou especializações; consulte o guia e seus fontes.
+- `AlunoApplication` herda `Application` e mantém `IO: ExecutorService` estático para tarefas em segundo plano.
+- `NextMeetingPolicy.next(JsonArray, long): JsonObject` seleciona o próximo encontro; `SyncPolicy.forStatus(int): Action` decide como tratar falhas HTTP.
+- `SessionManager.Session` contém os dados da sessão; `AlunoRepository.Cached` contém payload e horário do cache; `AlunoRepository.Pending` representa uma leitura pendente.
+- `ApiClient.ApiException` herda `IOException` e expõe `status: int`.
+
+## Estruturas de dados
+
+O guia detalha `Map<String, String>` para respostas do questionário, `Set<String>` para evitar repetição visual de presenças e `List<Row>` para apresentar dados no RecyclerView. A fila offline é persistida em SQLite.
+
+## Fontes e reprodução
+
+Público: equipe e professora de POO. Responsável: equipe Próxima Etapa. Inspeção: 08/11/2026.
+
+Fontes, a partir da raiz: `src/Entrega2/Frontend/app/src/main/java/com/example/myapplication/` (incluindo `network`, `data`, `sync` e `core`), `src/Entrega2/Backend/src/app.js` e `src/Entrega2/Backend/sql/001_entrega2.sql`.
+
+Execute `python gerar_diagramas.py` com ReportLab instalado para regenerar PDF e draw.io da mesma fonte. O script verifica se cada membro cabe na largura da caixa.

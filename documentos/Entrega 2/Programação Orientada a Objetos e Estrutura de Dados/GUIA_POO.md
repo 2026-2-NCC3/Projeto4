@@ -46,7 +46,7 @@ O celular não decide sozinho se o estudante esteve presente: o QR prova acesso 
 
 ## Roteiro curto de apresentação
 
-- Abra a página 1 do PDF: explique por que Inscrição liga aluno/curso e Presença liga aluno/atividade.
+- Abra o PDF: acompanhe HubActivity, AlunoRepository, SyncWorker e ApiClient no fluxo de presença. Consulte no README como Inscrição e Presença são representadas na API.
 - Mostre que IDs são UUID e nomes não servem como chave.
 - Abra `AlunoRepository.java`: mostre `enqueue`, chave composta no helper e consulta filtrada pelo dono.
 - Abra `HubActivity.java`: localize `answers`, `historyIds` e `Rows`; explique o motivo de Map, Set e List.
@@ -64,6 +64,10 @@ O celular não decide sozinho se o estudante esteve presente: o QR prova acesso 
 
 As respostas estão nos métodos indicados, no contrato HTTP e nos testes. Este guia não substitui o ensaio de cada integrante.
 
-## Diagrama conceitual
+## Diagrama das classes implementadas
 
-O PDF segue o estilo do modelo original: 13 classes conceituais com atributos e getters/setters, em uma página. Esses métodos são parte do desenho acadêmico; os exemplos de POO implementados no aplicativo são os explicados acima. Comece pelo Aluno e siga suas relações com inscrições, presenças, certificados, comunicação e resultado do questionário.
+O PDF tem uma página com nove classes principais e HubActivity no centro. Os membros selecionados existem no código; parâmetros longos foram abreviados por `...`. Dependências secundárias e classes auxiliares ficaram fora do desenho para manter o estilo simples da referência.
+
+Para complementar a apresentação, mostre no código AuthActivity e AuthAttemptGate; a implementação de AdapterHost por HubActivity e seu uso por ResourceListFragment; e as classes internas Rows, Row e Holder. Esses exemplos continuam válidos mesmo sem caixas adicionais no PDF.
+
+Aluno, Curso e as demais entidades citadas no enunciado estão mapeadas no README para API/JSON/tabelas. Essa correspondência explica a arquitetura atual; não equivale a implementar classes de domínio que ainda não existem.
