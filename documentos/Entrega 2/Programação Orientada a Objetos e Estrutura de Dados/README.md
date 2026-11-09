@@ -4,9 +4,9 @@
 
 ## Diagrama escolhido pela equipe
 
-O PDF é o arquivo original enviado pela equipe, preservado sem alterações. Luiz informou que um integrante confirmou a aprovação desse diagrama pela professora; por decisão da equipe, esta é a versão selecionada para a entrega.
+O PDF é o arquivo original enviado pela equipe, com o conteúdo preservado e as duas páginas reunidas em uma única página. Luiz informou que um integrante confirmou a aprovação desse diagrama pela professora; por decisão da equipe, esta é a versão selecionada para a entrega.
 
-O desenho apresenta o modelo de domínio, com Usuario (Aluno), Curso, Atividades, Inscricao, Presenca, Certificado, Card, TestePerfil, Pergunta, Alternativa, ResultadoPerfil, Mensagem e Notificacao. O arquivo recebido está dividido em duas páginas.
+O desenho apresenta o modelo de domínio, com Usuario (Aluno), Curso, Atividades, Inscricao, Presenca, Certificado, Card, TestePerfil, Pergunta, Alternativa, ResultadoPerfil, Mensagem e Notificacao. A paginação foi ajustada para apresentar todo o desenho em uma página, sem redesenhar as classes ou relações.
 
 ## Relação com a implementação
 
