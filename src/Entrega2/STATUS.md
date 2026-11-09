@@ -13,7 +13,7 @@ continuam pendentes; Luiz validará a branch e fará o merge. Prazo:09/11 às08h
 - API autenticada e SQL transacional com RLS, controle de vagas/duplicidade e QR por atividade.
 - Painel administrativo `/admin/` no mesmo projeto Express/Vercel.
 - Contrato HTTP, preflight e runbook, demonstração sintética, roteiro de testes.
-- [APK debug HTTPS](<../../documentos/Entrega 2/Disciplina 3/proxima-etapa-entrega2.apk>),
+- [APK debug HTTPS](<../../documentos/Entrega 2/Programação para Dispositivos Móveis/proxima-etapa-entrega2.apk>),
   UML PDF/drawio, guia POO, conferência estatística e boxplots reproduzíveis.
 
 ## Verificações executadas

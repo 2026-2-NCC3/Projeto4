@@ -25,7 +25,7 @@ significa que as novas rotas já estejam disponíveis nesse ambiente.
 - [Contrato HTTP](src/Entrega2/Backend/docs/http-contract.md)
 - [Migração e publicação](src/Entrega2/Backend/docs/migration-runbook.md)
 - [Documentos das disciplinas](documentos/README.md)
-- [Princípios de POO e estruturas de dados](<documentos/Entrega 2/Disciplina 2/README.md>)
+- [Princípios de POO e estruturas de dados](<documentos/Entrega 2/Programação Orientada a Objetos e Estrutura de Dados/README.md>)
 
 ## Funcionalidades implementadas
 
