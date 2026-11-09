@@ -80,3 +80,13 @@ refresh/worker com servidor real, push instantâneo e paginação não foram val
 implementados além do contrato descrito. WorkManager depende das restrições do Android;
 QR offline pode expirar antes da sincronização. Certificados são documentos HTTPS
 previamente emitidos, não uma emissão automática baseada em presença.
+
+## Conferência antes do envio dos ajustes visuais
+
+Estrutura confrontada com o enunciado, especialmente páginas6–7: documentação organizada por matéria; fonte em src/Entrega2/Frontend e Backend; painel em Backend/public/admin; APK HTTPS em Programação para Dispositivos Móveis. O PDF não prescreve nomes exatos de pastas.
+
+Conferência XML:8 arquivos de layout,8 instâncias ConstraintLayout, nenhuma instância LinearLayout ou RelativeLayout. Componentes especializados (RecyclerView, SwipeRefreshLayout, NestedScrollView, MaterialCardView e FragmentContainerView) permanecem necessários; LinearLayoutManager é o organizador da lista, não um LinearLayout.
+
+Última rodada Android:21/21 JVM,12/12 instrumentados direcionados, lint0 erros/102 avisos. Luiz confirmou tema/e-mail e aprovou visualmente Cursos e Agenda no Redmi por capturas. O APK de entrega teve hash e endpoint HTTPS conferidos.
+
+Isso confirma a organização e o uso dos layouts, não elimina pendências de extensão, banner, deploy/validação online nem a ressalva do UML resumido diante do pedido de diagrama completo.
